@@ -27,6 +27,9 @@ const ROUTES = {
   "admin.dashboard": () => "/admin",
   "admin.expos": () => "/admin/expositions",
   "admin.museums": () => "/admin/musees",
+  "admin.users": () => "/admin/utilisateurs",
+  "admin.user_form": (p) => `/admin/utilisateurs/${take(p, "user_id")}/edit`,
+  "admin.user_delete": (p) => `/admin/utilisateurs/${take(p, "user_id")}/supprimer`,
   "admin.expo_form": (p) =>
     has(p, "expo_id")
       ? `/admin/expositions/${take(p, "expo_id")}/edit`

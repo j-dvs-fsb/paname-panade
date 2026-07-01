@@ -1,0 +1,30 @@
+{% extends "base.njk" %}
+{% block title %}Admin · Utilisateurs{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">Utilisateurs ({{ users|length }})</h1>
+    <a class="btn btn-outline-ink btn-sm" href="{{ url_for('admin.dashboard') }}">← Dashboard</a>
+  </div>
+
+  <table class="table table-sm align-middle">
+    <thead><tr><th>Prénom</th><th>Email</th><th>Admin</th><th>Naissance</th><th></th></tr></thead>
+    <tbody>
+      {% for u in users %}
+        <tr>
+          <td><a href="{{ url_for('admin.user_form', user_id=u.id) }}">{{ u.prenom }}</a></td>
+          <td class="muted small">{{ u.email }}</td>
+          <td>{{ '✓' if u.is_admin else '—' }}</td>
+          <td class="muted small">{{ u.date_naissance or '—' }}</td>
+          <td class="text-end text-nowrap">
+            <a class="btn btn-link btn-sm p-0 me-2" href="{{ url_for('admin.user_form', user_id=u.id) }}">Éditer</a>
+            <form method="post" action="{{ url_for('admin.user_delete', user_id=u.id) }}" class="d-inline" onsubmit="return confirm('Supprimer cet utilisateur ?')">
+              <button class="btn btn-link btn-sm p-0 text-danger">Suppr.</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

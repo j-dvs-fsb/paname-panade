@@ -5,6 +5,7 @@ const { Op } = require("sequelize");
 
 const {
   sequelize,
+  User,
   Museum,
   Exposition,
   PRICE_LABELS,
@@ -204,6 +205,61 @@ router.post("/musees/:id/supprimer", async (req, res) => {
   await museum.destroy();
   req.flash("info", "Musée supprimé (et ses expositions rattachées).");
   res.redirect(urlFor("admin.museums"));
+});
+
+// --- Utilisateurs ---
+router.get("/utilisateurs", async (req, res) => {
+  const users = await User.findAll({ order: [["id", "ASC"]] });
+  res.render("admin/users.njk", { users });
+});
+
+async function handleUserForm(req, res) {
+  const user = await User.findByPk(req.params.id);
+  if (!user) return res.status(404).render("404.njk");
+
+  if (req.method === "POST") {
+    const f = req.body;
+    const email = (f.email || "").trim().toLowerCase();
+    const prenom = (f.prenom || "").trim();
+    const errors = [];
+    if (!email || !email.includes("@")) errors.push("Email invalide.");
+    if (!prenom) errors.push("Le prénom est requis.");
+    const clash = await User.findOne({ where: { email, id: { [Op.ne]: user.id } } });
+    if (clash) errors.push("Cet email est déjà utilisé.");
+    const dn = parseDate(f.date_naissance);
+    if (f.date_naissance && !dn) errors.push("Date de naissance invalide.");
+    if (f.password && f.password.length < 6)
+      errors.push("Le mot de passe doit faire au moins 6 caractères.");
+
+    if (errors.length) {
+      for (const e of errors) req.flash("danger", e);
+      return res.render("admin/user_form.njk", { u: user });
+    }
+    user.email = email;
+    user.prenom = prenom;
+    if (dn) user.date_naissance = dn;
+    user.is_admin = f.is_admin === "on" || f.is_admin === "true";
+    if (f.password) user.setPassword(f.password);
+    await user.save();
+    req.flash("success", "Utilisateur mis à jour.");
+    return res.redirect(urlFor("admin.users"));
+  }
+  return res.render("admin/user_form.njk", { u: user });
+}
+
+router.get("/utilisateurs/:id/edit", handleUserForm);
+router.post("/utilisateurs/:id/edit", handleUserForm);
+
+router.post("/utilisateurs/:id/supprimer", async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+  if (!user) return res.status(404).render("404.njk");
+  if (user.id === req.user.id) {
+    req.flash("danger", "Tu ne peux pas supprimer ton propre compte.");
+    return res.redirect(urlFor("admin.users"));
+  }
+  await user.destroy();
+  req.flash("info", "Utilisateur supprimé.");
+  res.redirect(urlFor("admin.users"));
 });
 
 // --- Sync « Que Faire à Paris » ---

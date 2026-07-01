@@ -13,6 +13,7 @@
   <div class="d-flex flex-wrap gap-2 mb-4">
     <a class="btn btn-ink btn-sm" href="{{ url_for('admin.expos') }}">Gérer les expositions</a>
     <a class="btn btn-ink btn-sm" href="{{ url_for('admin.museums') }}">Gérer les musées</a>
+    <a class="btn btn-ink btn-sm" href="{{ url_for('admin.users') }}">Gérer les utilisateurs</a>
     <a class="btn btn-outline-ink btn-sm" href="{{ url_for('admin.expo_form') }}">+ Nouvelle expo</a>
     <a class="btn btn-outline-ink btn-sm" href="{{ url_for('admin.museum_form') }}">+ Nouveau musée</a>
     <form method="post" action="{{ url_for('admin.sync_qfap') }}" onsubmit="this.querySelector('button').disabled=true;this.querySelector('button').textContent='Sync en cours…'">
