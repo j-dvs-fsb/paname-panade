@@ -18,6 +18,9 @@ l'**Hébergement Web Infomaniak** via un site de type **Node.js**, et se connect
 | `SECRET_KEY` | chaîne aléatoire longue (`openssl rand -hex 32`) |
 | `DATABASE_URL` | `mysql://user:pass@hote:3306/base` |
 | `NODE_ENV` | `production` |
+| `ADMIN_EMAIL` | ton email (compte admin créé au 1er démarrage) |
+| `ADMIN_PASSWORD` | un mot de passe fort |
+| `ADMIN_PRENOM` | ton prénom (optionnel) |
 | `PORT` | **fournie automatiquement par Infomaniak** — ne pas fixer |
 
 ⚠️ Ne mets jamais ces secrets dans le code ni sur GitHub. Le mot de passe DB partagé
@@ -30,15 +33,25 @@ en clair doit être **changé** (il a été exposé).
 - **Commande de lancement** : `npm start`
 - **Point d'entrée** : `server.js` (écoute sur `process.env.PORT`).
 
-## 4. Première mise en ligne
+## 4. Première mise en ligne (sans commande SSH)
+Au **premier démarrage** l'app s'initialise seule (cf. `src/bootstrap.js`) :
+- elle crée les **musées curés** si la base est vide ;
+- elle crée le **compte admin** à partir de `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
+
+Il reste juste à peupler les **expositions** : connecte-toi avec ton compte admin,
+va sur `/admin` et clique **« ↻ Sync Que Faire à Paris »**. C'est rejouable à volonté.
+
+> Si tu as un accès shell : `npm run sync` fait la même chose, et peut se mettre en cron
+> pour rafraîchir régulièrement. Sans shell, le bouton du dashboard suffit.
+
+### Envoyer le code sur le serveur (depuis ton Mac)
 ```bash
-# en SSH, dans le dossier du site, après le premier déploiement :
-npm install
-npm run seed          # musées curés
-npm run sync          # expositions « Que Faire à Paris »
-npm run make-admin -- ton@email.fr   # te donner les droits admin
+rsync -avz --delete \
+  --exclude node_modules --exclude .git --exclude .venv \
+  --exclude instance --exclude .env --exclude __pycache__ --exclude '.DS_Store' \
+  ~/paname-panade/ \
+  <user>@<hote-ssh>:sites/paname-panade.fr/
 ```
-Rafraîchissement régulier des expos : `npm run sync` (idempotent, à mettre en cron).
 
 ## 5. Scripts utiles
 | Commande | Rôle |
