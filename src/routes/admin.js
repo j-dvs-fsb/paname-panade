@@ -218,4 +218,16 @@ router.post("/sync-qfap", async (req, res) => {
   res.redirect(urlFor("admin.dashboard"));
 });
 
+// --- Sync des musées (dataset officiel Île-de-France) ---
+router.post("/sync-musees", async (req, res) => {
+  const { runSyncMuseums } = require("../services/syncMuseums");
+  try {
+    const { created, enriched } = await runSyncMuseums();
+    req.flash("success", `Sync musées : ${created} créés, ${enriched} enrichis.`);
+  } catch (e) {
+    req.flash("danger", `Erreur sync musées : ${e.message}`);
+  }
+  res.redirect(urlFor("admin.dashboard"));
+});
+
 module.exports = router;

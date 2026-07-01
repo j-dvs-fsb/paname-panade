@@ -1,6 +1,7 @@
 "use strict";
 
 const express = require("express");
+const { Op } = require("sequelize");
 const { User } = require("../models");
 const { requireLogin } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
@@ -67,6 +68,46 @@ router.post("/connexion", async (req, res) => {
   }
   req.flash("danger", "Email ou mot de passe incorrect.");
   res.render("auth/login.njk");
+});
+
+router.get("/compte", requireLogin, (req, res) => {
+  res.render("auth/account.njk", { u: req.user });
+});
+
+router.post("/compte", requireLogin, async (req, res) => {
+  const user = req.user;
+  const email = (req.body.email || "").trim().toLowerCase();
+  const prenom = (req.body.prenom || "").trim();
+  const dateNaissance = req.body.date_naissance || "";
+  const password = req.body.password || "";
+  const password2 = req.body.password2 || "";
+
+  const errors = [];
+  if (!email || !email.includes("@")) errors.push("Email invalide.");
+  if (!prenom) errors.push("Le prénom est requis.");
+  if (!dateNaissance) errors.push("La date de naissance est requise.");
+  const dn = parseDate(dateNaissance);
+  if (dateNaissance && !dn) errors.push("Date de naissance invalide.");
+  // Email déjà pris par un AUTRE utilisateur ?
+  const clash = await User.findOne({ where: { email, id: { [Op.ne]: user.id } } });
+  if (clash) errors.push("Cet email est déjà utilisé.");
+  if (password && password.length < 6)
+    errors.push("Le nouveau mot de passe doit faire au moins 6 caractères.");
+  if (password && password !== password2)
+    errors.push("Les deux mots de passe ne correspondent pas.");
+
+  if (errors.length) {
+    for (const e of errors) req.flash("danger", e);
+    return res.render("auth/account.njk", { u: Object.assign({}, user.get(), req.body) });
+  }
+
+  user.email = email;
+  user.prenom = prenom;
+  if (dn) user.date_naissance = dn;
+  if (password) user.setPassword(password);
+  await user.save();
+  req.flash("success", "Compte mis à jour.");
+  res.redirect(urlFor("main.profile"));
 });
 
 router.get("/deconnexion", requireLogin, (req, res) => {

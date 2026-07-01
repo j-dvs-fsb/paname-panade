@@ -22,6 +22,7 @@ const ROUTES = {
   "auth.login": () => "/connexion",
   "auth.register": () => "/inscription",
   "auth.logout": () => "/deconnexion",
+  "auth.account": () => "/compte",
 
   "admin.dashboard": () => "/admin",
   "admin.expos": () => "/admin/expositions",
@@ -38,6 +39,7 @@ const ROUTES = {
   "admin.expo_delete": (p) => `/admin/expositions/${take(p, "expo_id")}/supprimer`,
   "admin.museum_delete": (p) => `/admin/musees/${take(p, "museum_id")}/supprimer`,
   "admin.sync_qfap": () => "/admin/sync-qfap",
+  "admin.sync_musees": () => "/admin/sync-musees",
 
   static: (p) => "/static/" + String(take(p, "filename") || "").replace(/^\/+/, ""),
 };

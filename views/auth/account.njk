@@ -1,0 +1,33 @@
+{% extends "base.njk" %}
+{% block title %}Mon compte — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:480px">
+  <a href="{{ url_for('main.profile') }}" class="muted small">← Mon profil</a>
+  <h1 class="mt-2 mb-4">Modifier mon compte</h1>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Prénom</label>
+      <input type="text" name="prenom" class="form-control" value="{{ u.prenom or '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Date de naissance</label>
+      <input type="date" name="date_naissance" class="form-control" value="{{ u.date_naissance or '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" class="form-control" value="{{ u.email or '' }}" required>
+    </div>
+    <hr>
+    <p class="muted small">Laisse les champs mot de passe vides pour le conserver.</p>
+    <div class="mb-3">
+      <label class="form-label">Nouveau mot de passe</label>
+      <input type="password" name="password" class="form-control" minlength="6">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Confirme le nouveau mot de passe</label>
+      <input type="password" name="password2" class="form-control" minlength="6">
+    </div>
+    <button class="btn btn-ink w-100">Enregistrer</button>
+  </form>
+</div>
+{% endblock %}

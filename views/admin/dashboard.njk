@@ -16,7 +16,10 @@
     <a class="btn btn-outline-ink btn-sm" href="{{ url_for('admin.expo_form') }}">+ Nouvelle expo</a>
     <a class="btn btn-outline-ink btn-sm" href="{{ url_for('admin.museum_form') }}">+ Nouveau musée</a>
     <form method="post" action="{{ url_for('admin.sync_qfap') }}" onsubmit="this.querySelector('button').disabled=true;this.querySelector('button').textContent='Sync en cours…'">
-      <button class="btn btn-outline-ink btn-sm">↻ Sync « Que Faire à Paris »</button>
+      <button class="btn btn-outline-ink btn-sm">↻ Sync « Que Faire à Paris » (expos)</button>
+    </form>
+    <form method="post" action="{{ url_for('admin.sync_musees') }}" onsubmit="this.querySelector('button').disabled=true;this.querySelector('button').textContent='Sync en cours…'">
+      <button class="btn btn-outline-ink btn-sm">↻ Sync musées (Île-de-France)</button>
     </form>
   </div>
 
