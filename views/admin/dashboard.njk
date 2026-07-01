@@ -1,0 +1,35 @@
+{% extends "base.njk" %}
+{% block title %}Admin — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">Back-office</h1>
+
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="h2 mb-0">{{ stats.expos }}</div><div class="muted small">expositions</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="h2 mb-0">{{ stats.expos_draft }}</div><div class="muted small">brouillons</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="h2 mb-0">{{ stats.museums }}</div><div class="muted small">musées</div></div></div>
+  </div>
+
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="btn btn-ink btn-sm" href="{{ url_for('admin.expos') }}">Gérer les expositions</a>
+    <a class="btn btn-ink btn-sm" href="{{ url_for('admin.museums') }}">Gérer les musées</a>
+    <a class="btn btn-outline-ink btn-sm" href="{{ url_for('admin.expo_form') }}">+ Nouvelle expo</a>
+    <a class="btn btn-outline-ink btn-sm" href="{{ url_for('admin.museum_form') }}">+ Nouveau musée</a>
+    <form method="post" action="{{ url_for('admin.sync_qfap') }}" onsubmit="this.querySelector('button').disabled=true;this.querySelector('button').textContent='Sync en cours…'">
+      <button class="btn btn-outline-ink btn-sm">↻ Sync « Que Faire à Paris »</button>
+    </form>
+  </div>
+
+  {% if drafts %}
+    <h3 class="mb-3">Brouillons à valider</h3>
+    <ul class="list-unstyled">
+      {% for e in drafts %}
+        <li class="border-bottom py-2 d-flex justify-content-between align-items-center">
+          <a href="{{ url_for('admin.expo_form', expo_id=e.id) }}">{{ e.title }}</a>
+          <span class="muted small">{{ e.source }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

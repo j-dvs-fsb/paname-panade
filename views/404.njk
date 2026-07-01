@@ -1,0 +1,9 @@
+{% extends "base.njk" %}
+{% block title %}Page introuvable — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+  <h1 class="display-1">404</h1>
+  <p class="muted">Cette page n'existe pas (ou plus).</p>
+  <a href="{{ url_for('main.index') }}" class="btn btn-ink mt-2">Retour à l'accueil</a>
+</div>
+{% endblock %}

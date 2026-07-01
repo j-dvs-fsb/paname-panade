@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% from "_macros.html" import expo_card %}
+{% block title %}{{ museum.name }} — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <a href="{{ url_for('main.museums') }}" class="muted small">← Tous les musées</a>
+  <h1 class="mt-2">{{ museum.name }}</h1>
+  <div class="mb-3">
+    {% for label in museum.free_labels %}<span class="badge badge-free">{{ label }}</span> {% endfor %}
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-lg-8">
+      {% if museum.description %}<p>{{ museum.description }}</p>{% endif %}
+    </div>
+    <div class="col-lg-4">
+      <div class="stat-tile text-start">
+        {% if museum.address %}<p class="mb-1"><strong>Adresse</strong><br>{{ museum.address }}</p>{% endif %}
+        {% if museum.arrondissement %}<p class="mb-1 muted small">{{ museum.arrondissement }}</p>{% endif %}
+        {% if museum.website %}<a class="btn btn-outline-ink btn-sm mt-2" href="{{ museum.website }}" target="_blank" rel="noopener">Site officiel ↗</a>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% set published = museum.expositions | selectattr('status', 'equalto', 'published') | list %}
+  {% set current = published | selectattr('is_current') | list %}
+  {% set past = published | rejectattr('is_current') | list %}
+
+  <h3 class="mt-5 mb-3">Expositions en cours</h3>
+  <div class="row">
+    {% for expo in current %}
+      {{ expo_card(expo) }}
+    {% else %}
+      <p class="muted">Pas d'exposition en cours pour ce musée.</p>
+    {% endfor %}
+  </div>
+
+  {% if past %}
+    <div class="stat-tile text-start mt-5">
+      <h3 class="mb-1">Expositions passées</h3>
+      <p class="muted small mb-3">Tu y es allé·e ? Reviens y laisser ton avis.</p>
+      <ul class="list-unstyled mb-0">
+        {% for expo in past %}
+          <li class="border-bottom py-2 d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('main.expo_detail', slug=expo.slug) }}">{{ expo.title }}</a>
+            <span class="muted small">
+              {% if expo.date_end %}terminée le {{ expo.date_end|fr_date }}{% endif %}
+              {% if expo.rating_count %} · {{ expo.avg_rating }}/5 ({{ expo.rating_count }}){% endif %}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

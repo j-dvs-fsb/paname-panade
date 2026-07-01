@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% block title %}Radar des musées — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-1">Radar des musées</h1>
+  <p class="muted">Les musées gratuits autour de toi, par distance et direction.</p>
+
+  <div class="radar-controls mb-3">
+    <div class="radar-source">
+      <span class="radar-source__label" id="radar-source-label">Localisation…</span>
+      <button type="button" class="filter-tile" id="radar-locate">Ma position</button>
+      <select class="radar-select" id="radar-arr" aria-label="Choisir un arrondissement">
+        <option value="">Choisir un arrondissement…</option>
+        {% for arr in arrondissements %}
+          <option value="{{ arr }}">{{ arr }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="radar-range" id="radar-range" role="group" aria-label="Portée du radar">
+      <a class="filter-tile" data-range="500" href="#">500 m</a>
+      <a class="filter-tile" data-range="1000" href="#">1 km</a>
+      <a class="filter-tile" data-range="2000" href="#">2 km</a>
+      <a class="filter-tile" data-range="5000" href="#">5 km</a>
+      <a class="filter-tile" data-range="0" href="#">Tout Paris</a>
+    </div>
+  </div>
+
+  <div class="radar-layout">
+    <div class="radar" id="radar">
+      <svg class="radar__svg" viewBox="-112 -112 224 224" role="img"
+           aria-label="Radar des musées autour de votre position">
+        <defs>
+          <linearGradient id="radar-beam" x1="0" y1="0" x2="0" y2="-1">
+            <stop offset="0%" stop-color="rgba(17,17,17,.18)"/>
+            <stop offset="100%" stop-color="rgba(17,17,17,0)"/>
+          </linearGradient>
+        </defs>
+
+        <g class="radar__rings" id="radar-rings"></g>
+        <line class="radar__axis" x1="-100" y1="0" x2="100" y2="0"/>
+        <line class="radar__axis" x1="0" y1="-100" x2="0" y2="100"/>
+
+        <g class="radar__sweep" id="radar-sweep">
+          <path d="M0 0 L-26 -97 A100 100 0 0 1 0 -100 Z" fill="url(#radar-beam)"/>
+          <line x1="0" y1="0" x2="0" y2="-100"/>
+        </g>
+
+        <g class="radar__blips" id="radar-blips"></g>
+        <circle class="radar__center" cx="0" cy="0" r="3.2"/>
+
+        <text class="radar__compass" x="0" y="-104" text-anchor="middle">N</text>
+        <text class="radar__compass" x="0" y="110" text-anchor="middle">S</text>
+        <text class="radar__compass" x="106" y="3.5" text-anchor="middle">E</text>
+        <text class="radar__compass" x="-106" y="3.5" text-anchor="middle">O</text>
+      </svg>
+      <p class="radar__empty muted" id="radar-empty" hidden>Aucun musée dans cette portée.</p>
+    </div>
+
+    <aside class="radar-list" id="radar-list" aria-label="Musées les plus proches">
+      <h2 class="radar-list__title">Les plus proches</h2>
+      <ul id="radar-list-items"></ul>
+    </aside>
+  </div>
+</div>
+
+<script type="application/json" id="radar-centroids">{{ centroids | tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const RADIUS = 100;                 // rayon SVG du radar
+  const RINGS = [0.25, 0.5, 0.75, 1]; // anneaux (fraction de la portée)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const svgBlips = document.getElementById('radar-blips');
+  const svgRings = document.getElementById('radar-rings');
+  const sweep    = document.getElementById('radar-sweep');
+  const listEl   = document.getElementById('radar-list-items');
+  const emptyEl  = document.getElementById('radar-empty');
+  const srcLabel = document.getElementById('radar-source-label');
+  const rangeBox = document.getElementById('radar-range');
+  const arrSel   = document.getElementById('radar-arr');
+  const centroids = JSON.parse(document.getElementById('radar-centroids').textContent);
+
+  let museums = [];
+  let origin = null;     // {lat, lon}
+  let range = 2000;      // portée en mètres (0 = « Tout Paris »)
+  const blipEls = [];    // {el, angle} pour le ping du balayage
+
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  // Retire la classe ping en fin d'anim pour qu'elle puisse rejouer au tour suivant.
+  svgBlips.addEventListener('animationend', e => {
+    const a = e.target.closest('.radar__blip');
+    if (a) a.classList.remove('radar__blip--ping');
+  });
+  const fmtDist = m => m >= 1000 ? (m / 1000).toFixed(m < 10000 ? 1 : 0) + ' km'
+                                 : Math.round(m / 10) * 10 + ' m';
+
+  // (lat,lon) -> mètres locaux est/nord (approximation équirectangulaire).
+  function offset(lat, lon) {
+    const mPerLat = 111320;
+    const mPerLon = 111320 * Math.cos(origin.lat * Math.PI / 180);
+    return { dx: (lon - origin.lon) * mPerLon, dy: (lat - origin.lat) * mPerLat };
+  }
+
+  function withMetrics() {
+    return museums.map(m => {
+      const { dx, dy } = offset(m.lat, m.lon);
+      const dist = Math.hypot(dx, dy);
+      const angle = (Math.atan2(dx, dy) * 180 / Math.PI + 360) % 360; // 0=N, sens horaire
+      return Object.assign({ dx, dy, dist, angle }, m);
+    }).sort((a, b) => a.dist - b.dist);
+  }
+
+  // « Tout Paris » : cadre le musée le plus lointain.
+  function fitAllRange(items) {
+    return items.length ? items[items.length - 1].dist * 1.05 : 2000;
+  }
+
+  function drawRings(effRange) {
+    svgRings.innerHTML = '';
+    RINGS.forEach(f => {
+      const c = document.createElementNS(SVGNS, 'circle');
+      c.setAttribute('cx', 0); c.setAttribute('cy', 0);
+      c.setAttribute('r', RADIUS * f);
+      c.setAttribute('class', 'radar__ring');
+      svgRings.appendChild(c);
+      const t = document.createElementNS(SVGNS, 'text');
+      t.setAttribute('x', 2); t.setAttribute('y', -RADIUS * f - 2);
+      t.setAttribute('class', 'radar__ring-label');
+      t.textContent = fmtDist(effRange * f);
+      svgRings.appendChild(t);
+    });
+  }
+
+  function render() {
+    if (!origin) return;
+    const items = withMetrics();
+    const effRange = range || fitAllRange(items);
+    const scale = RADIUS / effRange;
+
+    drawRings(effRange);
+    svgBlips.innerHTML = '';
+    listEl.innerHTML = '';
+    blipEls.length = 0;
+
+    let shown = 0;
+    items.forEach(m => {
+      let sx = m.dx * scale, sy = -m.dy * scale;
+      const r = Math.hypot(sx, sy);
+      const out = r > RADIUS;
+      if (out) { sx *= RADIUS / r; sy *= RADIUS / r; }
+      if (range && out) return; // hors portée sur un preset fixe -> on masque
+      shown++;
+
+      const a = document.createElementNS(SVGNS, 'a');
+      a.setAttributeNS('http://www.w3.org/1999/xlink', 'href', m.url);
+      a.setAttribute('href', m.url);
+      a.setAttribute('class', 'radar__blip' + (out ? ' radar__blip--out' : '') +
+                              (m.expo_count ? ' radar__blip--expo' : ''));
+      const dot = document.createElementNS(SVGNS, 'circle');
+      dot.setAttribute('cx', sx.toFixed(2)); dot.setAttribute('cy', sy.toFixed(2));
+      dot.setAttribute('r', m.expo_count ? 4 : 3);
+      a.appendChild(dot);
+      const title = document.createElementNS(SVGNS, 'title');
+      title.textContent = `${m.name} — ${fmtDist(m.dist)}` +
+        (m.expo_count ? ` · ${m.expo_count} expo${m.expo_count > 1 ? 's' : ''}` : '');
+      a.appendChild(title);
+      svgBlips.appendChild(a);
+      blipEls.push({ el: a, angle: m.angle });
+
+      const li = document.createElement('li');
+      li.innerHTML =
+        `<a href="${m.url}"><span class="radar-list__name">${m.name}</span>` +
+        `<span class="radar-list__meta">${fmtDist(m.dist)}` +
+        (m.expo_count ? ` · ${m.expo_count} expo${m.expo_count > 1 ? 's' : ''}` : '') +
+        `</span></a>`;
+      listEl.appendChild(li);
+    });
+
+    emptyEl.hidden = shown > 0;
+    Array.from(rangeBox.children).forEach(el =>
+      el.classList.toggle('filter-tile--active', String(range) === el.dataset.range));
+  }
+
+  function setOrigin(lat, lon, label) {
+    origin = { lat, lon };
+    srcLabel.textContent = label;
+    render();
+  }
+
+  // --- Balayage sonar + ping des blips ---
+  function startSweep() {
+    if (reduceMotion) { sweep.style.transform = 'rotate(0deg)'; return; }
+    let deg = 0, last = performance.now();
+    function tick(now) {
+      deg = (deg + (now - last) * 0.06) % 360; // ~6 s / tour
+      last = now;
+      sweep.style.transform = `rotate(${deg}deg)`;
+      blipEls.forEach(b => {
+        let diff = Math.abs(((deg - b.angle + 540) % 360) - 180);
+        if (diff < 7) b.el.classList.add('radar__blip--ping');
+      });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // --- Contrôles ---
+  rangeBox.addEventListener('click', e => {
+    const t = e.target.closest('[data-range]');
+    if (!t) return;
+    e.preventDefault();
+    range = parseInt(t.dataset.range, 10);
+    render();
+  });
+
+  arrSel.addEventListener('change', () => {
+    const arr = arrSel.value;
+    if (arr && centroids[arr]) setOrigin(centroids[arr].lat, centroids[arr].lon, arr);
+  });
+
+  document.getElementById('radar-locate').addEventListener('click', locate);
+
+  function locate() {
+    if (!navigator.geolocation) { srcLabel.textContent = 'Géoloc indisponible — choisis un arrondissement'; return; }
+    srcLabel.textContent = 'Localisation…';
+    navigator.geolocation.getCurrentPosition(
+      pos => { arrSel.value = ''; setOrigin(pos.coords.latitude, pos.coords.longitude, 'Ta position'); },
+      () => { srcLabel.textContent = 'Position refusée — choisis un arrondissement'; arrSel.focus(); },
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  }
+
+  // --- Init ---
+  fetch('{{ url_for("main.api_museums") }}')
+    .then(r => r.json())
+    .then(data => { museums = data; startSweep(); locate(); })
+    .catch(() => { srcLabel.textContent = 'Erreur de chargement des musées'; });
+})();
+</script>
+{% endblock %}

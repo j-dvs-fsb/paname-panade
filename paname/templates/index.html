@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "_macros.html" import expo_card %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4">Toutes les expos <u>gratuites</u> de Paris, pour rats cultivés.</h1>
+        <p class="lead muted mt-3">Profite des musées et expositions gratuits avant ton anniversaire fatidique.</p>
+        <div class="mt-4">
+          <a href="{{ url_for('main.expos') }}" class="btn btn-ink btn-lg me-2">Voir les expos</a>
+          <a href="{{ url_for('main.random_expo') }}" class="btn btn-outline-ink btn-lg">Une au hasard</a>
+        </div>
+      </div>
+      <div class="col-lg-4 text-center mt-4 mt-lg-0">
+        <div class="row g-2">
+          <div class="col-6"><div class="stat-tile"><div class="num">{{ total_expos }}</div><div class="lbl">expositions</div></div></div>
+          <div class="col-6"><div class="stat-tile"><div class="num">{{ total_museums }}</div><div class="lbl">musées</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="d-flex justify-content-between align-items-end mb-4">
+    <h2 class="m-0">Dernières expos</h2>
+    <a href="{{ url_for('main.expos') }}" class="muted">Tout voir →</a>
+  </div>
+  <div class="row">
+    {% for expo in latest %}
+      {{ expo_card(expo) }}
+    {% else %}
+      <p class="muted">Aucune expo pour le moment. Lance <code>python scripts/seed.py</code> puis <code>python scripts/sync_data.py</code>.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

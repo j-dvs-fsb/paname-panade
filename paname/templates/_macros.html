@@ -1,0 +1,39 @@
+{% macro stars(value) %}
+  <span class="stars" title="{{ value }}/5">
+    {%- for i in range(1, 6) -%}
+      {{ '★' if value and i <= value else '☆' }}
+    {%- endfor -%}
+  </span>
+{% endmacro %}
+
+{% macro expo_card(expo) %}
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-img-wrap">
+        {% if expo.image %}
+          <img src="{{ expo.image }}" class="card-img-top" alt="{{ expo.title }}">
+        {% else %}
+          <div class="card-img-placeholder">PP</div>
+        {% endif %}
+        {% if expo.is_permanent %}
+          <span class="img-tag">Exposition permanente</span>
+        {% endif %}
+      </div>
+      <div class="card-body d-flex flex-column">
+        <span class="badge badge-free mb-2 align-self-start">GRATUIT</span>
+        <h5 class="card-title">
+          <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=expo.slug) }}">{{ expo.title }}</a>
+        </h5>
+        {% if expo.museum %}
+          <p class="muted small mb-1">{{ expo.museum.name }}</p>
+        {% endif %}
+        {% if not expo.is_permanent %}
+          <p class="muted small mb-2">{{ expo.date_label }}</p>
+        {% endif %}
+        {% if expo.avg_rating %}
+          <p class="mb-0">{{ stars(expo.avg_rating|round|int) }} <span class="muted small">({{ expo.rating_count }})</span></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endmacro %}

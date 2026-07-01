@@ -1,0 +1,144 @@
+{% extends "base.njk" %}
+{% block title %}Admin · {{ 'Éditer' if expo else 'Nouvelle' }} expo{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:780px">
+  <a href="{{ url_for('admin.expos') }}" class="muted small">← Expositions</a>
+  <h1 class="mt-2 mb-4">{{ expo.title if expo else 'Nouvelle exposition' }}</h1>
+
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Titre *</label>
+      <input class="form-control" name="title" value="{{ expo.title if expo else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" name="description" rows="5">{{ expo.description if expo else '' }}</textarea>
+    </div>
+
+    <fieldset class="mb-3">
+      <legend class="form-label mb-1">Période de l'exposition</legend>
+      <p class="muted small mb-2">
+        Format <strong>jour / mois / année</strong>. Laisse <strong>les deux vides</strong>
+        pour une exposition permanente, ou seulement la <strong>date de fin</strong> vide
+        si elle n'a pas de terme connu.
+      </p>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <label class="form-label small" for="date_start">Date de début</label>
+          <input type="date" class="form-control" id="date_start" name="date_start"
+                 value="{{ expo.date_start if expo and expo.date_start else '' }}">
+        </div>
+        <div class="col-md-6 mb-2">
+          <label class="form-label small" for="date_end">Date de fin</label>
+          <input type="date" class="form-control" id="date_end" name="date_end"
+                 value="{{ expo.date_end if expo and expo.date_end else '' }}"
+                 {% if expo and expo.date_start %}min="{{ expo.date_start }}"{% endif %}>
+        </div>
+      </div>
+      <p class="muted small mb-0" id="date-preview"></p>
+    </fieldset>
+
+    <div class="mb-3">
+      <label class="form-label">Horaires</label>
+      <input class="form-control" name="schedule" value="{{ expo.schedule if expo else '' }}">
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Tarif</label>
+        <select class="form-select" name="price_category">
+          {% for key, label in price_labels %}
+            <option value="{{ key }}" {{ 'selected' if expo and expo.price_category==key else '' }}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Réservation</label>
+        <select class="form-select" name="reservation">
+          {% for key, label in reservation_labels %}
+            <option value="{{ key }}" {{ 'selected' if expo and expo.reservation==key else '' }}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">URL réservation</label>
+      <input class="form-control" name="reservation_url" value="{{ expo.reservation_url if expo else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">URL page / billetterie</label>
+      <input class="form-control" name="url" value="{{ expo.url if expo else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">URL image</label>
+      <input class="form-control" name="image_url" value="{{ expo.image_url if expo else '' }}">
+    </div>
+
+    <hr>
+    <div class="mb-3">
+      <label class="form-label">Musée rattaché</label>
+      <select class="form-select" name="museum_id">
+        <option value="">— Aucun —</option>
+        {% for m in museums %}
+          <option value="{{ m.id }}" {{ 'selected' if expo and expo.museum_id==m.id else '' }}>{{ m.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Nom du lieu</label>
+        <input class="form-control" name="venue_name" value="{{ expo.venue_name if expo else '' }}">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Adresse</label>
+        <input class="form-control" name="address" value="{{ expo.address if expo else '' }}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Code postal</label>
+        <input class="form-control" name="postal_code" value="{{ expo.postal_code if expo else '' }}">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Latitude</label>
+        <input class="form-control" name="lat" value="{{ expo.lat if expo and expo.lat != null else '' }}">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Longitude</label>
+        <input class="form-control" name="lon" value="{{ expo.lon if expo and expo.lon != null else '' }}">
+      </div>
+    </div>
+
+    <div class="form-check mb-4">
+      <input class="form-check-input" type="checkbox" name="status" value="published" id="pub"
+             {{ 'checked' if not expo or expo.status=='published' else '' }}>
+      <label class="form-check-label" for="pub">Publiée (visible sur le site)</label>
+    </div>
+
+    <button class="btn btn-ink">Enregistrer</button>
+    <a class="btn btn-link muted" href="{{ url_for('admin.expos') }}">Annuler</a>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const ds = document.getElementById('date_start');
+  const de = document.getElementById('date_end');
+  const preview = document.getElementById('date-preview');
+  const MONTHS = ['janvier','février','mars','avril','mai','juin','juillet',
+                  'août','septembre','octobre','novembre','décembre'];
+  const fr = v => { const [y,m,d] = v.split('-'); return `${+d} ${MONTHS[+m-1]} ${y}`; };
+
+  function refresh() {
+    de.min = ds.value || '';                 // fin jamais avant le début
+    let txt = 'Aucune date : exposition permanente.';
+    if (ds.value && de.value) txt = `Du ${fr(ds.value)} au ${fr(de.value)}`;
+    else if (de.value)        txt = `Jusqu'au ${fr(de.value)}`;
+    else if (ds.value)        txt = `À partir du ${fr(ds.value)}`;
+    preview.textContent = '→ ' + txt;
+  }
+  if (ds && de) { ds.addEventListener('change', refresh); de.addEventListener('change', refresh); refresh(); }
+</script>
+{% endblock %}

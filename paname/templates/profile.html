@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% from "_macros.html" import stars %}
+{% block title %}Profil — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-1">Salut {{ current_user.prenom }}</h1>
+  <p class="muted">Ton tableau de bord anti-panade.</p>
+
+  <!-- Progression -->
+  <div class="my-4">
+    <div class="d-flex justify-content-between mb-1">
+      <strong>Ta progression</strong>
+      <span class="muted">{{ prog.done }} / {{ prog.total }} expos faites</span>
+    </div>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: {{ prog.pct }}%">{{ prog.pct }}%</div>
+    </div>
+  </div>
+
+  <!-- Stats fun -->
+  <div class="row g-3 my-4">
+    <div class="col-md-3 col-6">
+      <div class="stat-tile">
+        {% if fun.is_over_26 %}
+          <div class="num">26+</div><div class="lbl">Tu as passé 26 ans… profite des autres gratuités !</div>
+        {% else %}
+          <div class="num">{{ fun.days_until_26 }}</div>
+          <div class="lbl">jours avant tes 26 ans</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="stat-tile">
+        <div class="num">{{ prog.remaining }}</div>
+        <div class="lbl">expos restantes à faire</div>
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="stat-tile">
+        <div class="num">{{ fun.expos_per_week if fun.expos_per_week is not none else '–' }}</div>
+        <div class="lbl">expos / semaine pour tout faire avant 26 ans</div>
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="stat-tile">
+        <div class="num">{{ fun.expos_per_month if fun.expos_per_month is not none else '–' }}</div>
+        <div class="lbl">expos / mois au rythme requis</div>
+      </div>
+    </div>
+  </div>
+
+  {% if fun.expos_per_week and fun.expos_per_week > 5 %}
+    <div class="alert alert-warning">Faut accélérer : <strong>{{ fun.expos_per_week }} expos par semaine</strong>, c'est du sport !</div>
+  {% elif fun.expos_per_week %}
+    <div class="alert alert-success">À <strong>{{ fun.expos_per_week }} expos/semaine</strong>, c'est jouable. Go !</div>
+  {% endif %}
+
+  <div class="row mt-4">
+    <!-- Faites -->
+    <div class="col-lg-6 mb-4">
+      <h3 class="mb-3">Expos faites ({{ visits|length }})</h3>
+      {% for v in visits %}
+        <div class="border-bottom py-2 d-flex justify-content-between">
+          <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=v.exposition.slug) }}">{{ v.exposition.title }}</a>
+          <span>{% if v.rating %}{{ stars(v.rating) }}{% else %}<span class="muted small">non notée</span>{% endif %}</span>
+        </div>
+      {% else %}
+        <p class="muted">Tu n'as encore rien coché. <a href="{{ url_for('main.random_expo') }}">Une au hasard ?</a></p>
+      {% endfor %}
+    </div>
+
+    <!-- Favoris -->
+    <div class="col-lg-6 mb-4">
+      <h3 class="mb-3">Favoris ({{ favorites|length }})</h3>
+      {% for f in favorites %}
+        <div class="border-bottom py-2">
+          <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=f.exposition.slug) }}">{{ f.exposition.title }}</a>
+          {% if f.exposition.museum %}<span class="muted small"> — {{ f.exposition.museum.name }}</span>{% endif %}
+        </div>
+      {% else %}
+        <p class="muted">Aucun favori pour l'instant.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% from "_macros.html" import expo_card %}
+{% block title %}Expositions — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">Expositions gratuites</h1>
+  <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+    <form method="get" class="flex-shrink-0">
+      <div class="input-group" style="max-width:360px">
+        <input class="form-control" name="q" value="{{ q }}" placeholder="Rechercher une expo…">
+        {% for p in active_prix %}<input type="hidden" name="prix" value="{{ p }}">{% endfor %}
+        {% for f in active_flags %}<input type="hidden" name="f" value="{{ f }}">{% endfor %}
+        <button class="btn btn-ink">Chercher</button>
+      </div>
+    </form>
+
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      {% for t in price_tiles %}
+        <a href="{{ t.href }}" class="filter-tile {{ 'filter-tile--active' if t.active }}">{{ t.label }}</a>
+      {% endfor %}
+      <span class="filter-sep"></span>
+      {% for t in flag_tiles %}
+        <a href="{{ t.href }}" class="filter-tile {{ 'filter-tile--active' if t.active }}">{{ t.label }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="row">
+    {% for expo in expos %}
+      {{ expo_card(expo) }}
+    {% else %}
+      <p class="muted">Aucune exposition trouvée.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

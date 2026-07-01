@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Admin · Musées{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">Musées ({{ museums|length }})</h1>
+    <a class="btn btn-ink btn-sm" href="{{ url_for('admin.museum_form') }}">+ Nouveau</a>
+  </div>
+
+  <table class="table table-sm align-middle">
+    <thead><tr><th>Nom</th><th>ID</th><th>Arr.</th><th>Page expos</th><th></th></tr></thead>
+    <tbody>
+      {% for m in museums %}
+        <tr>
+          <td><a href="{{ url_for('admin.museum_form', museum_id=m.id) }}">{{ m.name }}</a></td>
+          <td class="muted small">{{ m.museofile_id or '—' }}</td>
+          <td class="muted small">{{ m.arrondissement or '—' }}</td>
+          <td class="muted small">{{ '✓' if m.expos_url else '—' }}</td>
+          <td class="text-end">
+            <form method="post" action="{{ url_for('admin.museum_delete', museum_id=m.id) }}" class="d-inline" onsubmit="return confirm('Supprimer ce musée et ses expos rattachées ?')">
+              <button class="btn btn-link btn-sm p-0 text-danger">Suppr.</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

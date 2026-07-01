@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Inscription — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:420px">
+  <h1 class="mb-4">Inscription</h1>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Prénom</label>
+      <input type="text" name="prenom" class="form-control" value="{{ form.prenom or '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Date de naissance</label>
+      <input type="date" name="date_naissance" class="form-control" value="{{ form.date_naissance or '' }}" required>
+      <div class="form-text">Sert à calculer ton compte à rebours avant 26 ans.</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" class="form-control" value="{{ form.email or '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Mot de passe</label>
+      <input type="password" name="password" class="form-control" minlength="6" required>
+    </div>
+    <button class="btn btn-ink w-100">Créer mon compte</button>
+  </form>
+  <p class="mt-3 muted">Déjà un compte ? <a href="{{ url_for('auth.login') }}">Connecte-toi</a>.</p>
+</div>
+{% endblock %}

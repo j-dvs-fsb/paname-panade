@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Musées — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">Musées gratuits</h1>
+  <div class="row">
+    {% for m in museums %}
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a class="text-decoration-none" href="{{ url_for('main.museum_detail', slug=m.slug) }}">{{ m.name }}</a>
+            </h5>
+            {% if m.arrondissement %}<p class="muted small mb-1">{{ m.arrondissement }}</p>{% endif %}
+            <div class="mb-2">
+              {% for label in m.free_labels %}<span class="badge badge-free mb-1">{{ label }}</span> {% endfor %}
+            </div>
+            <p class="mb-2">{{ (m.description or '')[:140] }}{% if m.description and m.description|length > 140 %}…{% endif %}</p>
+            {% set cur = m.expositions | selectattr('status', 'equalto', 'published') | selectattr('is_current') | list %}
+            <p class="muted small mb-0">{{ cur|length }} exposition(s) en cours</p>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <p class="muted">Aucun musée pour le moment.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

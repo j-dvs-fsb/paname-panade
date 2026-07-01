@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Admin · {{ 'Éditer' if museum else 'Nouveau' }} musée{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:780px">
+  <a href="{{ url_for('admin.museums') }}" class="muted small">← Musées</a>
+  <h1 class="mt-2 mb-4">{{ museum.name if museum else 'Nouveau musée' }}</h1>
+
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Nom *</label>
+      <input class="form-control" name="name" value="{{ museum.name if museum else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" name="description" rows="4">{{ museum.description if museum else '' }}</textarea>
+    </div>
+    <div class="row">
+      <div class="col-md-8 mb-3">
+        <label class="form-label">Adresse</label>
+        <input class="form-control" name="address" value="{{ museum.address if museum else '' }}">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Arrondissement</label>
+        <input class="form-control" name="arrondissement" value="{{ museum.arrondissement if museum else '' }}">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Site web</label>
+      <input class="form-control" name="website" value="{{ museum.website if museum else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Page « expositions en cours » <span class="muted small">(cible scraping)</span></label>
+      <input class="form-control" name="expos_url" value="{{ museum.expos_url if museum else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Logo (URL) <span class="muted small">(image des collections permanentes)</span></label>
+      <input class="form-control" name="logo_url" value="{{ museum.logo_url if museum else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label d-block">Gratuité <span class="muted small">(plusieurs choix possibles)</span></label>
+      {% set selected = museum.free_access_list if museum else [] %}
+      {% for key, label in free_access_labels.items() %}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="free_access" value="{{ key }}"
+                 id="fa-{{ key }}" {{ 'checked' if key in selected }}>
+          <label class="form-check-label" for="fa-{{ key }}">{{ label }}</label>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Latitude</label>
+        <input class="form-control" name="lat" value="{{ museum.lat if museum and museum.lat is not none else '' }}">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Longitude</label>
+        <input class="form-control" name="lon" value="{{ museum.lon if museum and museum.lon is not none else '' }}">
+      </div>
+    </div>
+    {% if museum and museum.museofile_id %}
+      <p class="muted small">Identifiant : {{ museum.museofile_id }}</p>
+    {% endif %}
+
+    <button class="btn btn-ink">Enregistrer</button>
+    <a class="btn btn-link muted" href="{{ url_for('admin.museums') }}">Annuler</a>
+  </form>
+</div>
+{% endblock %}

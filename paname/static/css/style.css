@@ -1,0 +1,220 @@
+:root {
+  --ink: #111111;
+  --paper: #ffffff;
+  --muted: #6b6b6b;
+  --line: #e6e6e6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--ink); }
+a:hover { color: #000; }
+
+/* ---- Logo ---- */
+.logo {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: 1.35rem;
+  color: var(--ink) !important;
+  text-decoration: none;
+}
+.logo span { font-weight: 300; }
+
+/* ---- Navbar ---- */
+.navbar {
+  border-bottom: 1px solid var(--line);
+  background: var(--paper) !important;
+}
+.navbar .nav-link { color: var(--ink); font-size: .95rem; }
+.navbar .nav-link:hover { text-decoration: underline; }
+
+/* ---- Buttons noir & blanc ---- */
+.btn-ink {
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  font-weight: 500;
+}
+.btn-ink:hover { background: #000; color: var(--paper); }
+
+.btn-outline-ink {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+.btn-outline-ink:hover { background: var(--ink); color: var(--paper); }
+
+/* ---- Cards ---- */
+.card {
+  border: 1px solid var(--line);
+  border-radius: 0;
+}
+.card-img-top {
+  height: 170px;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+.card-img-placeholder {
+  height: 170px;
+  background: repeating-linear-gradient(45deg, #f4f4f4, #f4f4f4 10px, #eee 10px, #eee 20px);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 2rem; font-weight: 800;
+}
+
+/* ---- Hero ---- */
+.hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--line);
+}
+.hero h1 { font-weight: 800; letter-spacing: -0.04em; }
+
+/* ---- Progress ---- */
+.progress { border-radius: 0; height: 22px; background: #f0f0f0; }
+.progress-bar { background: var(--ink); }
+
+/* ---- Stat tiles ---- */
+.stat-tile {
+  border: 1px solid var(--line);
+  padding: 1.25rem;
+  text-align: center;
+}
+.stat-tile .num { font-size: 2rem; font-weight: 800; line-height: 1; }
+.stat-tile .lbl { color: var(--muted); font-size: .85rem; margin-top: .4rem; }
+
+/* ---- Stars ---- */
+.stars { color: var(--ink); letter-spacing: 2px; }
+.star-input { font-size: 1.6rem; cursor: pointer; color: var(--line); }
+.star-input.active, .star-input:hover { color: var(--ink); }
+
+.badge-free {
+  background: var(--ink); color: var(--paper);
+  border-radius: 0; font-weight: 500; font-size: .75rem;
+}
+.muted { color: var(--muted); }
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+
+/* Description d'expo : préserve les sauts de paragraphe du texte nettoyé */
+.expo-description { white-space: pre-line; }
+/* Coins de la carte Leaflet alignés sur la tuile */
+#expo-map { z-index: 0; }
+.leaflet-container { font: inherit; }
+
+/* Tuiles de filtres (même DA que .badge-free) — carré noir, texte blanc ;
+   inversé (fond blanc, cadre + texte noirs) une fois sélectionné. */
+.filter-tile {
+  display: inline-block;
+  padding: .45rem .75rem;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  font-size: .75rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .12s ease, color .12s ease;
+}
+.filter-tile:hover { background: #000; color: var(--paper); }
+.filter-tile--active,
+.filter-tile--active:hover {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.filter-sep {
+  width: 1px; align-self: stretch; min-height: 1.6rem;
+  background: var(--line);
+}
+
+/* ---- Radar / sonar des musées ---- */
+.radar-controls {
+  display: flex; flex-wrap: wrap; gap: .75rem 1.5rem;
+  align-items: center; justify-content: space-between;
+}
+.radar-source { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.radar-source__label {
+  font-size: .85rem; color: var(--muted);
+  min-width: 9rem;
+}
+.radar-select {
+  border: 1px solid var(--ink); border-radius: 0;
+  background: var(--paper); color: var(--ink);
+  padding: .4rem .6rem; font-size: .8rem; font-family: inherit;
+}
+.radar-range { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+.radar-layout {
+  display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;
+}
+.radar {
+  position: relative; flex: 1 1 380px; max-width: 520px; margin: 0 auto;
+}
+.radar__svg {
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--line);
+}
+.radar__empty {
+  position: absolute; top: 50%; left: 0; right: 0;
+  transform: translateY(-50%); text-align: center; font-size: .85rem;
+}
+
+.radar__ring { fill: none; stroke: var(--line); stroke-width: 1; }
+.radar__ring-label { fill: var(--muted); font-size: 5.5px; }
+.radar__axis { stroke: var(--line); stroke-width: 1; }
+.radar__compass { fill: var(--muted); font-size: 8px; font-weight: 700; }
+.radar__center { fill: var(--ink); }
+
+.radar__sweep { transform-origin: 0 0; }
+.radar__sweep line { stroke: var(--ink); stroke-width: 1; opacity: .35; }
+
+.radar__blip circle {
+  fill: var(--paper); stroke: var(--ink); stroke-width: 1.5;
+  transition: fill .15s ease, stroke .15s ease, r .15s ease;
+}
+.radar__blip:hover circle { fill: var(--ink); }
+.radar__blip--expo circle { fill: var(--ink); }
+.radar__blip--out circle { opacity: .45; }
+/* « ping » quand le balayage passe : flash puis retour progressif */
+.radar__blip--ping circle {
+  fill: var(--ink);
+  filter: drop-shadow(0 0 3px rgba(17,17,17,.7));
+  transition: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .radar__blip--ping circle { animation: radar-ping .9s ease-out forwards; }
+}
+@keyframes radar-ping {
+  0%   { filter: drop-shadow(0 0 4px rgba(17,17,17,.9)); }
+  100% { filter: drop-shadow(0 0 0 rgba(17,17,17,0)); }
+}
+
+.radar-list { flex: 1 1 220px; min-width: 200px; }
+.radar-list__title { font-size: 1rem; font-weight: 800; margin-bottom: .6rem; }
+.radar-list ul { list-style: none; padding: 0; margin: 0; }
+.radar-list li { border-bottom: 1px solid var(--line); }
+.radar-list li a {
+  display: flex; justify-content: space-between; gap: .5rem;
+  padding: .55rem .2rem; text-decoration: none; align-items: baseline;
+}
+.radar-list li a:hover { background: #fafafa; }
+.radar-list__name { font-size: .9rem; }
+.radar-list__meta { font-size: .75rem; color: var(--muted); white-space: nowrap; }
+
+/* Image avec tag en overlay (ex. "Exposition permanente") */
+.card-img-wrap { position: relative; }
+.img-tag {
+  position: absolute; top: .5rem; right: .5rem;
+  background: var(--ink); color: var(--paper);
+  padding: .3rem .55rem; font-size: .7rem; font-weight: 500;
+  border-radius: 0; line-height: 1;
+}
