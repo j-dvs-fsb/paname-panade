@@ -229,10 +229,14 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
    (le span n'est pas rendu). */
 .card-tint {
   position: absolute; inset: 0;
-  opacity: .55; pointer-events: none;
+  opacity: .4; pointer-events: none;
+  /* Grain : bruit SVG embarqué (feTurbulence désaturé), répété par-dessus
+     la couleur du voile. Aucune requête externe (data:, autorisé par la CSP). */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
 }
-.row > :nth-child(5n+1) .card-tint { background: #8C52FF; }
-.row > :nth-child(5n+2) .card-tint { background: #FFDE59; }
-.row > :nth-child(5n+3) .card-tint { background: #FF5757; }
-.row > :nth-child(5n+4) .card-tint { background: #7ED957; }
-.row > :nth-child(5n+5) .card-tint { background: #004AAD; }
+.row > :nth-child(5n+1) .card-tint { background-color: #8C52FF; }
+.row > :nth-child(5n+2) .card-tint { background-color: #FFDE59; }
+.row > :nth-child(5n+3) .card-tint { background-color: #FF5757; }
+.row > :nth-child(5n+4) .card-tint { background-color: #7ED957; }
+.row > :nth-child(5n+5) .card-tint { background-color: #004AAD; }
