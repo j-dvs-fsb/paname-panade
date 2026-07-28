@@ -10,7 +10,7 @@
   <form class="row g-2 mb-3" method="get">
     <div class="col-auto"><input class="form-control form-control-sm" name="q" value="{{ q }}" placeholder="Rechercher…"></div>
     <div class="col-auto">
-      <select class="form-select form-select-sm" name="status" onchange="this.form.submit()">
+      <select class="form-select form-select-sm" name="status" data-autosubmit>
         <option value="" {{ 'selected' if not status else '' }}>Tous statuts</option>
         <option value="published" {{ 'selected' if status=='published' else '' }}>Publiées</option>
         <option value="draft" {{ 'selected' if status=='draft' else '' }}>Brouillons</option>
@@ -30,9 +30,11 @@
           <td class="muted small">{{ e.source or '—' }}</td>
           <td class="text-end text-nowrap">
             <form method="post" action="{{ url_for('admin.expo_toggle_status', expo_id=e.id) }}" class="d-inline">
+              <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
               <button class="btn btn-link btn-sm p-0 me-2">{{ 'Dépublier' if e.status=='published' else 'Publier' }}</button>
             </form>
-            <form method="post" action="{{ url_for('admin.expo_delete', expo_id=e.id) }}" class="d-inline" onsubmit="return confirm('Supprimer cette exposition ?')">
+            <form method="post" action="{{ url_for('admin.expo_delete', expo_id=e.id) }}" class="d-inline" data-confirm="Supprimer cette exposition ?">
+              <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
               <button class="btn btn-link btn-sm p-0 text-danger">Suppr.</button>
             </form>
           </td>

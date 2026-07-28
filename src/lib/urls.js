@@ -23,12 +23,16 @@ const ROUTES = {
   "auth.register": () => "/inscription",
   "auth.logout": () => "/deconnexion",
   "auth.account": () => "/compte",
+  "auth.data_export": () => "/compte/donnees",
+  "auth.account_delete": () => "/compte/supprimer",
+  "auth.passkeys": () => "/compte/passkeys",
+  "auth.passkey_delete": (p) => `/compte/passkeys/${take(p, "passkey_id")}/delete`,
 
   "admin.dashboard": () => "/admin",
   "admin.expos": () => "/admin/expositions",
   "admin.museums": () => "/admin/musees",
   "admin.users": () => "/admin/utilisateurs",
-  "admin.user_form": (p) => `/admin/utilisateurs/${take(p, "user_id")}/edit`,
+  "admin.user_role": (p) => `/admin/utilisateurs/${take(p, "user_id")}/role`,
   "admin.user_delete": (p) => `/admin/utilisateurs/${take(p, "user_id")}/supprimer`,
   "admin.expo_form": (p) =>
     has(p, "expo_id")

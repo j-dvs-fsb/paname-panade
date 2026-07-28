@@ -6,6 +6,7 @@
   <h1 class="mt-2 mb-4">{{ expo.title if expo else 'Nouvelle exposition' }}</h1>
 
   <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
     <div class="mb-3">
       <label class="form-label">Titre *</label>
       <input class="form-control" name="title" value="{{ expo.title if expo else '' }}" required>
@@ -123,7 +124,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
+<script nonce="{{ csp_nonce }}">
   const ds = document.getElementById('date_start');
   const de = document.getElementById('date_end');
   const preview = document.getElementById('date-preview');

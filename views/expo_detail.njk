@@ -65,6 +65,7 @@
 
       {% if current_user.is_authenticated %}
         <form method="post" action="{{ url_for('main.toggle_favorite', expo_id=expo.id) }}" class="mb-2">
+          <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
           <button class="btn {{ 'btn-ink' if is_fav else 'btn-outline-ink' }} w-100">
             {{ '★ Dans tes favoris' if is_fav else '☆ Ajouter aux favoris' }}
           </button>
@@ -73,6 +74,7 @@
         <div class="stat-tile text-start">
           <strong>{{ 'Tu as fait cette expo' if visit else "Tu l'as faite ?" }}</strong>
           <form method="post" action="{{ url_for('main.mark_done', expo_id=expo.id) }}" class="mt-2" id="done-form">
+            <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
             <div class="mb-2" id="star-picker">
               {% for i in range(1,6) %}
                 <span class="star-input {{ 'active' if visit and visit.rating and i <= visit.rating else '' }}" data-val="{{ i }}">★</span>
@@ -84,6 +86,7 @@
           </form>
           {% if visit %}
             <form method="post" action="{{ url_for('main.unmark_done', expo_id=expo.id) }}" class="mt-2">
+              <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
               <button class="btn btn-link btn-sm muted p-0">Annuler la visite</button>
             </form>
           {% endif %}
@@ -114,7 +117,7 @@
 {% block scripts %}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script>
+<script nonce="{{ csp_nonce }}">
   const mapEl = document.getElementById('expo-map');
   if (mapEl && window.L) {
     const lat = parseFloat(mapEl.dataset.lat), lon = parseFloat(mapEl.dataset.lon);

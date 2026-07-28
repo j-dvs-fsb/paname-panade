@@ -5,6 +5,7 @@
   <a href="{{ url_for('main.profile') }}" class="muted small">← Mon profil</a>
   <h1 class="mt-2 mb-4">Modifier mon compte</h1>
   <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
     <div class="mb-3">
       <label class="form-label">Prénom</label>
       <input type="text" name="prenom" class="form-control" value="{{ u.prenom or '' }}" required>
@@ -21,13 +22,41 @@
     <p class="muted small">Laisse les champs mot de passe vides pour le conserver.</p>
     <div class="mb-3">
       <label class="form-label">Nouveau mot de passe</label>
-      <input type="password" name="password" class="form-control" minlength="6">
+      <input type="password" name="password" class="form-control" minlength="8" autocomplete="new-password">
     </div>
     <div class="mb-3">
       <label class="form-label">Confirme le nouveau mot de passe</label>
-      <input type="password" name="password2" class="form-control" minlength="6">
+      <input type="password" name="password2" class="form-control" minlength="8" autocomplete="new-password">
     </div>
     <button class="btn btn-ink w-100">Enregistrer</button>
+  </form>
+
+  <hr class="my-4">
+  <h2 class="h5">Connexion sans mot de passe</h2>
+  <p class="muted small mb-2">Ajoute une passkey (empreinte, visage, code appareil) pour te connecter en un geste.</p>
+  <a href="{{ url_for('auth.passkeys') }}" class="btn btn-outline-ink btn-sm">Gérer mes passkeys</a>
+
+  <hr class="my-4">
+  <h2 class="h5">Mes données</h2>
+  <p class="muted small mb-2">
+    Télécharge une copie de toutes les données liées à ton compte (profil, favoris, avis, passkeys)
+    au format JSON.
+  </p>
+  <a href="{{ url_for('auth.data_export') }}" class="btn btn-outline-ink btn-sm mb-4">Télécharger mes données</a>
+
+  <h2 class="h5 text-danger">Supprimer mon compte</h2>
+  <p class="muted small mb-2">
+    Suppression immédiate et définitive de ton compte et de toutes tes données
+    (profil, favoris, avis, passkeys). Aucune copie n'est conservée.
+  </p>
+  <form method="post" action="{{ url_for('auth.account_delete') }}"
+        data-confirm="Supprimer définitivement ton compte et toutes tes données ?">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+    <div class="mb-2">
+      <label class="form-label small">Pour confirmer, saisis l'email de ton compte :</label>
+      <input type="email" name="confirm_email" class="form-control form-control-sm" required>
+    </div>
+    <button class="btn btn-outline-danger btn-sm">Supprimer mon compte</button>
   </form>
 </div>
 {% endblock %}

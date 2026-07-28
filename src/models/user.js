@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
   );
 
   User.prototype.setPassword = function (password) {
-    this.password_hash = bcrypt.hashSync(password, 10);
+    this.password_hash = bcrypt.hashSync(password, 12);
   };
   User.prototype.checkPassword = function (password) {
     return bcrypt.compareSync(password, this.password_hash || "");

@@ -6,6 +6,7 @@
   <h1 class="mt-2 mb-4">{{ museum.name if museum else 'Nouveau musée' }}</h1>
 
   <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
     <div class="mb-3">
       <label class="form-label">Nom *</label>
       <input class="form-control" name="name" value="{{ museum.name if museum else '' }}" required>

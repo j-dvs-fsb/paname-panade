@@ -19,6 +19,16 @@ const dbDiscrete =
       }
     : null;
 
+const isProduction = process.env.NODE_ENV === "production";
+
+// En production, un vrai secret de session est obligatoire (signe les cookies).
+if (isProduction && (!process.env.SECRET_KEY || process.env.SECRET_KEY.length < 32)) {
+  throw new Error(
+    "SECRET_KEY manquante ou trop courte (32 caractères minimum) — " +
+      'génère-la avec : node -e "console.log(require(\'crypto\').randomBytes(48).toString(\'base64url\'))"'
+  );
+}
+
 const config = {
   baseDir: BASE_DIR,
   secretKey: process.env.SECRET_KEY || "dev-change-me-in-production",

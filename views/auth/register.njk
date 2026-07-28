@@ -4,6 +4,7 @@
 <div class="container py-5" style="max-width:420px">
   <h1 class="mb-4">Inscription</h1>
   <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
     <div class="mb-3">
       <label class="form-label">Prénom</label>
       <input type="text" name="prenom" class="form-control" value="{{ form.prenom or '' }}" required>
@@ -19,7 +20,8 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Mot de passe</label>
-      <input type="password" name="password" class="form-control" minlength="6" required>
+      <input type="password" name="password" class="form-control" minlength="8" autocomplete="new-password" required>
+      <div class="form-text">8 caractères minimum.</div>
     </div>
     <button class="btn btn-ink w-100">Créer mon compte</button>
   </form>
