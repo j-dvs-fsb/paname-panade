@@ -29,9 +29,24 @@ en clair doit être **changé** (il a été exposé).
 ## 3. Réglages du site Node.js (Manager)
 - **Version de Node** : LTS récente (≥ 20).
 - **Dossier d'exécution** : racine du dépôt (où se trouve `package.json`).
-- **Commande de build** : `npm install`
+- **Commande de build** : `npm ci --omit=dev`
 - **Commande de lancement** : `npm start`
 - **Point d'entrée** : `server.js` (écoute sur `process.env.PORT`).
+
+> ⚠️ **`npm ci`, jamais `npm install`.** Cette commande est rejouée à chaque
+> construction. `npm install` peut réécrire `package.json` et `package-lock.json`
+> sur le serveur : le dépôt et la machine divergent, `git pull` se met à refuser
+> de s'appliquer, et `node_modules` finit reconstruit depuis un lock qui n'est
+> plus celui du dépôt. `npm ci` lit le lock sans jamais le modifier et reconstruit
+> `node_modules` à l'identique.
+>
+> `--omit=dev` écarte `sqlite3`, réservé au développement : sa compilation native
+> échoue souvent en mutualisé, et la production utilise MariaDB.
+>
+> Si `npm ci` échoue en signalant un décalage entre `package.json` et le lock,
+> c'est que le lock n'a pas été régénéré après une modification des dépendances.
+> Corriger dans le dépôt (`npm install` en local, puis committer le lock), jamais
+> sur le serveur.
 
 ## 4. Première mise en ligne (sans commande SSH)
 Au **premier démarrage** l'app s'initialise seule (cf. `src/bootstrap.js`) :
