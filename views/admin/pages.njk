@@ -1,0 +1,25 @@
+{% extends "base.njk" %}
+{% block title %}Admin · Pages — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <a href="{{ url_for('admin.dashboard') }}" class="muted small">← Back-office</a>
+  <h1 class="mt-2 mb-4">Pages</h1>
+
+  <table class="table align-middle">
+    <thead>
+      <tr><th>Titre</th><th>Adresse</th><th class="text-end">Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for page in pages %}
+        <tr>
+          <td>{{ page.title }}</td>
+          <td><a href="/{{ page.slug }}" class="muted">/{{ page.slug }}</a></td>
+          <td class="text-end">
+            <a class="btn btn-outline-ink btn-sm" href="{{ url_for('admin.page_form', slug=page.slug) }}">Éditer</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

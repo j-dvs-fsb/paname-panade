@@ -11,6 +11,7 @@ const {
   Favorite,
   Visit,
   Credential,
+  Page,
   PRICE_LABELS,
   RESERVATION_LABELS,
   FREE_ACCESS_LABELS,
@@ -253,6 +254,34 @@ router.post("/utilisateurs/:id/supprimer", async (req, res) => {
 });
 
 // --- Sync « Que Faire à Paris » ---
+// --- Pages statiques (à propos, mentions légales, confidentialité) ---
+router.get("/pages", async (req, res) => {
+  const pages = await Page.findAll({ order: [["id", "ASC"]] });
+  res.render("admin/pages.njk", { pages });
+});
+
+router.get("/pages/:slug/edit", handlePageForm);
+router.post("/pages/:slug/edit", handlePageForm);
+
+async function handlePageForm(req, res) {
+  const page = await Page.findOne({ where: { slug: req.params.slug } });
+  if (!page) return res.status(404).render("404.njk");
+
+  if (req.method === "POST") {
+    const title = clean(req.body.title);
+    if (!title) {
+      req.flash("danger", "Le titre est obligatoire.");
+    } else {
+      page.title = title;
+      page.content = (req.body.content || "").trim();
+      await page.save();
+      req.flash("success", "Page enregistrée.");
+      return res.redirect(urlFor("admin.pages"));
+    }
+  }
+  res.render("admin/page_form.njk", { page });
+}
+
 router.post("/sync-qfap", async (req, res) => {
   const { runSync } = require("../services/sync");
   try {

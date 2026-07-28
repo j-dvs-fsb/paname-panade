@@ -5,8 +5,9 @@
 // - Création d'un compte admin depuis les variables d'env si aucun utilisateur n'existe.
 // Tout est idempotent : ne s'exécute que sur une base vide.
 
-const { Museum, User } = require("./models");
+const { Museum, User, Page } = require("./models");
 const { seedMuseums } = require("./services/seed");
+const { seedPages } = require("./services/defaultPages");
 
 async function bootstrap() {
   try {
@@ -16,6 +17,13 @@ async function bootstrap() {
     }
   } catch (e) {
     console.error("[bootstrap] Seed automatique échoué :", e.message);
+  }
+
+  try {
+    const { created } = await seedPages(Page);
+    if (created) console.log(`[bootstrap] Pages statiques créées : ${created}.`);
+  } catch (e) {
+    console.error("[bootstrap] Seed des pages échoué :", e.message);
   }
 
   const email = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();

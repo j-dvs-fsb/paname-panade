@@ -48,6 +48,8 @@ const ROUTES = {
   "admin.expo_toggle_status": (p) => `/admin/expositions/${take(p, "expo_id")}/statut`,
   "admin.expo_delete": (p) => `/admin/expositions/${take(p, "expo_id")}/supprimer`,
   "admin.museum_delete": (p) => `/admin/musees/${take(p, "museum_id")}/supprimer`,
+  "admin.pages": () => "/admin/pages",
+  "admin.page_form": (p) => `/admin/pages/${enc(take(p, "slug"))}/edit`,
   "admin.sync_qfap": () => "/admin/sync-qfap",
   "admin.sync_musees": () => "/admin/sync-musees",
 

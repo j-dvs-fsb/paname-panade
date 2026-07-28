@@ -1,0 +1,14 @@
+{% extends "base.njk" %}
+{% block title %}{{ page.title }} — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <h1 class="mb-4">{{ page.title }}</h1>
+      {# Contenu HTML édité par un admin dans le back-office. La CSP bloque
+         tout script inline sans nonce, donc rien d'exécutable ne peut passer. #}
+      {{ page.content | safe }}
+    </div>
+  </div>
+</div>
+{% endblock %}

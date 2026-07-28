@@ -3,7 +3,7 @@
 const express = require("express");
 const { Op } = require("sequelize");
 
-const { sequelize, User, Museum, Exposition, Favorite, Visit } = require("../models");
+const { sequelize, User, Museum, Exposition, Favorite, Visit, Page } = require("../models");
 const { requireLogin } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
 const { todayIso } = require("../lib/dates");
@@ -264,9 +264,14 @@ router.get("/profil", requireLogin, async (req, res) => {
   res.render("profile.njk", { prog, fun, visits, favorites });
 });
 
-// --- Pages statiques (pied de page) ---
-router.get("/a-propos", (req, res) => res.render("pages/about.njk"));
-router.get("/mentions-legales", (req, res) => res.render("pages/legal.njk"));
-router.get("/confidentialite", (req, res) => res.render("pages/privacy.njk"));
+// --- Pages statiques (pied de page), éditables depuis le back-office ---
+async function staticPage(req, res) {
+  const page = await Page.findOne({ where: { slug: req.path.slice(1) } });
+  if (!page) return res.status(404).render("404.njk");
+  res.render("page.njk", { page });
+}
+router.get("/a-propos", staticPage);
+router.get("/mentions-legales", staticPage);
+router.get("/confidentialite", staticPage);
 
 module.exports = router;
