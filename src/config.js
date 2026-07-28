@@ -1,10 +1,13 @@
 "use strict";
 
-require("dotenv").config();
-
 const path = require("path");
 
 const BASE_DIR = path.resolve(__dirname, "..");
+
+// Chemin explicite : dotenv cherche sinon dans le dossier courant du process,
+// qui n'est pas forcément la racine du projet selon la façon dont l'hébergeur
+// lance l'application.
+require("dotenv").config({ path: path.join(BASE_DIR, ".env") });
 
 // Variables DB séparées (préférées) : le mot de passe est pris tel quel, sans
 // encodage d'URL — pratique quand il contient un caractère spécial (@ : / …).
