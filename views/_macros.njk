@@ -12,6 +12,11 @@
       <div class="card-img-wrap">
         {% if expo.image %}
           <img src="{{ expo.image }}" class="card-img-top" alt="{{ expo.title }}">
+          {% if expo.is_current %}
+            {# Voile de couleur (duotone) : réservé aux expos en cours. La
+               couleur est attribuée par position via CSS (nth-child). #}
+            <span class="card-tint" aria-hidden="true"></span>
+          {% endif %}
         {% else %}
           <div class="card-img-placeholder">PP</div>
         {% endif %}

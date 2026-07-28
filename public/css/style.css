@@ -101,6 +101,9 @@ a:hover { color: #000; }
 }
 .muted { color: var(--muted); }
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+.footer-links a { color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--ink); text-decoration: underline; }
+.footer-links a + a { margin-left: 1rem; }
 
 /* Description d'expo : préserve les sauts de paragraphe du texte nettoyé */
 .expo-description { white-space: pre-line; }
@@ -218,3 +221,18 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
   padding: .3rem .55rem; font-size: .7rem; font-weight: 500;
   border-radius: 0; line-height: 1;
 }
+
+/* Voile de couleur sur les photos (N&B) des expos en cours — effet duotone.
+   La couleur cycle sur 5 par position dans la grille : avec 3 cartes par
+   rangée, deux cartes voisines (côte à côte, dessus/dessous ou en diagonale)
+   n'ont jamais la même couleur. Les expos terminées n'ont pas de voile
+   (le span n'est pas rendu). */
+.card-tint {
+  position: absolute; inset: 0;
+  opacity: .55; pointer-events: none;
+}
+.row > :nth-child(5n+1) .card-tint { background: #8C52FF; }
+.row > :nth-child(5n+2) .card-tint { background: #FFDE59; }
+.row > :nth-child(5n+3) .card-tint { background: #FF5757; }
+.row > :nth-child(5n+4) .card-tint { background: #7ED957; }
+.row > :nth-child(5n+5) .card-tint { background: #004AAD; }
