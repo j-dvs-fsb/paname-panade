@@ -57,9 +57,13 @@
   </main>
 
   <footer class="py-4 mt-5">
-    <div class="container d-flex justify-content-between flex-wrap">
-      <span><strong>Paname Panade</strong> — expos & musées gratuits pour les -26 ans à Paris.</span>
-      <span class="muted">Données : Ville de Paris (Que Faire à Paris ?) + sélection éditoriale.</span>
+    <div class="container d-flex justify-content-between flex-wrap gap-2">
+      <span><strong>Paname Panade</strong> - expos et musées gratuits pour les -26 ans à Paris</span>
+      <nav class="footer-links">
+        <a href="{{ url_for('main.about') }}">À propos</a>
+        <a href="{{ url_for('main.legal') }}">Mentions légales</a>
+        <a href="{{ url_for('main.privacy') }}">Politique de confidentialité</a>
+      </nav>
     </div>
   </footer>
 

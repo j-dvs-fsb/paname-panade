@@ -1,0 +1,39 @@
+{% extends "base.njk" %}
+{% block title %}Mentions légales — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <h1 class="mb-4">Mentions légales</h1>
+
+      <h2 class="h5 mt-4 mb-2">Éditeur du site</h2>
+      <p class="mb-1">[À compléter : nom ou raison sociale de l'éditeur]</p>
+      <p>Contact : [À compléter : adresse email de contact]</p>
+
+      <h2 class="h5 mt-4 mb-2">Directeur de la publication</h2>
+      <p>[À compléter]</p>
+
+      <h2 class="h5 mt-4 mb-2">Hébergement</h2>
+      <p>Infomaniak Network SA<br>
+      Rue Eugène-Marziano 25, 1227 Genève, Suisse<br>
+      <a href="https://www.infomaniak.com" rel="noopener">www.infomaniak.com</a></p>
+
+      <h2 class="h5 mt-4 mb-2">Contenus et propriété intellectuelle</h2>
+      <p>Les informations sur les expositions (titres, descriptions, visuels)
+      proviennent du jeu de données ouvert « Que Faire à Paris ? »
+      (<a href="https://opendata.paris.fr" rel="noopener">opendata.paris.fr</a>)
+      et des institutions culturelles concernées, qui restent titulaires des
+      droits sur leurs contenus. Le reste du site (textes, code, mise en page)
+      est la propriété de l'éditeur.</p>
+
+      <h2 class="h5 mt-4 mb-2">Responsabilité</h2>
+      <p>Les informations pratiques (dates, horaires, conditions de gratuité)
+      sont fournies à titre indicatif et peuvent changer sans préavis.
+      Vérifie sur le site officiel du musée avant de te déplacer.</p>
+
+      <p class="muted small mt-5">Voir aussi la
+      <a href="{{ url_for('main.privacy') }}">politique de confidentialité</a>.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

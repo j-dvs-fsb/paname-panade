@@ -264,4 +264,9 @@ router.get("/profil", requireLogin, async (req, res) => {
   res.render("profile.njk", { prog, fun, visits, favorites });
 });
 
+// --- Pages statiques (pied de page) ---
+router.get("/a-propos", (req, res) => res.render("pages/about.njk"));
+router.get("/mentions-legales", (req, res) => res.render("pages/legal.njk"));
+router.get("/confidentialite", (req, res) => res.render("pages/privacy.njk"));
+
 module.exports = router;
