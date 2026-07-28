@@ -1,0 +1,52 @@
+{% extends "base.njk" %}
+{% block title %}Mes passkeys — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:520px">
+  <a href="{{ url_for('auth.account') }}" class="muted small">← Mon compte</a>
+  <h1 class="mt-2 mb-2">Mes passkeys</h1>
+  <p class="muted">Connecte-toi sans mot de passe avec l'empreinte, le visage ou le code de ton appareil.</p>
+
+  <button class="btn btn-ink mb-4" id="add-passkey">+ Ajouter une passkey</button>
+
+  {% if creds %}
+    <ul class="list-unstyled">
+      {% for c in creds %}
+        <li class="border-bottom py-2 d-flex justify-content-between align-items-center">
+          <span>{{ c.label or 'Passkey' }} <span class="muted small">· ajoutée le {{ c.created_at | dmy }}</span></span>
+          <form method="post" action="{{ url_for('auth.passkey_delete', passkey_id=c.id) }}" data-confirm="Supprimer cette passkey ?">
+            <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+            <button class="btn btn-link btn-sm p-0 text-danger">Suppr.</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">Aucune passkey pour l'instant.</p>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/@simplewebauthn/browser@13/dist/bundle/index.umd.min.js"></script>
+<script nonce="{{ csp_nonce }}">
+  document.getElementById('add-passkey').addEventListener('click', async () => {
+    if (!window.SimpleWebAuthnBrowser) { alert('Passkeys non supportées par ce navigateur.'); return; }
+    const label = prompt('Nom de cette passkey (ex. iPhone, MacBook) ?', '') || '';
+    const headers = { 'Content-Type': 'application/json', 'X-CSRF-Token': '{{ csrf_token() }}' };
+    try {
+      const options = await (await fetch('/compte/passkeys/options', {
+        method: 'POST', headers, body: '{}'
+      })).json();
+      const credential = await SimpleWebAuthnBrowser.startRegistration({ optionsJSON: options });
+      const out = await (await fetch('/compte/passkeys/verify', {
+        method: 'POST', headers,
+        body: JSON.stringify({ credential, label })
+      })).json();
+      if (out.ok) location.reload();
+      else alert('Échec : ' + (out.error || 'inconnu'));
+    } catch (e) {
+      alert('Annulé : ' + e.message);
+    }
+  });
+</script>
+{% endblock %}

@@ -7,6 +7,7 @@ const Museum = require("./museum")(sequelize);
 const Exposition = require("./exposition")(sequelize);
 const Favorite = require("./favorite")(sequelize);
 const Visit = require("./visit")(sequelize);
+const Credential = require("./credential")(sequelize);
 
 // --- Associations (alias = noms des backref SQLAlchemy, pour parité des templates) ---
 Museum.hasMany(Exposition, { as: "expositions", foreignKey: "museum_id", onDelete: "CASCADE" });
@@ -24,6 +25,9 @@ Favorite.belongsTo(User, { as: "user", foreignKey: "user_id" });
 User.hasMany(Visit, { as: "visits", foreignKey: "user_id", onDelete: "CASCADE" });
 Visit.belongsTo(User, { as: "user", foreignKey: "user_id" });
 
+User.hasMany(Credential, { as: "credentials", foreignKey: "user_id", onDelete: "CASCADE" });
+Credential.belongsTo(User, { as: "user", foreignKey: "user_id" });
+
 const {
   FREE_ACCESS_LABELS,
   PRICE_LABELS,
@@ -37,6 +41,7 @@ module.exports = {
   Exposition,
   Favorite,
   Visit,
+  Credential,
   FREE_ACCESS_LABELS,
   PRICE_LABELS,
   RESERVATION_LABELS,
