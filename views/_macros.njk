@@ -6,12 +6,21 @@
   </span>
 {% endmacro %}
 
-{% macro expo_card(expo) %}
+{# `eager` : à passer pour la première carte de la page — l'image est au-dessus
+   de la ligne de flottaison, la charger paresseusement retarderait l'affichage. #}
+{% macro expo_card(expo, eager=false) %}
   <div class="col-md-4 mb-4">
     <div class="card h-100">
       <div class="card-img-wrap">
-        {% if expo.image %}
-          <img src="{{ expo.image }}" class="card-img-top" alt="{{ expo.title }}">
+        {% set img = img_url(expo.image) %}
+        {% if img %}
+          {# width/height explicites : la place est réservée avant le
+             chargement, plus de saut de mise en page (CLS). #}
+          <img src="{{ img }}" class="card-img-top" alt="{{ expo.title }}"
+               width="400" height="170"
+               loading="{{ 'eager' if eager else 'lazy' }}"
+               {% if eager %}fetchpriority="high"{% endif %}
+               decoding="async">
           {% if expo.is_current %}
             {# Voile de couleur (duotone) : réservé aux expos en cours. La
                couleur est attribuée par position via CSS (nth-child). #}

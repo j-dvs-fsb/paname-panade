@@ -33,7 +33,7 @@
   <h3 class="mt-5 mb-3">Expositions en cours</h3>
   <div class="row">
     {% for expo in current %}
-      {{ expo_card(expo) }}
+      {{ expo_card(expo, loop.first) }}
     {% else %}
       <p class="muted">Pas d'exposition en cours pour ce musée.</p>
     {% endfor %}

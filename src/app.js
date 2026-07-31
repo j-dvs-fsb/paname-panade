@@ -43,7 +43,17 @@ function createApp() {
           ],
           scriptSrcAttr: ["'none'"],
           styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://unpkg.com"],
-          imgSrc: ["*", "data:", "blob:"], // images d'expos/musées + tuiles de carte externes
+          // Les visuels d'expos et de musées passent désormais par /img, donc
+          // par notre origine. Ne restent en externe que les tuiles de carte
+          // et les icônes de marqueur livrées avec Leaflet (chargées par sa
+          // feuille de style, en chemin relatif au CDN).
+          imgSrc: [
+            "'self'",
+            "data:",
+            "blob:",
+            "https://*.basemaps.cartocdn.com",
+            "https://unpkg.com",
+          ],
           connectSrc: ["'self'"],
           fontSrc: ["'self'", "data:", "https://cdn.jsdelivr.net"],
           objectSrc: ["'none'"],
@@ -103,6 +113,7 @@ function createApp() {
   });
 
   // Routeurs
+  app.use("/", require("./routes/img"));
   app.use("/", require("./routes/main"));
   app.use("/", require("./routes/auth"));
   app.use("/", require("./routes/passkeys"));

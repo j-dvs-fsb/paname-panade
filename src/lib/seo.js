@@ -8,6 +8,7 @@
 
 const config = require("../config");
 const { cleanValue, safeUrl } = require("./values");
+const { proxyUrl } = require("../services/imageCache");
 
 const SITE_NAME = "Paname Panade";
 const DEFAULT_DESCRIPTION =
@@ -40,6 +41,13 @@ function metaDescription(text, max = 155) {
   return kept.replace(/[\s,;:.!?–—-]+$/, "") + "…";
 }
 
+// Image de partage : passée par notre proxy et rendue absolue, comme les
+// visuels de page — plus aucun lien direct vers un CDN externe dans le HTML.
+function shareImage(req, src) {
+  const proxied = proxyUrl(src);
+  return proxied ? absoluteUrl(req, proxied) : null;
+}
+
 // Objet consommé par base.njk. `jsonld` est déjà sérialisé et échappé.
 function pageMeta(req, options = {}) {
   const url = options.url ? absoluteUrl(req, options.url) : absoluteUrl(req, req.originalUrl.split("?")[0]);
@@ -49,7 +57,7 @@ function pageMeta(req, options = {}) {
     description: cleanValue(options.description) || DEFAULT_DESCRIPTION,
     url,
     canonical: options.canonical ? absoluteUrl(req, options.canonical) : url,
-    image: safeUrl(options.image) || null,
+    image: shareImage(req, options.image),
     og_type: options.og_type || "website",
     robots: options.robots || null,
     jsonld: options.jsonld ? serializeJsonLd(options.jsonld) : null,
@@ -162,6 +170,7 @@ module.exports = {
   DEFAULT_DESCRIPTION,
   origin,
   absoluteUrl,
+  shareImage,
   metaDescription,
   pageMeta,
   expoJsonLd,

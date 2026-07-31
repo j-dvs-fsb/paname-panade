@@ -5,6 +5,7 @@ const nunjucks = require("nunjucks");
 
 const { urlFor } = require("./lib/urls");
 const { formatFrDate } = require("./lib/dates");
+const { proxyUrl } = require("./services/imageCache");
 
 // Configure Nunjucks sur le dossier views/ et branche le moteur à Express.
 function configure(app) {
@@ -26,6 +27,13 @@ function configure(app) {
   });
 
   env.addFilter("fr_date", formatFrDate);
+
+  // Passe une image externe par notre proxy (cf. services/imageCache).
+  // Renvoie null si la source est inexploitable : au template d'afficher son
+  // propre placeholder plutôt qu'un <img> vide.
+  env.addGlobal("img_url", function (src) {
+    return proxyUrl(src);
+  });
 
   // dd/mm/yyyy (remplace value.strftime('%d/%m/%Y') côté Jinja).
   env.addFilter("dmy", function (value) {

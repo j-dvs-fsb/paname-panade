@@ -110,7 +110,7 @@ router.get("/musee/:slug", async (req, res) => {
     image: museum.image_url,
     jsonld: seo.museumJsonLd(museum, {
       url: seo.absoluteUrl(req, url),
-      image: museum.image_url,
+      image: seo.shareImage(req, museum.image_url),
     }),
   });
   res.render("museum_detail.njk", { museum });
@@ -278,7 +278,7 @@ router.get("/exposition/:slug", async (req, res) => {
     canonical: urlFor("main.expo_detail", { slug: reference.slug }),
     og_type: "article",
     image: expo.image,
-    jsonld: seo.expoJsonLd(expo, { url: absolute, image: expo.image }),
+    jsonld: seo.expoJsonLd(expo, { url: absolute, image: seo.shareImage(req, expo.image) }),
   });
   res.render("expo_detail.njk", {
     expo,

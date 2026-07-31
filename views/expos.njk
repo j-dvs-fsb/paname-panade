@@ -26,7 +26,7 @@
   </div>
   <div class="row">
     {% for expo in expos %}
-      {{ expo_card(expo) }}
+      {{ expo_card(expo, loop.first) }}
     {% else %}
       <p class="muted">Aucune exposition trouvée.</p>
     {% endfor %}

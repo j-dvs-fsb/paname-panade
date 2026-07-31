@@ -23,9 +23,13 @@
           <span class="muted small">({{ expo.rating_count }} avis)</span></p>
       {% endif %}
 
-      {% if expo.image %}
-        <div class="card-img-wrap mb-3">
-          <img src="{{ expo.image }}" class="img-fluid" style="filter:grayscale(100%)" alt="{{ expo.title }}">
+      {% set img = img_url(expo.image) %}
+      {% if img %}
+        {# Ratio fixé en CSS + width/height : la hauteur est connue avant le
+           chargement. Image principale de la page, donc chargée sans délai. #}
+        <div class="card-img-wrap expo-hero mb-3">
+          <img src="{{ img }}" alt="{{ expo.title }}" width="1200" height="800"
+               loading="eager" fetchpriority="high" decoding="async">
           {% if expo.is_permanent %}<span class="img-tag">Exposition permanente</span>{% endif %}
         </div>
       {% endif %}
