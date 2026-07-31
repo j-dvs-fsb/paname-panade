@@ -9,6 +9,7 @@ const Favorite = require("./favorite")(sequelize);
 const Visit = require("./visit")(sequelize);
 const Credential = require("./credential")(sequelize);
 const Page = require("./page")(sequelize);
+const Report = require("./report")(sequelize);
 
 // --- Associations (alias = noms des backref SQLAlchemy, pour parité des templates) ---
 Museum.hasMany(Exposition, { as: "expositions", foreignKey: "museum_id", onDelete: "CASCADE" });
@@ -29,10 +30,16 @@ Visit.belongsTo(User, { as: "user", foreignKey: "user_id" });
 User.hasMany(Credential, { as: "credentials", foreignKey: "user_id", onDelete: "CASCADE" });
 Credential.belongsTo(User, { as: "user", foreignKey: "user_id" });
 
+// Un signalement pointe une expo (ou rien, pour une suggestion libre). La fiche
+// peut disparaître avant le traitement : le signalement reste, sans rattachement.
+Exposition.hasMany(Report, { as: "reports", foreignKey: "exposition_id", onDelete: "SET NULL" });
+Report.belongsTo(Exposition, { as: "exposition", foreignKey: "exposition_id" });
+
 const {
   FREE_ACCESS_LABELS,
   PRICE_LABELS,
   RESERVATION_LABELS,
+  REPORT_PROBLEM_LABELS,
 } = require("./labels");
 
 module.exports = {
@@ -44,7 +51,9 @@ module.exports = {
   Visit,
   Credential,
   Page,
+  Report,
   FREE_ACCESS_LABELS,
   PRICE_LABELS,
   RESERVATION_LABELS,
+  REPORT_PROBLEM_LABELS,
 };

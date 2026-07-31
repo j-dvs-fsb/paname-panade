@@ -18,6 +18,8 @@ const ROUTES = {
   "main.privacy": () => "/confidentialite",
   "main.sitemap": () => "/sitemap.xml",
   "main.robots": () => "/robots.txt",
+  "main.suggest": () => "/suggerer",
+  "main.report_expo": (p) => `/exposition/${take(p, "expo_id")}/signaler`,
   "main.expo_detail": (p) => `/exposition/${enc(take(p, "slug"))}`,
   "main.museum_detail": (p) => `/musee/${enc(take(p, "slug"))}`,
   "main.toggle_favorite": (p) => `/exposition/${take(p, "expo_id")}/favori`,
@@ -54,6 +56,9 @@ const ROUTES = {
   "admin.page_form": (p) => `/admin/pages/${enc(take(p, "slug"))}/edit`,
   "admin.sync_qfap": () => "/admin/sync-qfap",
   "admin.sync_musees": () => "/admin/sync-musees",
+  "admin.reports": () => "/admin/signalements",
+  "admin.report_status": (p) => `/admin/signalements/${take(p, "report_id")}/statut`,
+  "admin.report_delete": (p) => `/admin/signalements/${take(p, "report_id")}/supprimer`,
 
   static: (p) => "/static/" + String(take(p, "filename") || "").replace(/^\/+/, ""),
 };

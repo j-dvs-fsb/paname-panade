@@ -84,6 +84,14 @@ aucune donnée personnelle. Il n'y a ni mesure d'audience, ni publicité.</p>
 <p>Si tu ajoutes une <strong>passkey</strong>, seule une clé publique est
 enregistrée. Aucune donnée biométrique ne quitte ton appareil.</p>
 
+<h2 class="h5 mt-5 mb-2">Signalements et suggestions</h2>
+<p>Quand tu signales une erreur sur une fiche ou proposes une expo, seuls
+le contenu du message, la fiche concernée et la date d'envoi sont
+enregistrés. L'email est <strong>facultatif</strong> : ne le renseigne que
+si tu veux une réponse. Sans lui, l'envoi est totalement anonyme — ni
+adresse IP, ni identifiant de visiteur. Les signalements traités sont
+supprimés au fil de l'eau.</p>
+
 <h2 class="h5 mt-5 mb-2">Cookies</h2>
 <p>Un unique cookie de session, strictement nécessaire à la connexion,
 valable 30 jours. C'est tout.</p>

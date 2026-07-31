@@ -107,6 +107,15 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
 
 /* Description d'expo : préserve les sauts de paragraphe du texte nettoyé */
 .expo-description { white-space: pre-line; }
+/* Pot de miel anti-spam : hors écran plutôt que display:none, que certains
+   robots savent détecter. Jamais lu par un lecteur d'écran (aria-hidden). */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 /* Accroche éditoriale : l'angle « gratuit -26 ans », au-dessus de la
    description reprise du jeu de données. */
 .expo-angle {

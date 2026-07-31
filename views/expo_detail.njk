@@ -137,6 +137,39 @@
     </div>
   </div>
 
+  {# Signalement d'erreur : <details> plutôt qu'un modal, aucun JS nécessaire. #}
+  <details class="report-box mt-5">
+    <summary class="muted small">Une erreur sur cette fiche ? Signale-la</summary>
+    <form method="post" action="{{ url_for('main.report_expo', expo_id=expo.id) }}" class="mt-3" style="max-width:520px">
+      <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+
+      {# Pot de miel : masqué en CSS, jamais rempli par un humain. #}
+      <div class="hp-field" aria-hidden="true">
+        <label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label small">Type de problème</label>
+        <select class="form-select form-select-sm" name="problem">
+          {% for key, label in report_problems %}
+            <option value="{{ key }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-2">
+        <label class="form-label small">Ce qui ne va pas *</label>
+        <textarea class="form-control form-control-sm" name="message" rows="3" required
+                  minlength="10" maxlength="2000"
+                  placeholder="Ex. l'expo est terminée depuis le 3 mai, le lien de réservation ne marche plus…"></textarea>
+      </div>
+      <div class="mb-2">
+        <label class="form-label small">Ton email <span class="muted">(facultatif)</span></label>
+        <input type="email" class="form-control form-control-sm" name="email" maxlength="255">
+      </div>
+      <button class="btn btn-outline-ink btn-sm" data-busy="Envoi…">Envoyer le signalement</button>
+    </form>
+  </details>
+
   {% if reviews %}
     <h3 class="mt-5 mb-3">Avis ({{ reviews|length }})</h3>
     {% for r in reviews %}

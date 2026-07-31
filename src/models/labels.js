@@ -22,4 +22,18 @@ const RESERVATION_LABELS = {
   non_necessaire: "Sans réservation",
 };
 
-module.exports = { FREE_ACCESS_LABELS, PRICE_LABELS, RESERVATION_LABELS };
+// Type de problème signalé sur une fiche (clé stockée -> libellé affiché).
+const REPORT_PROBLEM_LABELS = {
+  date: "Dates incorrectes",
+  horaire: "Horaires incorrects",
+  lien: "Lien mort ou erroné",
+  gratuite: "Conditions de gratuité fausses",
+  autre: "Autre",
+};
+
+module.exports = {
+  FREE_ACCESS_LABELS,
+  PRICE_LABELS,
+  RESERVATION_LABELS,
+  REPORT_PROBLEM_LABELS,
+};

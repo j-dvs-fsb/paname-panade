@@ -115,6 +115,7 @@ function createApp() {
   // Routeurs
   app.use("/", require("./routes/img"));
   app.use("/", require("./routes/main"));
+  app.use("/", require("./routes/reports"));
   app.use("/", require("./routes/auth"));
   app.use("/", require("./routes/passkeys"));
   app.use("/admin", require("./routes/admin"));

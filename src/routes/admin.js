@@ -12,9 +12,11 @@ const {
   Visit,
   Credential,
   Page,
+  Report,
   PRICE_LABELS,
   RESERVATION_LABELS,
   FREE_ACCESS_LABELS,
+  REPORT_PROBLEM_LABELS,
 } = require("../models");
 const { requireAdmin } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
@@ -73,6 +75,7 @@ router.get("/", async (req, res) => {
     expos: await Exposition.count(),
     expos_draft: await Exposition.count({ where: { status: "draft" } }),
     museums: await Museum.count(),
+    reports: await Report.count({ where: { status: "nouveau" } }),
   };
   const drafts = await Exposition.findAll({
     where: { status: "draft" },
@@ -290,6 +293,40 @@ async function handlePageForm(req, res) {
   }
   res.render("admin/page_form.njk", { page });
 }
+
+// --- Signalements & suggestions ---
+router.get("/signalements", async (req, res) => {
+  const status = req.query.status === "traite" ? "traite" : "nouveau";
+  const reports = await Report.findAll({
+    where: { status },
+    include: [{ model: Exposition, as: "exposition", attributes: ["slug", "title"] }],
+    order: [["id", "DESC"]],
+    limit: 200,
+  });
+  res.render("admin/reports.njk", {
+    reports,
+    status,
+    problem_labels: REPORT_PROBLEM_LABELS,
+    pending: await Report.count({ where: { status: "nouveau" } }),
+  });
+});
+
+router.post("/signalements/:id/statut", async (req, res) => {
+  const report = await Report.findByPk(req.params.id);
+  if (!report) return res.status(404).render("404.njk");
+  report.status = report.status === "traite" ? "nouveau" : "traite";
+  await report.save();
+  req.flash("info", report.status === "traite" ? "Signalement traité." : "Signalement rouvert.");
+  res.redirect(req.get("referer") || urlFor("admin.reports"));
+});
+
+router.post("/signalements/:id/supprimer", async (req, res) => {
+  const report = await Report.findByPk(req.params.id);
+  if (!report) return res.status(404).render("404.njk");
+  await report.destroy();
+  req.flash("info", "Signalement supprimé.");
+  res.redirect(req.get("referer") || urlFor("admin.reports"));
+});
 
 router.post("/sync-qfap", async (req, res) => {
   const { runSync } = require("../services/sync");

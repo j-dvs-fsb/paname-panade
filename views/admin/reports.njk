@@ -1,0 +1,51 @@
+{% extends "base.njk" %}
+{% block title %}Admin · Signalements{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <a href="{{ url_for('admin.dashboard') }}" class="muted small">← Back-office</a>
+  <h1 class="mt-2 mb-4">Signalements et suggestions</h1>
+
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="filter-tile {{ 'filter-tile--active' if status == 'nouveau' else '' }}"
+       href="{{ url_for('admin.reports') }}">À traiter{% if pending %} ({{ pending }}){% endif %}</a>
+    <a class="filter-tile {{ 'filter-tile--active' if status == 'traite' else '' }}"
+       href="{{ url_for('admin.reports', status='traite') }}">Traités</a>
+  </div>
+
+  {% for r in reports %}
+    <div class="border-bottom py-3">
+      <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+        <div>
+          <span class="badge badge-free">{{ 'SUGGESTION' if r.kind == 'suggestion' else 'ERREUR' }}</span>
+          {% if r.exposition %}
+            <a href="{{ url_for('main.expo_detail', slug=r.exposition.slug) }}">{{ r.exposition.title }}</a>
+          {% elif r.kind == 'erreur' %}
+            <span class="muted">fiche supprimée depuis</span>
+          {% endif %}
+          {% if r.problem and r.kind == 'erreur' %}
+            <span class="muted small">· {{ problem_labels[r.problem] or r.problem }}</span>
+          {% endif %}
+          <span class="muted small">· {{ r.created_at | dmy }}</span>
+        </div>
+        <div class="d-flex gap-2">
+          <form method="post" action="{{ url_for('admin.report_status', report_id=r.id) }}">
+            <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+            <button class="btn btn-outline-ink btn-sm">{{ 'Rouvrir' if r.status == 'traite' else 'Marquer traité' }}</button>
+          </form>
+          <form method="post" action="{{ url_for('admin.report_delete', report_id=r.id) }}"
+                data-confirm="Supprimer définitivement ce signalement ?">
+            <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+            <button class="btn btn-link btn-sm p-0 text-danger">Suppr.</button>
+          </form>
+        </div>
+      </div>
+      <p class="mb-1 mt-2" style="white-space:pre-line">{{ r.message }}</p>
+      {% if r.email %}
+        <p class="muted small mb-0">Réponse attendue à <a href="mailto:{{ r.email }}">{{ r.email }}</a></p>
+      {% endif %}
+    </div>
+  {% else %}
+    <p class="muted">{{ 'Rien à traiter.' if status == 'nouveau' else 'Aucun signalement traité.' }}</p>
+  {% endfor %}
+</div>
+{% endblock %}

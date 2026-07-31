@@ -34,4 +34,14 @@ const optionsLimiter = rateLimit({
   handler,
 });
 
-module.exports = { authLimiter, optionsLimiter };
+// Signalements et suggestions : 8 envois / heure / IP. Assez pour signaler
+// plusieurs fiches d'affilée de bonne foi, trop peu pour inonder la file.
+const reportLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  limit: 8,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  handler,
+});
+
+module.exports = { authLimiter, optionsLimiter, reportLimiter };

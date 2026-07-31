@@ -3,7 +3,16 @@
 const express = require("express");
 const { Op } = require("sequelize");
 
-const { sequelize, User, Museum, Exposition, Favorite, Visit, Page } = require("../models");
+const {
+  sequelize,
+  User,
+  Museum,
+  Exposition,
+  Favorite,
+  Visit,
+  Page,
+  REPORT_PROBLEM_LABELS,
+} = require("../models");
 const { requireLogin } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
 const { todayIso } = require("../lib/dates");
@@ -286,6 +295,7 @@ router.get("/exposition/:slug", async (req, res) => {
     visit,
     reviews,
     other_sessions: otherSessions,
+    report_problems: REPORT_PROBLEM_LABELS,
   });
 });
 

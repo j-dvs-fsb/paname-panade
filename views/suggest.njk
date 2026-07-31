@@ -1,0 +1,38 @@
+{% extends "base.njk" %}
+{% block title %}Suggérer une expo — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:620px">
+  <h1 class="mb-2">Suggérer une expo</h1>
+  <p class="muted">
+    Une expo gratuite qui manque au site ? Une bonne adresse, un musée oublié,
+    une reco à partager ? Écris-la ici — c'est lu, et ajouté si ça colle.
+  </p>
+
+  <form method="post" class="mt-4">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+
+    {# Pot de miel : masqué en CSS, jamais rempli par un humain. #}
+    <div class="hp-field" aria-hidden="true">
+      <label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Ta suggestion *</label>
+      <textarea class="form-control" name="message" rows="6" required minlength="10" maxlength="2000"
+                placeholder="Nom de l'expo ou du musée, où, jusqu'à quand, et pourquoi ça vaut le détour…">{{ form.message or '' }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Ton email <span class="muted small">(facultatif, seulement si tu veux une réponse)</span></label>
+      <input type="email" class="form-control" name="email" value="{{ form.email or '' }}" maxlength="255">
+    </div>
+
+    <button class="btn btn-ink" data-busy="Envoi…">Envoyer</button>
+  </form>
+
+  <p class="muted small mt-4">
+    Rien d'autre n'est enregistré : ni ton adresse IP, ni de traceur. Si tu ne
+    laisses pas d'email, la suggestion est totalement anonyme.
+  </p>
+</div>
+{% endblock %}
