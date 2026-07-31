@@ -43,6 +43,10 @@ const config = {
     "sqlite:" + path.join(BASE_DIR, "instance", "paname.sqlite"),
   sqlLog: (process.env.SQL_LOG || "false").toLowerCase() === "true",
   isProduction: process.env.NODE_ENV === "production",
+  // Origine publique (https://paname-panade.fr) : fige le domaine des URL
+  // canoniques, du sitemap et des balises Open Graph. À défaut, dérivée de la
+  // requête — correct tant qu'on n'est servi que par un seul domaine.
+  siteUrl: (process.env.SITE_URL || "").trim().replace(/\/+$/, "") || null,
 };
 
 module.exports = config;

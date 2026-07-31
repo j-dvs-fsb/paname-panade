@@ -116,6 +116,22 @@ module.exports = (sequelize) => {
     return cleanValue(this.description);
   });
 
+  // Phrase éditoriale propre au site : les fiches reprennent toutes la même
+  // description que le jeu de données de la Ville de Paris, ce qui les rend
+  // dupliquées aux yeux des moteurs. Cette ligne dit ce qu'on apporte en plus
+  // — la condition de gratuité — et varie selon l'expo.
+  def("editorial_note", function () {
+    const where = this.museum ? this.museum.name : this.venue_label;
+    const lieu = where ? ` à ${where}` : " à Paris";
+    if (this.price_category === "gratuit_26") {
+      return `Exposition gratuite pour les moins de 26 ans${lieu} : entrée libre sur présentation d'une pièce d'identité, plein tarif au-delà.`;
+    }
+    if (this.price_category === "reduit_26") {
+      return `Exposition à tarif réduit pour les moins de 26 ans${lieu}.`;
+    }
+    return `Exposition gratuite pour tout le monde${lieu}, sans condition d'âge ni de résidence.`;
+  });
+
   // Coordonnées carte : celles de l'expo, sinon celles du musée (si chargé).
   def("map_lat", function () {
     if (this.lat !== null && this.lat !== undefined) return this.lat;
@@ -133,6 +149,10 @@ module.exports = (sequelize) => {
   def("date_label", function () {
     if (this.is_permanent && !this.date_start && !this.date_end) return "En permanence";
     if (this.date_start && this.date_end) {
+      // Séance d'un seul jour : « Du X au X » n'apporte rien.
+      if (String(this.date_start).slice(0, 10) === String(this.date_end).slice(0, 10)) {
+        return `Le ${formatFrDate(this.date_start)}`;
+      }
       return `Du ${formatFrDate(this.date_start)} au ${formatFrDate(this.date_end)}`;
     }
     if (this.date_end) return `Jusqu'au ${formatFrDate(this.date_end)}`;

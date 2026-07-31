@@ -107,6 +107,14 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
 
 /* Description d'expo : préserve les sauts de paragraphe du texte nettoyé */
 .expo-description { white-space: pre-line; }
+/* Accroche éditoriale : l'angle « gratuit -26 ans », au-dessus de la
+   description reprise du jeu de données. */
+.expo-angle {
+  border-left: 3px solid var(--ink);
+  padding-left: .75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
 /* Coins de la carte Leaflet alignés sur la tuile */
 #expo-map { z-index: 0; }
 .leaflet-container { font: inherit; }

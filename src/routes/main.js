@@ -7,6 +7,7 @@ const { sequelize, User, Museum, Exposition, Favorite, Visit, Page } = require("
 const { requireLogin } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
 const { todayIso } = require("../lib/dates");
+const seo = require("../lib/seo");
 const stats = require("../services/stats");
 
 const router = express.Router();
@@ -37,6 +38,28 @@ function randomOrder() {
   return [sequelize.getDialect() === "mysql" ? sequelize.literal("RAND()") : sequelize.literal("RANDOM()")];
 }
 
+// --- Quasi-doublons ---
+// Le jeu de données publie une fiche par séance : « Visite + Chaillot
+// Expérience » existe en quatre exemplaires, même titre et même visuel, seules
+// les dates changent. Elles se cannibalisent dans les résultats de recherche.
+// On les regroupe par (titre, lieu) : la plus ancienne fiche fait référence,
+// les autres la déclarent en canonical et affichent les dates de la fratrie.
+function sessionKey(expo) {
+  const place = expo.museum_id != null ? `m${expo.museum_id}` : `v${expo.venue_name || ""}`;
+  return `${(expo.title || "").trim().toLowerCase()}|${place}`;
+}
+
+async function sessionSiblings(expo) {
+  const where = { title: expo.title, status: "published" };
+  if (expo.museum_id != null) where.museum_id = expo.museum_id;
+  else where.venue_name = expo.venue_name;
+  return Exposition.findAll({
+    where,
+    attributes: ["id", "slug", "title", "date_start", "date_end", "source"],
+    order: [["id", "ASC"]],
+  });
+}
+
 // --- Accueil ---
 router.get("/", async (req, res) => {
   const total_expos = await Exposition.count({ where: currentWhere() });
@@ -47,12 +70,26 @@ router.get("/", async (req, res) => {
     order: [["id", "DESC"]],
     limit: 6,
   });
+  res.locals.meta = seo.pageMeta(req, {
+    title: "Expos et musées gratuits à Paris pour les -26 ans",
+    description:
+      `${total_expos} expositions gratuites et ${total_museums} musées à Paris, ` +
+      "avec les dates, les horaires et les conditions de gratuité pour les moins de 26 ans.",
+    url: urlFor("main.index"),
+  });
   res.render("index.njk", { total_expos, total_museums, latest });
 });
 
 // --- Musées ---
 router.get("/musees", async (req, res) => {
   const museums = await Museum.findAll({ order: [["name", "ASC"]] });
+  res.locals.meta = seo.pageMeta(req, {
+    title: "Musées gratuits à Paris",
+    description:
+      "La liste des musées parisiens gratuits : collections permanentes en accès libre " +
+      "et musées gratuits pour les moins de 26 ans, arrondissement par arrondissement.",
+    url: urlFor("main.museums"),
+  });
   res.render("museums.njk", { museums });
 });
 
@@ -62,6 +99,20 @@ router.get("/musee/:slug", async (req, res) => {
     include: [{ model: Exposition, as: "expositions", include: [{ model: Visit, as: "visits" }] }],
   });
   if (!museum) return res.status(404).render("404.njk");
+  const url = urlFor("main.museum_detail", { slug: museum.slug });
+  res.locals.meta = seo.pageMeta(req, {
+    title: `${museum.name} — gratuit pour les -26 ans`,
+    description:
+      seo.metaDescription(museum.description) ||
+      `${museum.name} : expositions en cours, horaires et conditions de gratuité pour les moins de 26 ans.`,
+    url,
+    og_type: "article",
+    image: museum.image_url,
+    jsonld: seo.museumJsonLd(museum, {
+      url: seo.absoluteUrl(req, url),
+      image: museum.image_url,
+    }),
+  });
   res.render("museum_detail.njk", { museum });
 });
 
@@ -100,6 +151,13 @@ router.get("/radar", async (req, res) => {
   const arrondissements = Object.keys(groups).sort((a, b) => {
     const ka = arrSortKey(a), kb = arrSortKey(b);
     return ka[0] - kb[0] || ka[1] - kb[1] || a.localeCompare(b);
+  });
+  res.locals.meta = seo.pageMeta(req, {
+    title: "Radar — les musées gratuits sur la carte",
+    description:
+      "La carte des musées gratuits de Paris, arrondissement par arrondissement, " +
+      "avec le nombre d'expositions en cours dans chacun.",
+    url: urlFor("main.radar"),
   });
   res.render("radar.njk", { arrondissements, centroids });
 });
@@ -169,6 +227,17 @@ router.get("/expositions", async (req, res) => {
     order: [["title", "ASC"]],
   });
 
+  res.locals.meta = seo.pageMeta(req, {
+    title: "Toutes les expositions gratuites de Paris",
+    description:
+      "Les expositions gratuites à Paris en ce moment : dates, horaires, musée et " +
+      "conditions d'entrée, filtrables par type de gratuité.",
+    url: urlFor("main.expos"),
+    // Les combinaisons de filtres produisent autant d'URL que de croisements :
+    // toutes se déclarent canoniques vers la liste nue.
+    canonical: urlFor("main.expos"),
+    robots: q || active_prix.length || active_flags.length ? "noindex, follow" : null,
+  });
   res.render("expos.njk", {
     expos,
     q,
@@ -195,7 +264,29 @@ router.get("/exposition/:slug", async (req, res) => {
   const reviews = (expo.visits || [])
     .filter((v) => v.rating || v.comment)
     .sort((a, b) => new Date(b.visited_at || 0) - new Date(a.visited_at || 0));
-  res.render("expo_detail.njk", { expo, is_fav: isFavorite, visit, reviews });
+
+  const siblings = expo.status === "published" ? await sessionSiblings(expo) : [expo];
+  const reference = siblings.length ? siblings[0] : expo;
+  const otherSessions = siblings.filter((s) => s.id !== expo.id);
+
+  const url = urlFor("main.expo_detail", { slug: expo.slug });
+  const absolute = seo.absoluteUrl(req, url);
+  res.locals.meta = seo.pageMeta(req, {
+    title: `${expo.title}${expo.museum ? " — " + expo.museum.name : ""}`,
+    description: seo.metaDescription(expo.description_text) || expo.editorial_note,
+    url,
+    canonical: urlFor("main.expo_detail", { slug: reference.slug }),
+    og_type: "article",
+    image: expo.image,
+    jsonld: seo.expoJsonLd(expo, { url: absolute, image: expo.image }),
+  });
+  res.render("expo_detail.njk", {
+    expo,
+    is_fav: isFavorite,
+    visit,
+    reviews,
+    other_sessions: otherSessions,
+  });
 });
 
 // --- Favori / fait ---
@@ -268,10 +359,91 @@ router.get("/profil", requireLogin, async (req, res) => {
 async function staticPage(req, res) {
   const page = await Page.findOne({ where: { slug: req.path.slice(1) } });
   if (!page) return res.status(404).render("404.njk");
+  res.locals.meta = seo.pageMeta(req, {
+    title: page.title,
+    description: seo.metaDescription(page.content.replace(/<[^>]+>/g, " ")),
+    url: req.path,
+  });
   res.render("page.njk", { page });
 }
 router.get("/a-propos", staticPage);
 router.get("/mentions-legales", staticPage);
 router.get("/confidentialite", staticPage);
+
+// --- Sitemap & robots ---
+function xmlEscape(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+router.get("/sitemap.xml", async (req, res) => {
+  const entries = [
+    { path: urlFor("main.index"), priority: "1.0", changefreq: "daily" },
+    { path: urlFor("main.expos"), priority: "0.9", changefreq: "daily" },
+    { path: urlFor("main.museums"), priority: "0.8", changefreq: "weekly" },
+    { path: urlFor("main.radar"), priority: "0.5", changefreq: "monthly" },
+  ];
+
+  const museums = await Museum.findAll({ attributes: ["slug"], order: [["name", "ASC"]] });
+  for (const m of museums) {
+    entries.push({ path: urlFor("main.museum_detail", { slug: m.slug }), priority: "0.7", changefreq: "weekly" });
+  }
+
+  // Une seule URL par groupe de quasi-doublons : celle déclarée canonique par
+  // la fiche (cf. sessionSiblings), sinon on soumettrait des pages qu'on
+  // demande par ailleurs de ne pas indexer.
+  const expos = await Exposition.findAll({
+    where: currentWhere(),
+    attributes: ["id", "slug", "title", "museum_id", "venue_name", "date_end"],
+    order: [["id", "ASC"]],
+  });
+  const seen = new Set();
+  for (const expo of expos) {
+    const key = sessionKey(expo);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    entries.push({
+      path: urlFor("main.expo_detail", { slug: expo.slug }),
+      priority: "0.6",
+      changefreq: "weekly",
+    });
+  }
+
+  for (const slug of ["main.about", "main.legal", "main.privacy"]) {
+    entries.push({ path: urlFor(slug), priority: "0.2", changefreq: "yearly" });
+  }
+
+  const body = entries
+    .map(
+      (e) =>
+        `  <url><loc>${xmlEscape(seo.absoluteUrl(req, e.path))}</loc>` +
+        `<changefreq>${e.changefreq}</changefreq><priority>${e.priority}</priority></url>`
+    )
+    .join("\n");
+
+  res.type("application/xml");
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`);
+});
+
+router.get("/robots.txt", (req, res) => {
+  const lines = [
+    "User-agent: *",
+    "Allow: /",
+    "Disallow: /admin",
+    "Disallow: /compte",
+    "Disallow: /profil",
+    "Disallow: /connexion",
+    "Disallow: /inscription",
+    "Disallow: /deconnexion",
+    "Disallow: /au-hasard", // redirection aléatoire : rien à indexer
+    "",
+    `Sitemap: ${seo.absoluteUrl(req, "/sitemap.xml")}`,
+    "",
+  ];
+  res.type("text/plain").send(lines.join("\n"));
+});
 
 module.exports = router;

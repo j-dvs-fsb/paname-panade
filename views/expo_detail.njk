@@ -30,8 +30,25 @@
         </div>
       {% endif %}
 
+      {# Ligne éditoriale propre au site : évite une fiche 100 % dupliquée du
+         jeu de données de la Ville de Paris. #}
+      <p class="expo-angle">{{ expo.editorial_note }}</p>
+
       {% if expo.description_text %}
         <div class="expo-description">{{ expo.description_text }}</div>
+      {% endif %}
+
+      {% if other_sessions %}
+        <div class="stat-tile text-start mt-4">
+          <strong>Autres dates de cet événement</strong>
+          <ul class="list-unstyled mb-0 mt-2">
+            {% for s in other_sessions %}
+              <li class="py-1">
+                <a href="{{ url_for('main.expo_detail', slug=s.slug) }}">{{ s.date_label }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
       {% endif %}
     </div>
 

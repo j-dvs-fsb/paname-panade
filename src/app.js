@@ -13,6 +13,11 @@ const { sequelize } = require("./models");
 const nunjucksSetup = require("./nunjucks");
 const { loadUser } = require("./middleware/auth");
 const { csrfProtection } = require("./middleware/csrf");
+const { pageMeta } = require("./lib/seo");
+
+// Pages sans intérêt pour un moteur (ou strictement personnelles) : elles sont
+// déjà exclues par robots.txt, la balise meta est la ceinture et les bretelles.
+const PRIVATE_PATHS = /^\/(admin|compte|profil|connexion|inscription|deconnexion|au-hasard)/;
 
 function createApp() {
   const app = express();
@@ -91,6 +96,9 @@ function createApp() {
     for (const c of cats) for (const m of req.flash(c)) flashes.push({ category: c, message: m });
     res.locals.flashes = flashes;
     res.locals.request = { args: req.query, path: req.path };
+    // Métadonnées SEO par défaut : chaque route les affine, mais aucune page
+    // ne doit arriver dans base.njk sans description ni URL canonique.
+    res.locals.meta = pageMeta(req, { robots: PRIVATE_PATHS.test(req.path) ? "noindex, nofollow" : null });
     next();
   });
 
