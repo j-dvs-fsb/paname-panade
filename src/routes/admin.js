@@ -19,6 +19,7 @@ const {
 const { requireAdmin } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
 const { htmlToText } = require("../lib/text");
+const { cleanValue, coerceUrl } = require("../lib/values");
 const { nextLocalMuseumId } = require("../lib/dedup");
 const { toSlug } = require("../lib/slug");
 
@@ -50,9 +51,15 @@ function toFloat(value) {
   return Number.isNaN(f) ? null : f;
 }
 
+// Champ texte : null si vide (ou si le navigateur a renvoyé une sentinelle).
 function clean(value) {
-  const s = (value || "").trim();
-  return s || null;
+  return cleanValue(value);
+}
+
+// Champ URL : null si ce n'est pas une adresse http(s) exploitable, pour ne
+// jamais enregistrer un lien qui produirait un bouton mort sur les fiches.
+function cleanUrl(value) {
+  return coerceUrl(value);
 }
 
 function asList(v) {
@@ -116,8 +123,8 @@ async function handleExpoForm(req, res) {
     expo.date_start = parseDate(f.date_start);
     expo.date_end = parseDate(f.date_end);
     expo.schedule = clean(f.schedule);
-    expo.url = clean(f.url);
-    expo.image_url = clean(f.image_url);
+    expo.url = cleanUrl(f.url);
+    expo.image_url = cleanUrl(f.image_url);
     expo.venue_name = clean(f.venue_name);
     expo.address = clean(f.address);
     expo.postal_code = clean(f.postal_code);
@@ -125,7 +132,7 @@ async function handleExpoForm(req, res) {
     expo.lon = toFloat(f.lon);
     expo.price_category = f.price_category || "gratuit_tous";
     expo.reservation = f.reservation || "non_necessaire";
-    expo.reservation_url = clean(f.reservation_url);
+    expo.reservation_url = cleanUrl(f.reservation_url);
     expo.museum_id = f.museum_id ? parseInt(f.museum_id, 10) : null;
     expo.status = f.status === "published" ? "published" : "draft";
     await expo.save();
@@ -184,9 +191,11 @@ async function handleMuseumForm(req, res) {
     museum.description = clean(f.description);
     museum.address = clean(f.address);
     museum.arrondissement = clean(f.arrondissement);
-    museum.website = clean(f.website);
-    museum.expos_url = clean(f.expos_url);
-    museum.logo_url = clean(f.logo_url);
+    museum.website = cleanUrl(f.website);
+    museum.expos_url = cleanUrl(f.expos_url);
+    museum.logo_url = cleanUrl(f.logo_url);
+    museum.horaires = clean(f.horaires);
+    museum.horaires_url = cleanUrl(f.horaires_url);
     const valid = new Set(Object.keys(FREE_ACCESS_LABELS));
     museum.free_access = asList(f.free_access).filter((k) => valid.has(k)).join(",");
     museum.lat = toFloat(f.lat);

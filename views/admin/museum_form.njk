@@ -38,6 +38,15 @@
       <input class="form-control" name="logo_url" value="{{ museum.logo_url if museum else '' }}">
     </div>
     <div class="mb-3">
+      <label class="form-label">Horaires <span class="muted small">(repli pour les expos qui n'ont pas les leurs)</span></label>
+      <input class="form-control" name="horaires" value="{{ museum.horaires if museum else '' }}"
+             placeholder="Tous les jours sauf mardi, 10h–18h">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Page « horaires / infos pratiques » (URL)</label>
+      <input class="form-control" name="horaires_url" value="{{ museum.horaires_url if museum else '' }}">
+    </div>
+    <div class="mb-3">
       <label class="form-label d-block">Gratuité <span class="muted small">(plusieurs choix possibles)</span></label>
       {% set selected = museum.free_access_list if museum else [] %}
       {% for key, label in free_access_labels %}

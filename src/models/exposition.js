@@ -3,6 +3,7 @@
 const { DataTypes } = require("sequelize");
 const { PRICE_LABELS, RESERVATION_LABELS } = require("./labels");
 const { formatFrDate, todayIso } = require("../lib/dates");
+const { cleanValue, safeUrl } = require("../lib/values");
 
 module.exports = (sequelize) => {
   const Exposition = sequelize.define(
@@ -52,7 +53,67 @@ module.exports = (sequelize) => {
   // URL à afficher : copie locale si présente, sinon l'image distante.
   def("image", function () {
     if (this.image_local) return "/static/" + this.image_local;
-    return this.image_url;
+    return safeUrl(this.image_url);
+  });
+
+  // --- Champs d'affichage : jamais de valeur vide ni de lien mort ---
+  // Chaque getter renvoie null quand l'info manque ; les templates testent la
+  // valeur et masquent la ligne ou le bouton (au lieu d'afficher « None »).
+
+  // Adresse sur une ligne. Le code postal n'est ajouté que s'il est exploitable,
+  // et « Paris » que s'il n'y figure pas déjà (les adresses scrapées sont
+  // souvent complètes : « Rue de Rivoli, 75001 Paris »).
+  def("address_line", function () {
+    const parts = [cleanValue(this.address), cleanValue(this.postal_code)].filter(Boolean);
+    if (!parts.length) return null;
+    const line = parts.join(", ");
+    return /paris/i.test(line) ? line : `${line} Paris`;
+  });
+
+  // Horaires de l'expo, à défaut ceux du musée rattaché (s'il est chargé).
+  def("schedule_text", function () {
+    const own = cleanValue(this.schedule);
+    if (own) return own;
+    return this.museum ? cleanValue(this.museum.horaires) : null;
+  });
+
+  // Vrai quand les horaires affichés proviennent du musée : la fiche le précise.
+  def("schedule_from_museum", function () {
+    return !cleanValue(this.schedule) && !!(this.museum && cleanValue(this.museum.horaires));
+  });
+
+  // Page « horaires / infos pratiques » du musée, quand elle est renseignée.
+  def("schedule_url", function () {
+    return this.museum ? safeUrl(this.museum.horaires_url) : null;
+  });
+
+  // Billetterie : réservation de l'expo, à défaut le site officiel du musée.
+  // Renvoie null s'il n'y a rien de valide — mieux vaut aucun bouton qu'un mort.
+  def("ticket", function () {
+    const own = safeUrl(this.reservation_url);
+    if (own) {
+      return {
+        url: own,
+        label: this.reservation === "obligatoire" ? "Réserver" : "Billetterie",
+        from_museum: false,
+      };
+    }
+    const site = this.museum ? safeUrl(this.museum.website) : null;
+    if (site) return { url: site, label: "Site officiel du musée", from_museum: true };
+    return null;
+  });
+
+  // Page de l'exposition chez la source (musée, Que Faire à Paris…).
+  def("official_url", function () {
+    return safeUrl(this.url);
+  });
+
+  def("venue_label", function () {
+    return cleanValue(this.venue_name);
+  });
+
+  def("description_text", function () {
+    return cleanValue(this.description);
   });
 
   // Coordonnées carte : celles de l'expo, sinon celles du musée (si chargé).

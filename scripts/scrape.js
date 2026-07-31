@@ -11,6 +11,7 @@
 const { Op } = require("sequelize");
 const { sequelize, Museum, Exposition } = require("../src/models");
 const { findDuplicateExpo } = require("../src/lib/dedup");
+const { cleanValue, coerceUrl } = require("../src/lib/values");
 const { toSlug } = require("../src/lib/slug");
 const { SCRAPERS } = require("../src/scrapers");
 
@@ -55,14 +56,14 @@ async function upsert(museum, item) {
   }
 
   expo.title = item.title;
-  expo.description = item.description || null;
-  expo.url = item.url || null;
-  expo.image_url = item.image_url || null;
+  expo.description = cleanValue(item.description);
+  expo.url = coerceUrl(item.url);
+  expo.image_url = coerceUrl(item.image_url);
   expo.date_start = item.date_start || null;
   expo.date_end = item.date_end || null;
   expo.museum_id = museum.id;
-  expo.venue_name = museum.name;
-  expo.address = museum.address;
+  expo.venue_name = cleanValue(museum.name);
+  expo.address = cleanValue(museum.address);
   const fa = museum.free_access_list;
   if (fa.includes("gratuit_tous") || fa.includes("permanent")) expo.price_category = "gratuit_tous";
   else if (fa.includes("gratuit_26")) expo.price_category = "gratuit_26";

@@ -1,15 +1,19 @@
 "use strict";
 
 // Initialisation automatique au démarrage (utile sur hébergement sans accès shell).
+// - Mini-migrations de schéma et de données (sync() ne fait pas d'ALTER).
 // - Seed des musées curés si la base est vide.
 // - Création d'un compte admin depuis les variables d'env si aucun utilisateur n'existe.
 // Tout est idempotent : ne s'exécute que sur une base vide.
 
 const { Museum, User, Page } = require("./models");
+const { runMigrations } = require("./services/migrate");
 const { seedMuseums } = require("./services/seed");
 const { seedPages } = require("./services/defaultPages");
 
 async function bootstrap() {
+  await runMigrations();
+
   try {
     if ((await Museum.count()) === 0) {
       const { created } = await seedMuseums();

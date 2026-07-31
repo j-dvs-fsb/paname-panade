@@ -17,6 +17,10 @@
       <div class="stat-tile text-start">
         {% if museum.address %}<p class="mb-1"><strong>Adresse</strong><br>{{ museum.address }}</p>{% endif %}
         {% if museum.arrondissement %}<p class="mb-1 muted small">{{ museum.arrondissement }}</p>{% endif %}
+        {% if museum.horaires %}<p class="mb-1 mt-2"><strong>Horaires</strong><br>{{ museum.horaires }}</p>{% endif %}
+        {% if museum.horaires_url %}
+          <a class="small d-block" href="{{ museum.horaires_url }}" target="_blank" rel="noopener">Horaires et infos pratiques ↗</a>
+        {% endif %}
         {% if museum.website %}<a class="btn btn-outline-ink btn-sm mt-2" href="{{ museum.website }}" target="_blank" rel="noopener">Site officiel ↗</a>{% endif %}
       </div>
     </div>

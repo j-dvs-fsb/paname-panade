@@ -8,6 +8,18 @@
 const fs = require("fs");
 const path = require("path");
 const { sequelize, Museum, Exposition, Favorite, Visit } = require("../src/models");
+const { cleanValue } = require("../src/lib/values");
+
+// L'export Python a sérialisé les champs absents en chaîne "None" : on les
+// remet à null à l'import, pour ne pas réintroduire le problème que la
+// migration de démarrage vient de corriger (cf. src/lib/values.js).
+function sanitize(row) {
+  const out = {};
+  for (const [key, value] of Object.entries(row)) {
+    out[key] = typeof value === "string" ? cleanValue(value) : value;
+  }
+  return out;
+}
 
 async function run() {
   const file = path.join(__dirname, "import-data.json");
@@ -28,8 +40,8 @@ async function run() {
   await Exposition.destroy({ where: {} });
   await Museum.destroy({ where: {} });
 
-  await Museum.bulkCreate(museums, { validate: false });
-  await Exposition.bulkCreate(expositions, { validate: false });
+  await Museum.bulkCreate(museums.map(sanitize), { validate: false });
+  await Exposition.bulkCreate(expositions.map(sanitize), { validate: false });
 
   console.log(`✓ Import terminé : ${await Museum.count()} musées, ${await Exposition.count()} expositions.`);
   await sequelize.close();

@@ -16,6 +16,10 @@ module.exports = (sequelize) => {
       arrondissement: { type: DataTypes.STRING(20) },
       website: { type: DataTypes.STRING(500) },
       expos_url: { type: DataTypes.STRING(500) }, // page « expositions en cours » (cible scraping)
+      // Horaires du musée : servent de repli aux expositions qui n'ont pas les
+      // leurs (cf. getters `schedule_text` / `schedule_url` du modèle Exposition).
+      horaires: { type: DataTypes.STRING(500) },
+      horaires_url: { type: DataTypes.STRING(500) },
       free_access: { type: DataTypes.STRING(120) }, // clés CSV, cf. FREE_ACCESS_LABELS
       image_url: { type: DataTypes.STRING(500) },
       logo_url: { type: DataTypes.STRING(500) },

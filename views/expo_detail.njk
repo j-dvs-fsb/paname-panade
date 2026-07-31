@@ -30,17 +30,16 @@
         </div>
       {% endif %}
 
-      {% if expo.description %}
-        <div class="expo-description">{{ expo.description }}</div>
+      {% if expo.description_text %}
+        <div class="expo-description">{{ expo.description_text }}</div>
       {% endif %}
     </div>
 
     <div class="col-lg-5">
       <div class="stat-tile text-start mb-3 p-0 overflow-hidden">
         <div class="p-3">
-          {% if expo.venue_name %}<strong>{{ expo.venue_name }}</strong>{% endif %}
-          {% set addr = [expo.address, expo.postal_code] | select | join(', ') %}
-          {% if addr %}<p class="mb-1 muted small">{{ addr }} Paris</p>{% endif %}
+          {% if expo.venue_label %}<strong>{{ expo.venue_label }}</strong>{% endif %}
+          {% if expo.address_line %}<p class="mb-1 muted small">{{ expo.address_line }}</p>{% endif %}
           {% if expo.museum %}
             <a class="small" href="{{ url_for('main.museum_detail', slug=expo.museum.slug) }}">Voir la fiche du musée →</a>
           {% endif %}
@@ -54,13 +53,30 @@
 
       <div class="stat-tile text-start mb-3">
         <p class="mb-1"><strong>Dates</strong><br>{{ expo.date_label }}</p>
-        {% if expo.schedule %}<p class="mb-1"><strong>Horaires</strong><br>{{ expo.schedule }}</p>{% endif %}
+
+        <p class="mb-1"><strong>Horaires</strong><br>
+          {% if expo.schedule_text %}
+            {{ expo.schedule_text }}
+            {% if expo.schedule_from_museum %}<span class="muted small d-block">Horaires du musée</span>{% endif %}
+          {% else %}
+            <span class="muted">Non communiqués — vérifie avant de te déplacer.</span>
+          {% endif %}
+          {% if expo.schedule_url %}
+            <a class="small d-block" href="{{ expo.schedule_url }}" target="_blank" rel="noopener">Horaires du musée ↗</a>
+          {% endif %}
+        </p>
+
         <p class="mb-1"><strong>Tarif</strong><br>{{ expo.price_label }}</p>
         <p class="mb-1"><strong>Réservation</strong><br>{{ expo.reservation_label }}</p>
-        {% if expo.reservation_url and expo.reservation != 'non_necessaire' %}
-          <a class="btn btn-ink btn-sm mt-1" href="{{ expo.reservation_url }}" target="_blank" rel="noopener">Réserver ↗</a>
+
+        {# Billetterie : réservation de l'expo, à défaut le site officiel du
+           musée. Aucun bouton si rien n'est exploitable (cf. getter `ticket`). #}
+        {% if expo.ticket %}
+          <a class="btn btn-ink btn-sm mt-1" href="{{ expo.ticket.url }}" target="_blank" rel="noopener">{{ expo.ticket.label }} ↗</a>
         {% endif %}
-        {% if expo.url %}<a class="btn btn-outline-ink btn-sm mt-2" href="{{ expo.url }}" target="_blank" rel="noopener">Site / billetterie ↗</a>{% endif %}
+        {% if expo.official_url %}
+          <a class="btn btn-outline-ink btn-sm mt-2" href="{{ expo.official_url }}" target="_blank" rel="noopener">Page de l'exposition ↗</a>
+        {% endif %}
       </div>
 
       {% if current_user.is_authenticated %}

@@ -7,6 +7,7 @@
 const { Op } = require("sequelize");
 const { Museum, Exposition } = require("../models");
 const { htmlToText } = require("../lib/text");
+const { cleanValue, coerceUrl } = require("../lib/values");
 const { findDuplicateExpo } = require("../lib/dedup");
 const { toSlug } = require("../lib/slug");
 
@@ -49,11 +50,11 @@ function mapReservation(accessType) {
   return "non_necessaire";
 }
 
+// Le flux fournit parfois « exemple.fr/billetterie » sans schéma : on préfixe.
+// Tout ce qui n'est pas une URL http(s) exploitable devient null — pas de
+// bouton plutôt qu'un lien mort.
 function cleanLink(url) {
-  if (!url) return null;
-  url = url.trim().replace(/\/+$/, "");
-  if (!url) return null;
-  return url.startsWith("http") ? url : "https://" + url;
+  return coerceUrl(url);
 }
 
 function matchMuseum(rec, museums) {
@@ -119,14 +120,14 @@ async function runSync({ limit = 200 } = {}) {
       htmlToText(rec.description) || htmlToText(rec.lead_text) || "";
     expo.date_start = dateStart;
     expo.date_end = parseDate(rec.date_end);
-    expo.schedule = htmlToText(rec.date_description);
-    expo.url = rec.url || null;
-    expo.image_url = rec.cover_url || null;
+    expo.schedule = cleanValue(htmlToText(rec.date_description));
+    expo.url = coerceUrl(rec.url);
+    expo.image_url = coerceUrl(rec.cover_url);
     expo.price_type = "gratuit";
     expo.price_category = "gratuit_tous";
-    expo.venue_name = rec.address_name || null;
-    expo.address = rec.address_street || null;
-    expo.postal_code = rec.address_zipcode || null;
+    expo.venue_name = cleanValue(rec.address_name);
+    expo.address = cleanValue(rec.address_street);
+    expo.postal_code = cleanValue(rec.address_zipcode);
     const geo = rec.lat_lon || {};
     expo.lat = geo.lat != null ? geo.lat : null;
     expo.lon = geo.lon != null ? geo.lon : null;
