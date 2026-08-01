@@ -99,6 +99,13 @@ a:hover { color: #000; }
   background: var(--ink); color: var(--paper);
   border-radius: 0; font-weight: 500; font-size: .75rem;
 }
+/* Même forme que .badge-free, en négatif : une expo qui n'est plus gratuite
+   pour le visiteur connecté (plus de 26 ans). */
+.badge-paid {
+  background: var(--paper); color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0; font-weight: 500; font-size: .75rem;
+}
 .muted { color: var(--muted); }
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
 .footer-links a { color: var(--muted); text-decoration: none; }

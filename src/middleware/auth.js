@@ -4,7 +4,7 @@ const { User } = require("../models");
 const { urlFor } = require("../lib/urls");
 
 // current_user anonyme : objet nu exposant les attributs lus par les templates.
-const ANON = { is_authenticated: false, is_admin: false };
+const ANON = { is_authenticated: false, is_admin: false, is_over_26: false };
 
 // Charge l'utilisateur de session et l'expose en req.user + res.locals.current_user.
 async function loadUser(req, res, next) {

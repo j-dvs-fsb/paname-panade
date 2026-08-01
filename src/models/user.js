@@ -37,6 +37,16 @@ module.exports = (sequelize) => {
     },
   });
 
+  // Anniversaire fatidique passé. `null` (date de naissance inconnue) vaut
+  // « non » : on garde l'affichage par défaut du site plutôt que d'annoncer à
+  // tort un plein tarif.
+  Object.defineProperty(User.prototype, "is_over_26", {
+    get() {
+      const days = this.days_until_26;
+      return days !== null && days < 0;
+    },
+  });
+
   Object.defineProperty(User.prototype, "days_until_26", {
     get() {
       const b = this.birthday_26;

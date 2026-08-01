@@ -78,7 +78,10 @@ aucune donnée personnelle. Il n'y a ni mesure d'audience, ni publicité.</p>
     (bcrypt), jamais en clair ;</li>
   <li><strong>Prénom</strong> (facultatif) — personnalisation ;</li>
   <li><strong>Date de naissance</strong> — calcul du compte à rebours
-    des 26 ans et des statistiques associées ;</li>
+    des 26 ans, des statistiques associées, et affichage du tarif qui
+    s'applique réellement à toi (au-delà de 26 ans, les expositions
+    « gratuit -26 » sont annoncées en plein tarif). Elle n'est jamais
+    affichée publiquement ;</li>
   <li><strong>Tes favoris, visites et notes</strong> — le cœur du service.</li>
 </ul>
 <p>Si tu ajoutes une <strong>passkey</strong>, seule une clé publique est

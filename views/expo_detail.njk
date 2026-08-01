@@ -11,7 +11,8 @@
 
   <div class="row mt-2">
     <div class="col-lg-7">
-      <span class="badge badge-free mb-2">{{ expo.price_label|upper }}</span>
+      {% set price = price_for(expo, current_user) %}
+      <span class="badge {{ 'badge-free' if price.free else 'badge-paid' }} mb-2">{{ price.label|upper }}</span>
       <h1>{{ expo.title }}</h1>
       {% if expo.museum %}
         <p class="muted">à <a href="{{ url_for('main.museum_detail', slug=expo.museum.slug) }}">{{ expo.museum.name }}</a></p>
@@ -87,7 +88,9 @@
           {% endif %}
         </p>
 
-        <p class="mb-1"><strong>Tarif</strong><br>{{ expo.price_label }}</p>
+        <p class="mb-1"><strong>Tarif</strong><br>{{ price.label }}
+          {% if price.note %}<span class="muted small d-block">{{ price.note }}</span>{% endif %}
+        </p>
         <p class="mb-1"><strong>Réservation</strong><br>{{ expo.reservation_label }}</p>
 
         {# Billetterie : réservation de l'expo, à défaut le site officiel du

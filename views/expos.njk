@@ -10,6 +10,7 @@
         <input class="form-control" name="q" value="{{ q }}" placeholder="Rechercher une expo…">
         {% for p in active_prix %}<input type="hidden" name="prix" value="{{ p }}">{% endfor %}
         {% for f in active_flags %}<input type="hidden" name="f" value="{{ f }}">{% endfor %}
+        {% if only_free_for_me %}<input type="hidden" name="pourmoi" value="1">{% endif %}
         <button class="btn btn-ink">Chercher</button>
       </div>
     </form>
@@ -22,11 +23,17 @@
       {% for t in flag_tiles %}
         <a href="{{ t.href }}" class="filter-tile {{ 'filter-tile--active' if t.active else '' }}">{{ t.label }}</a>
       {% endfor %}
+      {# Proposé seulement au-delà de 26 ans : en deçà, tout est déjà gratuit. #}
+      {% if show_free_for_me %}
+        <span class="filter-sep"></span>
+        <a href="{{ free_for_me_href }}"
+           class="filter-tile {{ 'filter-tile--active' if only_free_for_me else '' }}">Encore gratuit pour moi</a>
+      {% endif %}
     </div>
   </div>
   <div class="row">
     {% for expo in expos %}
-      {{ expo_card(expo, loop.first) }}
+      {{ expo_card(expo, loop.first, current_user) }}
     {% else %}
       <p class="muted">Aucune exposition trouvée.</p>
     {% endfor %}

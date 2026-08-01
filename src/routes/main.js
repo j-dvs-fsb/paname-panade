@@ -17,6 +17,7 @@ const { requireLogin } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
 const { todayIso } = require("../lib/dates");
 const seo = require("../lib/seo");
+const { isOver26 } = require("../lib/pricing");
 const stats = require("../services/stats");
 
 const router = express.Router();
@@ -211,6 +212,15 @@ function toggleArgs(query, key, value) {
   return d;
 }
 
+// Bascule un paramètre booléen (présent/absent) en conservant les autres.
+function toggleFlag(query, key) {
+  const d = {};
+  for (const [k, v] of Object.entries(query)) d[k] = asList(v);
+  if (d[key] && d[key].length) delete d[key];
+  else d[key] = ["1"];
+  return d;
+}
+
 function buildTiles(defs, key, active, query) {
   return defs.map(([val, label]) => ({
     label,
@@ -224,10 +234,17 @@ router.get("/expositions", async (req, res) => {
   const active_prix = asList(req.query.prix);
   const active_flags = asList(req.query.f);
 
+  // « Encore gratuit pour moi » : proposé seulement à un visiteur connecté qui
+  // a passé 26 ans — pour les autres, tout le catalogue est déjà gratuit.
+  const over26 = isOver26(req.user);
+  const only_free_for_me = over26 && req.query.pourmoi === "1";
+
   const where = currentWhere();
   if (q) where.title = { [Op.like]: `%${q}%` };
   const validPrix = active_prix.filter((p) => PRICE_TILES.some(([v]) => v === p));
   if (validPrix.length) where.price_category = { [Op.in]: validPrix };
+  // Au-delà de 26 ans, seules les expos gratuites pour tous le restent.
+  if (only_free_for_me) where.price_category = "gratuit_tous";
   // nocturne / dimanche / climatisé : pas de données -> non filtré (parité Flask).
 
   const expos = await Exposition.findAll({
@@ -254,6 +271,9 @@ router.get("/expositions", async (req, res) => {
     flag_tiles: buildTiles(FLAG_TILES, "f", active_flags, req.query),
     active_prix,
     active_flags,
+    show_free_for_me: over26,
+    only_free_for_me,
+    free_for_me_href: urlFor("main.expos", toggleFlag(req.query, "pourmoi")),
   });
 });
 

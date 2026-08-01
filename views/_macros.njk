@@ -7,8 +7,10 @@
 {% endmacro %}
 
 {# `eager` : à passer pour la première carte de la page — l'image est au-dessus
-   de la ligne de flottaison, la charger paresseusement retarderait l'affichage. #}
-{% macro expo_card(expo, eager=false) %}
+   de la ligne de flottaison, la charger paresseusement retarderait l'affichage.
+   `user` : passé explicitement, une macro Nunjucks ne voit pas le contexte du
+   template appelant — sans lui, le tarif serait toujours celui d'un anonyme. #}
+{% macro expo_card(expo, eager=false, user=null) %}
   <div class="col-md-4 mb-4">
     <div class="card h-100">
       <div class="card-img-wrap">
@@ -34,7 +36,8 @@
         {% endif %}
       </div>
       <div class="card-body d-flex flex-column">
-        <span class="badge badge-free mb-2 align-self-start">GRATUIT</span>
+        {% set price = price_for(expo, user) %}
+        <span class="badge {{ 'badge-free' if price.free else 'badge-paid' }} mb-2 align-self-start">{{ price.badge }}</span>
         <h5 class="card-title">
           <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=expo.slug) }}">{{ expo.title }}</a>
         </h5>
