@@ -75,7 +75,7 @@ function createApp() {
   // Points d'entrée de Better Auth (dont le retour OAuth de Google).
   // Monté AVANT les parseurs de corps : son gestionnaire lit le flux lui-même,
   // un corps déjà consommé lui arriverait vide. Il n'est pas non plus soumis à
-  // notre middleware CSRF — Better Auth fait sa propre vérification d'origine.
+  // notre middleware CSRF - Better Auth fait sa propre vérification d'origine.
   app.all("/api/auth/*", async (req, res, next) => {
     try {
       const { getAuth } = require("./auth");

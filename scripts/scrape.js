@@ -93,7 +93,7 @@ async function run() {
       continue;
     }
     if (!museum.expos_url) {
-      console.log(`⚠ Pas d'expos_url pour ${museum.name} — ignoré.`);
+      console.log(`⚠ Pas d'expos_url pour ${museum.name} - ignoré.`);
       continue;
     }
     targets.push([museum, fn]);
@@ -122,7 +122,7 @@ async function run() {
       const period =
         [fmtDate(it.date_start), fmtDate(it.date_end)].filter(Boolean).join(" → ") || "dates ?";
       const tags = (it.tags || []).join(", ");
-      console.log(`   • ${it.title}  [${period}]  ${tags ? "— " + tags : ""}`);
+      console.log(`   • ${it.title}  [${period}]  ${tags ? "- " + tags : ""}`);
       if (commit) {
         const state = await upsert(museum, it);
         if (state === "created") created += 1;
@@ -132,7 +132,7 @@ async function run() {
     if (commit) console.log(`  ✓ ${created} créées (draft), ${updated} mises à jour.`);
   }
 
-  if (!commit) console.log("\n(dry-run — rien n'a été écrit. Relance avec --commit pour enregistrer.)");
+  if (!commit) console.log("\n(dry-run - rien n'a été écrit. Relance avec --commit pour enregistrer.)");
   await sequelize.close();
 }
 

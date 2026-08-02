@@ -1,6 +1,6 @@
 {% extends "base.njk" %}
 {% from "_macros.njk" import stars %}
-{% block title %}{{ expo.title }} — Paname Panade{% endblock %}
+{% block title %}{{ expo.title }} | Paname Panade{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
@@ -81,7 +81,7 @@
             {{ expo.schedule_text }}
             {% if expo.schedule_from_museum %}<span class="muted small d-block">Horaires du musée</span>{% endif %}
           {% else %}
-            <span class="muted">Non communiqués — vérifie avant de te déplacer.</span>
+            <span class="muted">Non communiqués, vérifie avant de te déplacer.</span>
           {% endif %}
           {% if expo.schedule_url %}
             <a class="small d-block" href="{{ expo.schedule_url }}" target="_blank" rel="noopener">Horaires du musée ↗</a>
@@ -94,12 +94,19 @@
         <p class="mb-1"><strong>Réservation</strong><br>{{ expo.reservation_label }}</p>
 
         {# Billetterie : réservation de l'expo, à défaut le site officiel du
-           musée. Aucun bouton si rien n'est exploitable (cf. getter `ticket`). #}
-        {% if expo.ticket %}
-          <a class="btn btn-ink btn-sm mt-1" href="{{ expo.ticket.url }}" target="_blank" rel="noopener">{{ expo.ticket.label }} ↗</a>
-        {% endif %}
-        {% if expo.official_url %}
-          <a class="btn btn-outline-ink btn-sm mt-2" href="{{ expo.official_url }}" target="_blank" rel="noopener">Page de l'exposition ↗</a>
+           musée. Aucun bouton si rien n'est exploitable (cf. getter `ticket`).
+           Les deux boutons vivent dans un conteneur flex : sinon ils se
+           suivent en ligne avec des marges hautes différentes, et ne sont pas
+           alignés. #}
+        {% if expo.ticket or expo.official_url %}
+          <div class="d-flex flex-wrap align-items-stretch gap-2 mt-2">
+            {% if expo.ticket %}
+              <a class="btn btn-ink btn-sm" href="{{ expo.ticket.url }}" target="_blank" rel="noopener">{{ expo.ticket.label }} ↗</a>
+            {% endif %}
+            {% if expo.official_url %}
+              <a class="btn btn-outline-ink btn-sm" href="{{ expo.official_url }}" target="_blank" rel="noopener">Page de l'exposition ↗</a>
+            {% endif %}
+          </div>
         {% endif %}
       </div>
 

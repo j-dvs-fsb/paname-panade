@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 
 // Pages statiques éditables depuis le back-office (à propos, mentions
 // légales, politique de confidentialité). Le contenu est du HTML saisi par
-// un admin et rendu tel quel — la CSP (scripts à nonce uniquement) neutralise
+// un admin et rendu tel quel - la CSP (scripts à nonce uniquement) neutralise
 // tout <script> qui y serait injecté.
 module.exports = (sequelize) => {
   return sequelize.define(

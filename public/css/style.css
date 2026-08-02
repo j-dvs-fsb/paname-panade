@@ -34,6 +34,15 @@ a:hover { color: #000; }
 }
 .navbar .nav-link { color: var(--ink); font-size: .95rem; }
 .navbar .nav-link:hover { text-decoration: underline; }
+/* Bouton de déconnexion : c'est un <button> dans un <form>, pour l'envoi POST
+   avec jeton CSRF. On lui retire son apparence de bouton pour qu'il tombe
+   exactement sur la même ligne de base que les liens voisins. */
+.navbar .nav-link-button {
+  background: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
 
 /* ---- Buttons noir & blanc ---- */
 .btn-ink {
@@ -135,7 +144,7 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
 #expo-map { z-index: 0; }
 .leaflet-container { font: inherit; }
 
-/* Tuiles de filtres (même DA que .badge-free) — carré noir, texte blanc ;
+/* Tuiles de filtres (même DA que .badge-free) - carré noir, texte blanc ;
    inversé (fond blanc, cadre + texte noirs) une fois sélectionné. */
 .filter-tile {
   display: inline-block;
@@ -258,7 +267,7 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
   border-radius: 0; line-height: 1;
 }
 
-/* Voile de couleur sur les photos (N&B) des expos en cours — effet duotone.
+/* Voile de couleur sur les photos (N&B) des expos en cours - effet duotone.
    La couleur cycle sur 5 par position dans la grille : avec 3 cartes par
    rangée, deux cartes voisines (côte à côte, dessus/dessous ou en diagonale)
    n'ont jamais la même couleur. Les expos terminées n'ont pas de voile

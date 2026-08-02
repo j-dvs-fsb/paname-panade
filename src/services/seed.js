@@ -8,7 +8,7 @@ const { toSlug } = require("../lib/slug");
 
 const MUSEUMS = [
   {
-    name: "Musée Carnavalet — Histoire de Paris",
+    name: "Musée Carnavalet - Histoire de Paris",
     arrondissement: "Paris 3e",
     address: "23 Rue de Sévigné, 75003 Paris",
     website: "https://www.carnavalet.paris.fr",
@@ -17,7 +17,7 @@ const MUSEUMS = [
       "L'histoire de Paris de la préhistoire à nos jours, dans un hôtel particulier du Marais. Collections permanentes en accès libre.",
   },
   {
-    name: "Petit Palais — Musée des Beaux-Arts de la Ville de Paris",
+    name: "Petit Palais - Musée des Beaux-Arts de la Ville de Paris",
     arrondissement: "Paris 8e",
     address: "Av. Winston Churchill, 75008 Paris",
     website: "https://www.petitpalais.paris.fr",
@@ -62,7 +62,7 @@ const MUSEUMS = [
       "Chef-d'œuvre de l'art du XIXe siècle (impressionnisme...) dans une ancienne gare. Gratuit pour les -26 ans UE.",
   },
   {
-    name: "Musée du Quai Branly — Jacques Chirac",
+    name: "Musée du Quai Branly - Jacques Chirac",
     arrondissement: "Paris 7e",
     address: "37 Quai Branly, 75007 Paris",
     website: "https://www.quaibranly.fr",

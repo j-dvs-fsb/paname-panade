@@ -82,7 +82,7 @@ function iso(y, m, d) {
   return `${y}-${p(m)}-${p(d)}`;
 }
 
-// « 15 avril – 20 juillet 2026 » -> [ '2026-04-15', '2026-07-20' ].
+// « 15 avril - 20 juillet 2026 » -> [ '2026-04-15', '2026-07-20' ].
 // Gère « jusqu'au … » (fin seule) et « à partir du … » (début seul).
 function parseFrenchDate(text) {
   if (!text) return [null, null];

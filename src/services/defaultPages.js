@@ -11,7 +11,7 @@ const DEFAULT_PAGES = [
     content: `<p><strong>Paname Panade</strong> regroupe les expositions et musées
 <strong>gratuits pour les moins de 26 ans</strong> à Paris. Fiches par musée,
 dates et horaires des expositions temporaires, mode « au hasard » pour les
-indécis — et un compte perso pour cocher les expos faites, les noter, et
+indécis, et un compte perso pour cocher les expos faites, les noter, et
 suivre le compte à rebours avant l'anniversaire fatidique.</p>
 
 <p>Le site est indépendant et sans publicité. Il n'est affilié ni à la
@@ -25,7 +25,7 @@ musées gratuits en permanence. Les informations (dates, horaires, gratuité)
 peuvent évoluer : vérifie toujours sur le site du musée avant de te déplacer.</p>
 
 <h2 class="h5 mt-5 mb-3">Une erreur, une expo manquante ?</h2>
-<p>Le site est maintenu bénévolement — les signalements sont bienvenus
+<p>Le site est maintenu bénévolement, les signalements sont bienvenus
 et les corrections rapides.</p>`,
   },
   {
@@ -73,23 +73,23 @@ aucune donnée personnelle. Il n'y a ni mesure d'audience, ni publicité.</p>
 <h2 class="h5 mt-5 mb-2">Avec un compte</h2>
 <p>À l'inscription, sont enregistrés :</p>
 <ul>
-  <li><strong>Email</strong> — identifiant de connexion ;</li>
-  <li><strong>Mot de passe</strong> — stocké uniquement sous forme hachée
+  <li><strong>Email</strong> : identifiant de connexion ;</li>
+  <li><strong>Mot de passe</strong> : stocké uniquement sous forme hachée
     (bcrypt), jamais en clair ;</li>
-  <li><strong>Prénom</strong> (facultatif) — personnalisation ;</li>
-  <li><strong>Date de naissance</strong> — calcul du compte à rebours
+  <li><strong>Prénom</strong> (facultatif) : personnalisation ;</li>
+  <li><strong>Date de naissance</strong> : calcul du compte à rebours
     des 26 ans, des statistiques associées, et affichage du tarif qui
     s'applique réellement à toi (au-delà de 26 ans, les expositions
     « gratuit -26 » sont annoncées en plein tarif). Elle n'est jamais
     affichée publiquement ;</li>
-  <li><strong>Tes favoris, visites et notes</strong> — le cœur du service.</li>
+  <li><strong>Tes favoris, visites et notes</strong> : le cœur du service.</li>
 </ul>
 <p>Si tu ajoutes une <strong>passkey</strong>, seule une clé publique est
 enregistrée. Aucune donnée biométrique ne quitte ton appareil.</p>
 
 <h2 class="h5 mt-5 mb-2">Connexion avec Google</h2>
 <p>Si tu choisis « Continuer avec Google », Google traite la connexion et
-nous transmet ton adresse email et ton prénom — rien d'autre. Ce
+nous transmet ton adresse email et ton prénom, rien d'autre. Ce
 traitement relève de la
 <a href="https://policies.google.com/privacy" rel="noopener">politique de
 confidentialité de Google</a>. Nous ne conservons aucun jeton d'accès
@@ -103,7 +103,7 @@ demandée juste après la première connexion.</p>
 <p>Quand tu signales une erreur sur une fiche ou proposes une expo, seuls
 le contenu du message, la fiche concernée et la date d'envoi sont
 enregistrés. L'email est <strong>facultatif</strong> : ne le renseigne que
-si tu veux une réponse. Sans lui, l'envoi est totalement anonyme — ni
+si tu veux une réponse. Sans lui, l'envoi est totalement anonyme : ni
 adresse IP, ni identifiant de visiteur. Les signalements traités sont
 supprimés au fil de l'eau.</p>
 
@@ -118,7 +118,7 @@ personnelles ou ton mot de passe. Aucune donnée n'est transmise à des
 tiers.</p>
 
 <h2 class="h5 mt-5 mb-2">Où sont hébergées les données ?</h2>
-<p>Chez Infomaniak, à Genève (Suisse) — un pays reconnu par l'Union
+<p>Chez Infomaniak, à Genève (Suisse), un pays reconnu par l'Union
 européenne comme offrant une protection adéquate des données.</p>
 
 <h2 class="h5 mt-5 mb-2">Tes droits</h2>

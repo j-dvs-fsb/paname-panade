@@ -96,7 +96,7 @@ router.post("/inscription", authLimiter, async (req, res) => {
   }
 
   // Better Auth crée l'utilisateur, hache le mot de passe (bcrypt, cf.
-  // src/auth) et ouvre la session — `autoSignIn` est actif.
+  // src/auth) et ouvre la session - `autoSignIn` est actif.
   const result = await callAuth(req, res, "signUpEmail", {
     email,
     password,
@@ -267,7 +267,7 @@ router.post("/compte", requireLogin, async (req, res) => {
   res.redirect(urlFor("main.profile"));
 });
 
-// --- RGPD : portabilité — export JSON de toutes les données du compte ---
+// --- RGPD : portabilité - export JSON de toutes les données du compte ---
 router.get("/compte/donnees", requireLogin, async (req, res) => {
   const [favorites, visits, credentials] = await Promise.all([
     Favorite.findAll({
@@ -306,7 +306,7 @@ router.get("/compte/donnees", requireLogin, async (req, res) => {
   res.json(data);
 });
 
-// --- RGPD : droit à l'effacement — suppression du compte par l'utilisateur ---
+// --- RGPD : droit à l'effacement - suppression du compte par l'utilisateur ---
 router.post("/compte/supprimer", requireLogin, async (req, res) => {
   const confirm = (req.body.confirm_email || "").trim().toLowerCase();
   if (confirm !== req.user.email.toLowerCase()) {

@@ -108,7 +108,7 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
 #expo-map { z-index: 0; }
 .leaflet-container { font: inherit; }
 
-/* Tuiles de filtres (même DA que .badge-free) — carré noir, texte blanc ;
+/* Tuiles de filtres (même DA que .badge-free) - carré noir, texte blanc ;
    inversé (fond blanc, cadre + texte noirs) une fois sélectionné. */
 .filter-tile {
   display: inline-block;

@@ -10,7 +10,7 @@ const BASE_DIR = path.resolve(__dirname, "..");
 require("dotenv").config({ path: path.join(BASE_DIR, ".env") });
 
 // Variables DB séparées (préférées) : le mot de passe est pris tel quel, sans
-// encodage d'URL — pratique quand il contient un caractère spécial (@ : / …).
+// encodage d'URL - pratique quand il contient un caractère spécial (@ : / …).
 const dbDiscrete =
   process.env.DB_HOST && process.env.DB_NAME
     ? {
@@ -27,7 +27,7 @@ const isProduction = process.env.NODE_ENV === "production";
 // En production, un vrai secret de session est obligatoire (signe les cookies).
 if (isProduction && (!process.env.SECRET_KEY || process.env.SECRET_KEY.length < 32)) {
   throw new Error(
-    "SECRET_KEY manquante ou trop courte (32 caractères minimum) — " +
+    "SECRET_KEY manquante ou trop courte (32 caractères minimum) - " +
       'génère-la avec : node -e "console.log(require(\'crypto\').randomBytes(48).toString(\'base64url\'))"'
   );
 }
@@ -45,7 +45,7 @@ const config = {
   isProduction: process.env.NODE_ENV === "production",
   // Origine publique (https://paname-panade.fr) : fige le domaine des URL
   // canoniques, du sitemap et des balises Open Graph. À défaut, dérivée de la
-  // requête — correct tant qu'on n'est servi que par un seul domaine.
+  // requête - correct tant qu'on n'est servi que par un seul domaine.
   siteUrl: (process.env.SITE_URL || "").trim().replace(/\/+$/, "") || null,
 };
 

@@ -55,7 +55,7 @@ function proxyUrl(src) {
 
 // --- Reconnaissance du type réel ---
 // On ne fait pas confiance au Content-Type annoncé : le type est déduit des
-// octets. Le SVG est refusé volontairement — servi depuis notre origine, il
+// octets. Le SVG est refusé volontairement - servi depuis notre origine, il
 // pourrait embarquer du script et contourner la CSP.
 function sniffType(buf) {
   if (buf.length < 12) return null;

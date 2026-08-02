@@ -11,7 +11,7 @@ function handler(req, res) {
   if (req.is("json") || (req.get("accept") || "").includes("application/json")) {
     return res.status(429).json({ error: message });
   }
-  res.status(429).send(`429 — ${message}`);
+  res.status(429).send(`429 - ${message}`);
 }
 
 // Connexion / inscription / vérification passkey : 10 échecs / 15 min / IP.

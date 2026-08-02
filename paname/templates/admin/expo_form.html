@@ -79,7 +79,7 @@
     <div class="mb-3">
       <label class="form-label">Musée rattaché</label>
       <select class="form-select" name="museum_id">
-        <option value="">— Aucun —</option>
+        <option value="">- Aucun -</option>
         {% for m in museums %}
           <option value="{{ m.id }}" {{ 'selected' if expo and expo.museum_id==m.id }}>{{ m.name }}</option>
         {% endfor %}

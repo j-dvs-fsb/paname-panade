@@ -33,7 +33,7 @@ function requireLogin(req, res, next) {
 
 // Une première connexion Google ne fournit pas de date de naissance : sans
 // elle, le compte à rebours et les statistiques n'ont aucun sens. On la demande
-// à l'entrée des pages qui s'en servent — ailleurs, la navigation reste libre.
+// à l'entrée des pages qui s'en servent - ailleurs, la navigation reste libre.
 function requireProfile(req, res, next) {
   if (req.user && !req.user.date_naissance) {
     return res.redirect(urlFor("auth.complete_profile"));
@@ -46,7 +46,7 @@ function requireAdmin(req, res, next) {
     req.flash("info", "Connecte-toi pour accéder à cette page.");
     return res.redirect(urlFor("auth.login"));
   }
-  if (!req.user.is_admin) return res.status(403).send("403 — accès réservé.");
+  if (!req.user.is_admin) return res.status(403).send("403 - accès réservé.");
   return next();
 }
 

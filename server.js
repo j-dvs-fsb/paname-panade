@@ -18,7 +18,7 @@ async function main() {
 
   const app = createApp();
   app.listen(config.port, () => {
-    console.log(`Paname Panade — http://localhost:${config.port}`);
+    console.log(`Paname Panade - http://localhost:${config.port}`);
   });
 }
 

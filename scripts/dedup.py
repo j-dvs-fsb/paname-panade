@@ -77,7 +77,7 @@ def run(commit=False):
             db.session.commit()
             print(f"\n✓ {merged} doublon(s) fusionné(s).")
         else:
-            print(f"\n(dry-run — {merged} entrée(s) à fusionner. Relance avec --commit.)")
+            print(f"\n(dry-run - {merged} entrée(s) à fusionner. Relance avec --commit.)")
 
 
 if __name__ == "__main__":

@@ -88,7 +88,7 @@ module.exports = (sequelize) => {
   });
 
   // Billetterie : réservation de l'expo, à défaut le site officiel du musée.
-  // Renvoie null s'il n'y a rien de valide — mieux vaut aucun bouton qu'un mort.
+  // Renvoie null s'il n'y a rien de valide - mieux vaut aucun bouton qu'un mort.
   def("ticket", function () {
     const own = safeUrl(this.reservation_url);
     if (own) {
@@ -119,7 +119,7 @@ module.exports = (sequelize) => {
   // Phrase éditoriale propre au site : les fiches reprennent toutes la même
   // description que le jeu de données de la Ville de Paris, ce qui les rend
   // dupliquées aux yeux des moteurs. Cette ligne dit ce qu'on apporte en plus
-  // — la condition de gratuité — et varie selon l'expo.
+  // - la condition de gratuité - et varie selon l'expo.
   def("editorial_note", function () {
     const where = this.museum ? this.museum.name : this.venue_label;
     const lieu = where ? ` à ${where}` : " à Paris";

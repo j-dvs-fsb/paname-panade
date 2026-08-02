@@ -6,7 +6,7 @@
 // Les formulaires du site restent des POST classiques rendus par le serveur
 // (jeton CSRF, limitation de débit, messages flash). On appelle donc l'API
 // serveur de Better Auth plutôt que d'exposer ses points d'entrée REST au
-// navigateur — sauf pour le retour OAuth de Google, qui doit atterrir sur son
+// navigateur - sauf pour le retour OAuth de Google, qui doit atterrir sur son
 // gestionnaire.
 
 const { getAuth } = require("./index");
@@ -41,7 +41,7 @@ async function currentSession(req) {
 // Ouvre une session pour un utilisateur déjà authentifié par un autre moyen
 // (ici : une passkey vérifiée par nos soins). On passe par l'adaptateur interne
 // puis par le sérialiseur de cookie signé de Better Auth, pour produire
-// exactement le même cookie que ses propres points d'entrée — plutôt que de
+// exactement le même cookie que ses propres points d'entrée - plutôt que de
 // réimplémenter sa signature.
 async function openSession(res, userId) {
   const auth = await getAuth();

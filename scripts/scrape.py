@@ -86,7 +86,7 @@ def run(only=None, commit=False):
                 print(f"⚠ Musée introuvable en base : {slug}")
                 continue
             if not museum.expos_url:
-                print(f"⚠ Pas d'expos_url renseignée pour {museum.name} — ignoré.")
+                print(f"⚠ Pas d'expos_url renseignée pour {museum.name} - ignoré.")
                 continue
             targets.append((museum, fn))
 
@@ -110,7 +110,7 @@ def run(only=None, commit=False):
                     it["date_end"].strftime("%d/%m/%Y") if it.get("date_end") else None,
                 ])) or "dates ?"
                 tags = ", ".join(it.get("tags", []))
-                print(f"   • {it['title']}  [{period}]  {('— ' + tags) if tags else ''}")
+                print(f"   • {it['title']}  [{period}]  {('- ' + tags) if tags else ''}")
                 if commit:
                     state = upsert(museum, it)
                     created += state == "created"
@@ -121,7 +121,7 @@ def run(only=None, commit=False):
                 print(f"  ✓ {created} créées (draft), {updated} mises à jour.")
 
         if not commit:
-            print("\n(dry-run — rien n'a été écrit. Relance avec --commit pour enregistrer.)")
+            print("\n(dry-run - rien n'a été écrit. Relance avec --commit pour enregistrer.)")
 
 
 if __name__ == "__main__":

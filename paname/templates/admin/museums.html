@@ -13,9 +13,9 @@
       {% for m in museums %}
         <tr>
           <td><a href="{{ url_for('admin.museum_form', museum_id=m.id) }}">{{ m.name }}</a></td>
-          <td class="muted small">{{ m.museofile_id or '—' }}</td>
-          <td class="muted small">{{ m.arrondissement or '—' }}</td>
-          <td class="muted small">{{ '✓' if m.expos_url else '—' }}</td>
+          <td class="muted small">{{ m.museofile_id or '-' }}</td>
+          <td class="muted small">{{ m.arrondissement or '-' }}</td>
+          <td class="muted small">{{ '✓' if m.expos_url else '-' }}</td>
           <td class="text-end">
             <form method="post" action="{{ url_for('admin.museum_delete', museum_id=m.id) }}" class="d-inline" onsubmit="return confirm('Supprimer ce musée et ses expos rattachées ?')">
               <button class="btn btn-link btn-sm p-0 text-danger">Suppr.</button>

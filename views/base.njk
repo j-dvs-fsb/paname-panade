@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Paname Panade{% endblock %}</title>
 
-  {# Métadonnées de référencement — construites par les routes via lib/seo.js.
+  {# Métadonnées de référencement - construites par les routes via lib/seo.js.
      Une valeur par défaut est posée dans app.js pour qu'aucune page n'arrive
      ici sans description ni URL canonique. #}
   <meta name="description" content="{{ meta.description }}">
@@ -54,9 +54,11 @@
             {% endif %}
             <li class="nav-item"><a class="nav-link" href="{{ url_for('main.profile') }}">Profil ({{ current_user.prenom }})</a></li>
             <li class="nav-item">
-              <form method="post" action="{{ url_for('auth.logout') }}" class="d-inline">
+              {# Le bouton porte .nav-link comme les liens voisins : avec
+                 .btn.p-0 il perdait leur rembourrage vertical et remontait. #}
+              <form method="post" action="{{ url_for('auth.logout') }}">
                 <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
-                <button type="submit" class="nav-link btn btn-link p-0 border-0">Déconnexion</button>
+                <button type="submit" class="nav-link nav-link-button">Déconnexion</button>
               </form>
             </li>
           {% else %}

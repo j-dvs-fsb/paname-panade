@@ -58,7 +58,7 @@ def run(commit=False):
             else:
                 updated += 1
 
-            expo.title = f"Collections permanentes — {museum.name}"
+            expo.title = f"Collections permanentes - {museum.name}"
             expo.description = museum.description
             expo.museum_id = museum.id
             expo.venue_name = museum.name
@@ -77,7 +77,7 @@ def run(commit=False):
             print(f"\n✓ {created} créées, {updated} mises à jour, {skipped} musées sans gratuité connue.")
         else:
             db.session.rollback()
-            print(f"\n(dry-run — {created} à créer, {updated} à mettre à jour, "
+            print(f"\n(dry-run - {created} à créer, {updated} à mettre à jour, "
                   f"{skipped} ignorés. Relance avec --commit.)")
 
 

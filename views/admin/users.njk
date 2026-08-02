@@ -20,7 +20,7 @@
           <td>{{ u.prenom }}</td>
           <td class="muted small">{{ u.email }}</td>
           <td class="muted small">{{ u.created_at | dmy }}</td>
-          <td>{{ '✓' if u.is_admin else '—' }}</td>
+          <td>{{ '✓' if u.is_admin else '-' }}</td>
           <td class="text-end text-nowrap">
             {% if u.id != current_user.id %}
               <form method="post" action="{{ url_for('admin.user_role', user_id=u.id) }}" class="d-inline"

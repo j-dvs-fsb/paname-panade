@@ -1,12 +1,12 @@
 """Synchronise / nettoie les musées depuis le dataset officiel Île-de-France.
 
-Source : https://data.iledefrance.fr — dataset `liste_des_musees_franciliens`
+Source : https://data.iledefrance.fr - dataset `liste_des_musees_franciliens`
 API Opendatasoft Explore v2.1, gratuite et sans clé. On ne prend que Paris.
 
 Ce que fait le script :
   - récupère les ~50 musées parisiens (musées de France) officiels ;
   - enrichit les musées déjà en base (les 8 curés du seed) avec les données
-    officielles : coordonnées GPS, identifiant_museofile, adresse/CP si absents —
+    officielles : coordonnées GPS, identifiant_museofile, adresse/CP si absents -
     sans écraser la curation éditoriale (nom, description, free_access, etc.) ;
   - crée les musées manquants à partir des fiches officielles.
 

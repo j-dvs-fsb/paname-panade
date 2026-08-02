@@ -1,6 +1,6 @@
 """Synchronise les expositions gratuites depuis l'API « Que Faire à Paris ? ».
 
-Source : https://opendata.paris.fr — dataset `que-faire-a-paris-`
+Source : https://opendata.paris.fr - dataset `que-faire-a-paris-`
 API Opendatasoft Explore v2.1, gratuite et sans clé.
 
 Usage :  python scripts/sync_data.py [--limit N]
@@ -89,7 +89,7 @@ def match_museum(rec):
     if not place:
         return None
     for m in Museum.query.all():
-        key = m.name.split("—")[0].split("(")[0].strip().lower()
+        key = m.name.split("-")[0].split("(")[0].strip().lower()
         if key and (key in place or place in key):
             return m
     return None

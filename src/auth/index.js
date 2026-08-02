@@ -5,7 +5,7 @@
 // Le paquet est distribué uniquement en ESM ; le projet est en CommonJS. On
 // l'importe donc dynamiquement, dans une initialisation asynchrone appelée au
 // démarrage. `require()` d'un module ESM ne fonctionne qu'à partir de Node
-// 20.19 / 22.12 et la version exacte de l'hébergeur n'est pas garantie —
+// 20.19 / 22.12 et la version exacte de l'hébergeur n'est pas garantie -
 // `import()` fonctionne partout.
 //
 // Choix de schéma (cf. src/models/authTables.js) :
@@ -44,7 +44,7 @@ function baseUrl() {
 // pilote à lui.
 //
 // En production, le pool mysql2 déjà présent dans les dépendances. En
-// développement, `node:sqlite`, intégré à Node — surtout pas better-sqlite3 :
+// développement, `node:sqlite`, intégré à Node - surtout pas better-sqlite3 :
 // Better Auth le déclare en dépendance de pair *optionnelle*, ce qui suffit à
 // npm pour l'installer même avec `npm ci --omit=dev` (vérifié), et il faudrait
 // alors compiler un module natif sur le mutualisé.

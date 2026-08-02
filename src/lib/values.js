@@ -5,7 +5,7 @@
 // Héritage des imports Python : un champ absent a été sérialisé en chaîne
 // "None" au lieu d'un NULL. D'où, sur les fiches concernées, « Horaires :
 // None », un code postal « None » collé à l'adresse, et surtout un bouton
-// « Réserver » avec href="None" — que le navigateur résout relativement à la
+// « Réserver » avec href="None" - que le navigateur résout relativement à la
 // page courante, produisant le lien mort /exposition/None.
 //
 // Ces helpers servent des deux côtés : à l'écriture (sync, scraping,
@@ -26,8 +26,8 @@ function cleanValue(value) {
   return SENTINELS.has(s.toLowerCase()) ? null : s;
 }
 
-// URL utilisable dans un href : absolue, en http(s). Tout le reste — y compris
-// une valeur relative qui deviendrait un lien mort — renvoie null, à charge de
+// URL utilisable dans un href : absolue, en http(s). Tout le reste - y compris
+// une valeur relative qui deviendrait un lien mort - renvoie null, à charge de
 // l'appelant de ne pas afficher le bouton.
 function safeUrl(value) {
   const s = cleanValue(value);

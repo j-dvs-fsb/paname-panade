@@ -4,7 +4,7 @@
 //
 // Le site s'adresse aux moins de 26 ans : par défaut, une expo « gratuit -26 »
 // s'affiche « gratuit ». Pour un visiteur connecté qui a dépassé 26 ans, ce
-// serait un mensonge — on bascule sur le tarif qui s'applique vraiment.
+// serait un mensonge - on bascule sur le tarif qui s'applique vraiment.
 //
 // La base ne contient aucun montant (le jeu de données « Que Faire à Paris »
 // n'expose qu'une catégorie de gratuité, pas de prix) : on annonce donc « plein
@@ -19,7 +19,7 @@ function isOver26(user) {
   return !!(user && user.is_authenticated && user.is_over_26);
 }
 
-// { free, badge, label, note } — `free` sert aussi au filtre « encore gratuit ».
+// { free, badge, label, note } - `free` sert aussi au filtre « encore gratuit ».
 function priceForUser(expo, user) {
   const category = expo.price_category || "gratuit_tous";
   const label = PRICE_LABELS[category] || PRICE_LABELS.gratuit_tous;
@@ -37,7 +37,7 @@ function priceForUser(expo, user) {
       free: false,
       badge: "PLEIN TARIF",
       label: "Plein tarif",
-      note: "Le tarif réduit -26 ans ne s'applique plus à toi — voir la billetterie du musée.",
+      note: "Le tarif réduit -26 ans ne s'applique plus à toi, voir la billetterie du musée.",
     };
   }
 
@@ -45,7 +45,7 @@ function priceForUser(expo, user) {
     free: false,
     badge: "PLEIN TARIF",
     label: "Plein tarif",
-    note: "La gratuité -26 ans ne s'applique plus à toi — voir la billetterie du musée.",
+    note: "La gratuité -26 ans ne s'applique plus à toi, voir la billetterie du musée.",
   };
 }
 

@@ -26,7 +26,7 @@ router.get("/compte/passkeys", requireLogin, async (req, res) => {
   res.render("auth/passkeys.njk", { creds });
 });
 
-// Enregistrement — génère les options (challenge stocké en session).
+// Enregistrement - génère les options (challenge stocké en session).
 router.post("/compte/passkeys/options", requireLogin, optionsLimiter, async (req, res) => {
   const { rpID, rpName } = rpConfig(req);
   const existing = await Credential.findAll({ where: { user_id: req.user.id } });
@@ -46,7 +46,7 @@ router.post("/compte/passkeys/options", requireLogin, optionsLimiter, async (req
   res.json(options);
 });
 
-// Enregistrement — vérifie la réponse et sauvegarde la passkey.
+// Enregistrement - vérifie la réponse et sauvegarde la passkey.
 router.post("/compte/passkeys/verify", requireLogin, async (req, res) => {
   const { rpID, origin } = rpConfig(req);
   const expectedChallenge = req.session.webauthnChallenge;

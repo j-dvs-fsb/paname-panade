@@ -70,7 +70,7 @@ async function addMissingColumns() {
 
 // Remet à NULL les "None" hérités des imports Python. Sans ça, les fiches déjà
 // en base continueraient d'afficher « Horaires : None » même une fois le code
-// corrigé — et la prod ne se réimporte pas.
+// corrigé - et la prod ne se réimporte pas.
 async function scrubSentinels() {
   const models = { exposition: Exposition, museum: Museum };
   let total = 0;
@@ -111,7 +111,7 @@ async function relaxColumns() {
 
 // Les mots de passe vivaient dans `user.password_hash` ; Better Auth les lit
 // dans `account.password`, sur une ligne de fournisseur "credential". On
-// recopie les hachages bcrypt tels quels — le même algorithme est branché côté
+// recopie les hachages bcrypt tels quels - le même algorithme est branché côté
 // Better Auth, donc les mots de passe existants continuent de fonctionner.
 async function backfillCredentialAccounts() {
   const users = await User.findAll({

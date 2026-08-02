@@ -1,6 +1,6 @@
 {% extends "base.njk" %}
 {% from "_macros.njk" import stars %}
-{% block title %}Profil — Paname Panade{% endblock %}
+{% block title %}Profil | Paname Panade{% endblock %}
 {% block content %}
 <div class="container py-5">
   <div class="d-flex justify-content-between align-items-start flex-wrap">
@@ -42,13 +42,13 @@
     </div>
     <div class="col-md-3 col-6">
       <div class="stat-tile">
-        <div class="num">{{ fun.expos_per_week if fun.expos_per_week else '–' }}</div>
+        <div class="num">{{ fun.expos_per_week if fun.expos_per_week else '-' }}</div>
         <div class="lbl">expos / semaine pour tout faire avant 26 ans</div>
       </div>
     </div>
     <div class="col-md-3 col-6">
       <div class="stat-tile">
-        <div class="num">{{ fun.expos_per_month if fun.expos_per_month else '–' }}</div>
+        <div class="num">{{ fun.expos_per_month if fun.expos_per_month else '-' }}</div>
         <div class="lbl">expos / mois au rythme requis</div>
       </div>
     </div>
@@ -80,7 +80,7 @@
       {% for f in favorites %}
         <div class="border-bottom py-2">
           <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=f.exposition.slug) }}">{{ f.exposition.title }}</a>
-          {% if f.exposition.museum %}<span class="muted small"> — {{ f.exposition.museum.name }}</span>{% endif %}
+          {% if f.exposition.museum %}<span class="muted small">, {{ f.exposition.museum.name }}</span>{% endif %}
         </div>
       {% else %}
         <p class="muted">Aucun favori pour l'instant.</p>

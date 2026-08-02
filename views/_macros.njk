@@ -6,10 +6,10 @@
   </span>
 {% endmacro %}
 
-{# `eager` : à passer pour la première carte de la page — l'image est au-dessus
+{# `eager` : à passer pour la première carte de la page - l'image est au-dessus
    de la ligne de flottaison, la charger paresseusement retarderait l'affichage.
    `user` : passé explicitement, une macro Nunjucks ne voit pas le contexte du
-   template appelant — sans lui, le tarif serait toujours celui d'un anonyme. #}
+   template appelant - sans lui, le tarif serait toujours celui d'un anonyme. #}
 {% macro expo_card(expo, eager=false, user=null) %}
   <div class="col-md-4 mb-4">
     <div class="card h-100">

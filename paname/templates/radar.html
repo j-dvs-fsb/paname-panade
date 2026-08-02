@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Radar des musées — Paname Panade{% endblock %}
+{% block title %}Radar des musées - Paname Panade{% endblock %}
 {% block content %}
 <div class="container py-5">
   <h1 class="mb-1">Radar des musées</h1>
@@ -164,7 +164,7 @@
       dot.setAttribute('r', m.expo_count ? 4 : 3);
       a.appendChild(dot);
       const title = document.createElementNS(SVGNS, 'title');
-      title.textContent = `${m.name} — ${fmtDist(m.dist)}` +
+      title.textContent = `${m.name} - ${fmtDist(m.dist)}` +
         (m.expo_count ? ` · ${m.expo_count} expo${m.expo_count > 1 ? 's' : ''}` : '');
       a.appendChild(title);
       svgBlips.appendChild(a);
@@ -224,11 +224,11 @@
   document.getElementById('radar-locate').addEventListener('click', locate);
 
   function locate() {
-    if (!navigator.geolocation) { srcLabel.textContent = 'Géoloc indisponible — choisis un arrondissement'; return; }
+    if (!navigator.geolocation) { srcLabel.textContent = 'Géoloc indisponible - choisis un arrondissement'; return; }
     srcLabel.textContent = 'Localisation…';
     navigator.geolocation.getCurrentPosition(
       pos => { arrSel.value = ''; setOrigin(pos.coords.latitude, pos.coords.longitude, 'Ta position'); },
-      () => { srcLabel.textContent = 'Position refusée — choisis un arrondissement'; arrSel.focus(); },
+      () => { srcLabel.textContent = 'Position refusée - choisis un arrondissement'; arrSel.focus(); },
       { enableHighAccuracy: true, timeout: 8000 }
     );
   }

@@ -41,7 +41,7 @@ def run(commit=False, force=False):
             db.session.commit()
             print(f"\n✓ {found} logo(s) enregistré(s), {missing} introuvable(s).")
         else:
-            print(f"\n(dry-run — {found} trouvé(s), {missing} introuvable(s). --commit pour écrire.)")
+            print(f"\n(dry-run - {found} trouvé(s), {missing} introuvable(s). --commit pour écrire.)")
 
 
 if __name__ == "__main__":

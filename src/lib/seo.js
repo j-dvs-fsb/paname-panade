@@ -16,7 +16,7 @@ const DEFAULT_DESCRIPTION =
   "dates, horaires, billetterie et conditions de gratuité.";
 
 // Origine publique du site. SITE_URL fige le domaine (utile pour le sitemap et
-// les balises canoniques) ; sinon on la dérive de la requête — `trust proxy`
+// les balises canoniques) ; sinon on la dérive de la requête - `trust proxy`
 // est actif, donc req.protocol vaut bien https derrière le proxy Infomaniak.
 function origin(req) {
   if (config.siteUrl) return config.siteUrl;
@@ -38,11 +38,11 @@ function metaDescription(text, max = 155) {
   const cut = flat.slice(0, max);
   const space = cut.lastIndexOf(" ");
   const kept = space > max * 0.5 ? cut.slice(0, space) : cut;
-  return kept.replace(/[\s,;:.!?–—-]+$/, "") + "…";
+  return kept.replace(/[\s,;:.!?-]+$/, "") + "…";
 }
 
 // Image de partage : passée par notre proxy et rendue absolue, comme les
-// visuels de page — plus aucun lien direct vers un CDN externe dans le HTML.
+// visuels de page - plus aucun lien direct vers un CDN externe dans le HTML.
 function shareImage(req, src) {
   const proxied = proxyUrl(src);
   return proxied ? absoluteUrl(req, proxied) : null;
@@ -74,7 +74,7 @@ function isoDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(s) ? s : null;
 }
 
-// schema.org/ExhibitionEvent — repris par les résultats enrichis de Google.
+// schema.org/ExhibitionEvent - repris par les résultats enrichis de Google.
 // N'émet que des champs vérifiables : pas d'offre inventée pour une expo dont
 // on ne connaît pas le tarif.
 function expoJsonLd(expo, { url, image } = {}) {

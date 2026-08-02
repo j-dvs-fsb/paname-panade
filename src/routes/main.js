@@ -111,7 +111,7 @@ router.get("/musee/:slug", async (req, res) => {
   if (!museum) return res.status(404).render("404.njk");
   const url = urlFor("main.museum_detail", { slug: museum.slug });
   res.locals.meta = seo.pageMeta(req, {
-    title: `${museum.name} — gratuit pour les -26 ans`,
+    title: `${museum.name} : gratuit pour les -26 ans`,
     description:
       seo.metaDescription(museum.description) ||
       `${museum.name} : expositions en cours, horaires et conditions de gratuité pour les moins de 26 ans.`,
@@ -163,7 +163,7 @@ router.get("/radar", async (req, res) => {
     return ka[0] - kb[0] || ka[1] - kb[1] || a.localeCompare(b);
   });
   res.locals.meta = seo.pageMeta(req, {
-    title: "Radar — les musées gratuits sur la carte",
+    title: "Radar : les musées gratuits sur la carte",
     description:
       "La carte des musées gratuits de Paris, arrondissement par arrondissement, " +
       "avec le nombre d'expositions en cours dans chacun.",
@@ -235,7 +235,7 @@ router.get("/expositions", async (req, res) => {
   const active_flags = asList(req.query.f);
 
   // « Encore gratuit pour moi » : proposé seulement à un visiteur connecté qui
-  // a passé 26 ans — pour les autres, tout le catalogue est déjà gratuit.
+  // a passé 26 ans - pour les autres, tout le catalogue est déjà gratuit.
   const over26 = isOver26(req.user);
   const only_free_for_me = over26 && req.query.pourmoi === "1";
 
@@ -301,7 +301,7 @@ router.get("/exposition/:slug", async (req, res) => {
   const url = urlFor("main.expo_detail", { slug: expo.slug });
   const absolute = seo.absoluteUrl(req, url);
   res.locals.meta = seo.pageMeta(req, {
-    title: `${expo.title}${expo.museum ? " — " + expo.museum.name : ""}`,
+    title: `${expo.title}${expo.museum ? ", " + expo.museum.name : ""}`,
     description: seo.metaDescription(expo.description_text) || expo.editorial_note,
     url,
     canonical: urlFor("main.expo_detail", { slug: reference.slug }),

@@ -1,7 +1,7 @@
 "use strict";
 
 // Synchronise les expositions gratuites depuis l'API « Que Faire à Paris ? ».
-// Source : https://opendata.paris.fr — dataset que-faire-a-paris- (Opendatasoft v2.1).
+// Source : https://opendata.paris.fr - dataset que-faire-a-paris- (Opendatasoft v2.1).
 // Port de scripts/sync_data.py.
 
 const { Op } = require("sequelize");
@@ -51,7 +51,7 @@ function mapReservation(accessType) {
 }
 
 // Le flux fournit parfois « exemple.fr/billetterie » sans schéma : on préfixe.
-// Tout ce qui n'est pas une URL http(s) exploitable devient null — pas de
+// Tout ce qui n'est pas une URL http(s) exploitable devient null - pas de
 // bouton plutôt qu'un lien mort.
 function cleanLink(url) {
   return coerceUrl(url);
@@ -61,7 +61,7 @@ function matchMuseum(rec, museums) {
   const place = (rec.address_name || "").toLowerCase();
   if (!place) return null;
   for (const m of museums) {
-    const key = m.name.split("—")[0].split("(")[0].trim().toLowerCase();
+    const key = m.name.split("-")[0].split("(")[0].trim().toLowerCase();
     if (key && (place.includes(key) || key.includes(place))) return m;
   }
   return null;

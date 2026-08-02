@@ -1,4 +1,4 @@
-# Déploiement — Paname Panade (Node.js sur Infomaniak)
+# Déploiement - Paname Panade (Node.js sur Infomaniak)
 
 L'application web est en **Node.js** (Express + Nunjucks + Sequelize). Elle tourne sur
 l'**Hébergement Web Infomaniak** via un site de type **Node.js**, et se connecte à la
@@ -21,16 +21,16 @@ l'**Hébergement Web Infomaniak** via un site de type **Node.js**, et se connect
 | `ADMIN_EMAIL` | ton email (compte admin créé au 1er démarrage) |
 | `ADMIN_PASSWORD` | un mot de passe fort |
 | `ADMIN_PRENOM` | ton prénom (optionnel) |
-| `SITE_URL` | `https://paname-panade.fr` — fige les URL canoniques, le sitemap et le retour OAuth |
+| `SITE_URL` | `https://paname-panade.fr` - fige les URL canoniques, le sitemap et le retour OAuth |
 | `GOOGLE_CLIENT_ID` | (optionnel) identifiant OAuth Google |
 | `GOOGLE_CLIENT_SECRET` | (optionnel) secret OAuth Google |
-| `PORT` | **fournie automatiquement par Infomaniak** — ne pas fixer |
+| `PORT` | **fournie automatiquement par Infomaniak** - ne pas fixer |
 
 ### Authentification (Better Auth)
 Les comptes, sessions et connexions sociales passent par **Better Auth**. Les tables
 `session`, `account` et `verification` sont créées automatiquement au démarrage
 (`sequelize.sync()`), et une mini-migration reprend les mots de passe existants depuis
-`user.password_hash` vers `account.password` — **les comptes déjà créés continuent de se
+`user.password_hash` vers `account.password` - **les comptes déjà créés continuent de se
 connecter avec leur mot de passe actuel, sans réinitialisation.**
 
 > `better-sqlite3` n'est qu'une dépendance de **développement** (base SQLite locale).

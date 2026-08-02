@@ -33,7 +33,7 @@ function csrfProtection(req, res, next) {
 
   const wantsJson = req.is("json") || (req.get("accept") || "").includes("application/json");
   if (wantsJson) return res.status(403).json({ error: "Session expirée, recharge la page." });
-  return res.status(403).send("403 — jeton de sécurité invalide ou expiré. Recharge la page et réessaie.");
+  return res.status(403).send("403 - jeton de sécurité invalide ou expiré. Recharge la page et réessaie.");
 }
 
 module.exports = { csrfProtection, ensureToken };

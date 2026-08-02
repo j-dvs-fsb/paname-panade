@@ -1,5 +1,5 @@
 {% extends "base.njk" %}
-{% block title %}Inscription — Paname Panade{% endblock %}
+{% block title %}Inscription | Paname Panade{% endblock %}
 {% block content %}
 <div class="container py-5" style="max-width:420px">
   <h1 class="mb-4">Inscription</h1>
@@ -25,7 +25,7 @@
     </div>
     <button class="btn btn-ink w-100">Créer mon compte</button>
   {% if google_enabled %}
-    <div class="text-center my-3 muted small">— ou —</div>
+    <div class="text-center my-3 muted small">ou</div>
     <a class="btn btn-outline-ink w-100" href="{{ url_for('auth.google') }}">Continuer avec Google</a>
   {% endif %}
   </form>

@@ -1,4 +1,4 @@
-# Brief d'implémentation — Refonte musées : gratuité structurée, liste définitive, tableau de scraping
+# Brief d'implémentation - Refonte musées : gratuité structurée, liste définitive, tableau de scraping
 
 > Document autonome : donne tout le contexte nécessaire à une session Claude Code
 > qui n'a jamais vu ce projet. À exécuter tel quel, sauf indication contraire du propriétaire.
@@ -14,7 +14,7 @@ Prod : MariaDB sur hébergement mutualisé Infomaniak, déploiement par `git pul
 ### Conventions NON NÉGOCIABLES du projet
 - **Commits en français, sans aucune mention de Claude/IA** (pas de Co-Authored-By, pas de "Generated with").
 - **Tout formulaire POST** doit contenir `<input type="hidden" name="_csrf" value="{{ csrf_token() }}">` (middleware CSRF maison, sinon 403).
-- **Tout `<script>` inline** doit porter `nonce="{{ csp_nonce }}"` ; gestionnaires inline (onclick…) interdits par la CSP — utiliser `data-confirm` / `data-busy` (gérés par le script global de `base.njk`).
+- **Tout `<script>` inline** doit porter `nonce="{{ csp_nonce }}"` ; gestionnaires inline (onclick…) interdits par la CSP - utiliser `data-confirm` / `data-busy` (gérés par le script global de `base.njk`).
 - Pas de nouvelle dépendance npm sauf nécessité absolue (déploiements mutualisés fragiles ; historique douloureux).
 - Style de code : suivre l'existant (commentaires en français, mêmes idiomes).
 - Les URL passent par `url_for()` (réplique Flask) : chaque route a une entrée dans `src/lib/urls.js`.
@@ -36,9 +36,9 @@ Trois changements liés :
 2. **Liste de musées définitive** : le bouton admin « Sync musées (Île-de-France) » **crée**
    aujourd'hui des musées ([src/services/syncMuseums.js](src/services/syncMuseums.js), branche `else` → `Museum.build`).
    Il a déjà tourné en prod (donc la base prod contient des dizaines de musées auto-créés en plus
-   des 8 curés). Désormais : **plus jamais de création automatique** — les inconnus deviennent des
+   des 8 curés). Désormais : **plus jamais de création automatique** - les inconnus deviennent des
    « suggestions » visibles dans l'admin, à traiter manuellement.
-3. **Tableau éditorial** : le propriétaire remplira un tableau (CSV) par musée — gratuité exacte,
+3. **Tableau éditorial** : le propriétaire remplira un tableau (CSV) par musée - gratuité exacte,
    liens de scraping (expos / horaires / nocturnes), climatisation. Ce tableau, converti en fichier
    de données versionné dans le repo, devient la source de vérité de la liste des musées.
 
@@ -62,7 +62,7 @@ cartésien de 2 dimensions indépendantes (périmètre × condition). Les stocke
 des filtres SQL directs (`WHERE free_scope='musee_entier' AND (free_max_age IS NULL OR free_max_age>=26)`),
 l'extensibilité (un musée gratuit -18 ne demande aucune nouvelle catégorie), et zéro ambiguïté.
 Les cas non filtrables (1er dimanche, nocturnes gratuites) vont en `free_notes` : on les affiche,
-on ne filtre pas dessus — si un filtre devient nécessaire plus tard, on ajoutera une colonne dédiée.
+on ne filtre pas dessus - si un filtre devient nécessaire plus tard, on ajoutera une colonne dédiée.
 
 **Migration des valeurs actuelles** (à faire dans la mini-migration, quand `free_scope` est NULL) :
 `permanent` → (`expo_permanente`, NULL) · `gratuit_tous` → (`musee_entier`, NULL) ·
@@ -77,22 +77,22 @@ suppression dans un chantier ultérieur.
 
 ## 4. État actuel du code (repères pour l'implémentation)
 
-- `src/models/museum.js` — colonnes actuelles : id, slug, museofile_id, name, description, address,
+- `src/models/museum.js` - colonnes actuelles : id, slug, museofile_id, name, description, address,
   arrondissement, website, expos_url, free_access, image_url, logo_url, lat, lon.
   Getters : `free_access_list`, `free_labels` (depuis `FREE_ACCESS_LABELS` de `src/models/labels.js`),
   `is_permanent_free` (utilisé par templates + scrape).
-- `src/services/syncMuseums.js` — `runSyncMuseums()` : fetch dataset IDF (~50 musées parisiens),
+- `src/services/syncMuseums.js` - `runSyncMuseums()` : fetch dataset IDF (~50 musées parisiens),
   enrichit les existants (rapprochés par `museofile_id` ou `MANUAL_MATCH`), **crée** les inconnus.
-- `src/services/seed.js` — const `MUSEUMS` (8 musées curés) + `seedMuseums()` (upsert par slug,
+- `src/services/seed.js` - const `MUSEUMS` (8 musées curés) + `seedMuseums()` (upsert par slug,
   appelé par bootstrap seulement si base vide, et par `npm run seed`).
-- `src/services/sync.js` — sync expos QFAP : ne crée PAS de musées (rattachement par nom, sinon
+- `src/services/sync.js` - sync expos QFAP : ne crée PAS de musées (rattachement par nom, sinon
   expo « lieu seul »). Ne pas y toucher.
-- `scripts/scrape.js` — scraping expos → brouillons ; mappe `price_category` depuis
+- `scripts/scrape.js` - scraping expos → brouillons ; mappe `price_category` depuis
   `museum.free_access_list` (à adapter). Registre des scrapers : `src/scrapers/index.js`
   (Louvre + 4 musées Paris Musées).
-- `src/routes/admin.js` — protégé par `requireAdmin` au niveau routeur ; helpers `clean()`,
+- `src/routes/admin.js` - protégé par `requireAdmin` au niveau routeur ; helpers `clean()`,
   `uniqueSlug()` ; flash + redirect après POST ; formulaires dans `views/admin/*.njk`.
-- `src/bootstrap.js` — s'exécute au boot : seed musées si base vide, seed pages statiques
+- `src/bootstrap.js` - s'exécute au boot : seed musées si base vide, seed pages statiques
   (idempotent par page), création admin. C'est ici que vivra la mini-migration.
 - Base locale : 8 musées (4 → `permanent` : Carnavalet, Petit Palais, MAM, Maison V. Hugo ;
   4 → `gratuit_26` : Louvre, Orsay, Quai Branly, Pompidou).
@@ -106,7 +106,7 @@ suppression dans un chantier ultérieur.
   `free_label` construit depuis scope/âge (ex. « Collections permanentes gratuites », « Musée
   gratuit pour les -26 ans », suffixe notes séparé). Réécrire `is_permanent_free` :
   `free_scope != null && free_max_age == null` pour le périmètre concerné (garder la sémantique
-  actuelle : « accessible gratuitement à tous » — vérifier ses usages avant de changer).
+  actuelle : « accessible gratuitement à tous » - vérifier ses usages avant de changer).
 - **Nouveau** `src/models/museumSuggestion.js` : `museofile_id` STRING(20) unique, `name` STRING(200),
   `address` STRING(300), `arrondissement` STRING(20), `website` STRING(500), `lat`/`lon` FLOAT,
   `status` STRING(15) défaut `nouvelle` (`nouvelle` | `ignoree`), tableName `museum_suggestion`.
@@ -127,9 +127,9 @@ Idempotent, silencieux si rien à faire, log en une ligne sinon. Compatible SQLi
   `MuseumSuggestion` par `museofile_id` (met à jour les infos d'une suggestion `nouvelle` ;
   **ne réveille pas** une `ignoree`). Retour `{ enriched, suggested }`.
 - Routes admin + `src/lib/urls.js` :
-  - GET `/admin/suggestions` → `admin.suggestions` — liste des `nouvelle` + section repliée des `ignoree`
+  - GET `/admin/suggestions` → `admin.suggestions` - liste des `nouvelle` + section repliée des `ignoree`
   - POST `/admin/suggestions/:id/ignorer` → `admin.suggestion_ignore`
-  - POST `/admin/suggestions/:id/creer` → `admin.suggestion_create` — crée le musée depuis la
+  - POST `/admin/suggestions/:id/creer` → `admin.suggestion_create` - crée le musée depuis la
     suggestion (action manuelle explicite : autorisée), slug via `uniqueSlug`, puis supprime la suggestion
 - `views/admin/suggestions.njk` (tableau : nom, adresse, site, actions) ;
   `views/admin/dashboard.njk` : tuile compteur suggestions `nouvelle` + bouton « Suggestions de musées ».
@@ -142,14 +142,14 @@ Idempotent, silencieux si rien à faire, log en une ligne sinon. Compatible SQLi
 - `src/services/seed.js` : `seedMuseums()` upsert tous les champs par slug (comportement bootstrap
   inchangé : base vide seulement). Nouvelle fonction `reimportMuseums()` : upsert tout + retourne
   `{ updated, created, orphans }` où `orphans` = slugs présents en base mais absents du fichier
-  (candidats à suppression **manuelle** via le bouton delete existant de la liste admin — ne
+  (candidats à suppression **manuelle** via le bouton delete existant de la liste admin - ne
   JAMAIS supprimer automatiquement : suppression musée = cascade sur ses expos).
-- Admin : POST `/admin/reimport-musees` → `admin.reimport_museums` — bouton
+- Admin : POST `/admin/reimport-musees` → `admin.reimport_museums` - bouton
   « ↻ Réimporter la liste éditoriale » sur le dashboard, rapport en flash (lister les orphelins).
-- **Export CSV** : GET `/admin/musees/export.csv` → `admin.museums_csv` — toutes les lignes de la
+- **Export CSV** : GET `/admin/musees/export.csv` → `admin.museums_csv` - toutes les lignes de la
   table `museum` (donc la prod réelle), colonnes :
   `slug;name;garder;free_scope;free_max_age;free_notes;expos_url;horaires_url;nocturnes_url;climatise;website;address;arrondissement;remarques`
-  (`garder` et `remarques` vides, à remplir — non stockées en base).
+  (`garder` et `remarques` vides, à remplir - non stockées en base).
   `Content-Type: text/csv; charset=utf-8`, BOM UTF-8 pour Excel, séparateur `;` (Excel FR).
 
 ### 5.5 Affichage & formulaires
@@ -161,15 +161,15 @@ Idempotent, silencieux si rien à faire, log en une ligne sinon. Compatible SQLi
   badge « ❄ Climatisé » si `climatise === true`. Vérifier les usages de `free_labels`/
   `is_permanent_free` dans TOUTES les vues (grep) avant de supprimer l'ancien getter.
 - `scripts/scrape.js` : `price_category` = `gratuit_tous` si `free_max_age` NULL,
-  sinon `gratuit_26` si `free_max_age >= 26` — depuis les nouveaux champs.
+  sinon `gratuit_26` si `free_max_age >= 26` - depuis les nouveaux champs.
 
 ### 5.6 Guide utilisateur
-**Nouveau** `docs/SCRAPING.md` — mode d'emploi du tableau, écrit pour un non-développeur :
+**Nouveau** `docs/SCRAPING.md` - mode d'emploi du tableau, écrit pour un non-développeur :
 - sens de chaque colonne + valeurs permises (exactement `expo_permanente` / `musee_entier`, etc.) ;
 - où trouver l'info sur le site d'un musée : page « billetterie / tarifs » (gratuité et conditions),
   « infos pratiques / horaires » (horaires_url, souvent la même page pour les nocturnes),
-  page « expositions / agenda » (expos_url — l'URL de la LISTE, pas d'une expo) ;
-- **des URLs suffisent — inutile de fournir le HTML des pages** : elles seront inspectées au
+  page « expositions / agenda » (expos_url - l'URL de la LISTE, pas d'une expo) ;
+- **des URLs suffisent - inutile de fournir le HTML des pages** : elles seront inspectées au
   moment d'écrire les scrapers ; les sites entièrement en JavaScript seront traités au cas par cas ;
 - `remarques` : tout ce qui aide (« les expos sont dans l'onglet Agenda », « le site est lent »…) ;
 - workflow complet (§6).
@@ -191,7 +191,7 @@ Idempotent, silencieux si rien à faire, log en une ligne sinon. Compatible SQLi
 
 Reproduire la méthode e2e du projet : booter sur une base SQLite jetable
 (`SECRET_KEY=... DATABASE_URL=sqlite:/tmp/test.sqlite ADMIN_EMAIL=... ADMIN_PASSWORD=... PORT=39xx node server.js`),
-puis tester via curl (session + jeton CSRF extrait du HTML — attention : en
+puis tester via curl (session + jeton CSRF extrait du HTML - attention : en
 `NODE_ENV=production` sans HTTPS le cookie de session n'est pas posé, tester en mode dev).
 
 1. **Migration** : copier `instance/paname.sqlite`, booter dessus → colonnes ajoutées,
@@ -213,7 +213,7 @@ tableau+export+réimport / affichage), sans mention d'IA.
 ## 8. Déploiement (rappels spécifiques à ce projet)
 
 - Sur le serveur : `git pull origin main` puis **redémarrer via le Manager Infomaniak** (pas de
-  commande SSH pour ça). La commande de build est `npm ci --omit=dev` — ne jamais lancer
+  commande SSH pour ça). La commande de build est `npm ci --omit=dev` - ne jamais lancer
   `npm install` sur le serveur.
 - La migration et la table `museum_suggestion` se créent seules au redémarrage (bootstrap).
 - Aucune variable d'environnement nouvelle.

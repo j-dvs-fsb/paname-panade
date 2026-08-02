@@ -135,7 +135,7 @@ def absolute(base, path):
 
 
 def parse_french_date(text):
-    """« 15 avril – 20 juillet 2026 » -> (date(2026,4,15), date(2026,7,20)).
+    """« 15 avril - 20 juillet 2026 » -> (date(2026,4,15), date(2026,7,20)).
 
     Gère « jusqu'au … » (fin seule) et « à partir du … » (début seul).
     Renvoie (date_start, date_end), l'un ou l'autre pouvant être None.
