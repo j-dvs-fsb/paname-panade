@@ -10,6 +10,7 @@ const Visit = require("./visit")(sequelize);
 const Credential = require("./credential")(sequelize);
 const Page = require("./page")(sequelize);
 const Report = require("./report")(sequelize);
+const Passkey = require("./passkey")(sequelize);
 
 const {
   defineAuthSession,
@@ -40,6 +41,9 @@ Visit.belongsTo(User, { as: "user", foreignKey: "user_id" });
 User.hasMany(Credential, { as: "credentials", foreignKey: "user_id", onDelete: "CASCADE" });
 Credential.belongsTo(User, { as: "user", foreignKey: "user_id" });
 
+User.hasMany(Passkey, { as: "passkeys", foreignKey: "userId", onDelete: "CASCADE" });
+Passkey.belongsTo(User, { as: "user", foreignKey: "userId" });
+
 // Un signalement pointe une expo (ou rien, pour une suggestion libre). La fiche
 // peut disparaître avant le traitement : le signalement reste, sans rattachement.
 Exposition.hasMany(Report, { as: "reports", foreignKey: "exposition_id", onDelete: "SET NULL" });
@@ -62,6 +66,7 @@ module.exports = {
   Credential,
   Page,
   Report,
+  Passkey,
   AuthSession,
   AuthAccount,
   AuthVerification,

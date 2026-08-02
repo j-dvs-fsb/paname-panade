@@ -20,7 +20,8 @@
   {% if google_enabled %}
     <a class="btn btn-outline-ink w-100 mb-2" href="{{ url_for('auth.google') }}">Continuer avec Google</a>
   {% endif %}
-  <button class="btn btn-outline-ink w-100" id="passkey-login">🔑 Se connecter avec une passkey</button>
+  <button class="btn btn-outline-ink w-100" id="passkey-login">Se connecter avec une passkey</button>
+  <p class="muted small mt-2 mb-0" id="passkey-status" role="status" aria-live="polite"></p>
 
   <p class="mt-3 muted">Pas de compte ? <a href="{{ url_for('auth.register') }}">Inscris-toi</a>.</p>
 </div>
@@ -29,22 +30,41 @@
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/@simplewebauthn/browser@13/dist/bundle/index.umd.min.js"></script>
 <script nonce="{{ csp_nonce }}">
-  document.getElementById('passkey-login').addEventListener('click', async () => {
-    if (!window.SimpleWebAuthnBrowser) { alert('Passkeys non supportées par ce navigateur.'); return; }
-    const headers = { 'Content-Type': 'application/json', 'X-CSRF-Token': '{{ csrf_token() }}' };
+  // Cérémonie d'authentification : défi et vérification par le greffon passkey
+  // de Better Auth, sur /api/auth/passkey/*. En cas de succès il pose lui-même
+  // le cookie de session.
+  const btn = document.getElementById('passkey-login');
+  const status = document.getElementById('passkey-status');
+  const say = (msg) => { status.textContent = msg; };
+
+  btn.addEventListener('click', async () => {
+    if (!window.SimpleWebAuthnBrowser) { say("Ce navigateur ne gère pas les passkeys."); return; }
+
+    btn.disabled = true;
+    say('Suis les instructions de ton appareil…');
     try {
-      const options = await (await fetch('/connexion/passkey/options', {
-        method: 'POST', headers, body: '{}'
-      })).json();
-      const authResp = await SimpleWebAuthnBrowser.startAuthentication({ optionsJSON: options });
-      const out = await (await fetch('/connexion/passkey/verify', {
-        method: 'POST', headers,
-        body: JSON.stringify(authResp)
-      })).json();
-      if (out.ok) location.href = out.redirect;
-      else alert('Échec : ' + (out.error || 'inconnu'));
+      const optionsResponse = await fetch('/api/auth/passkey/generate-authenticate-options', {
+        credentials: 'same-origin',
+      });
+      if (!optionsResponse.ok) throw new Error('options indisponibles');
+      const optionsJSON = await optionsResponse.json();
+
+      const assertion = await SimpleWebAuthnBrowser.startAuthentication({ optionsJSON });
+
+      const verifyResponse = await fetch('/api/auth/passkey/verify-authentication', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ response: assertion }),
+      });
+      if (!verifyResponse.ok) throw new Error('passkey non reconnue');
+
+      location.href = '{{ url_for("main.profile") }}';
     } catch (e) {
-      alert('Annulé : ' + e.message);
+      btn.disabled = false;
+      say(e.name === 'NotAllowedError'
+        ? "Connexion annulée. Clique dans la page, puis réessaie."
+        : "Échec de la connexion : " + (e.message || e.name));
     }
   });
 </script>

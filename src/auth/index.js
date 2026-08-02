@@ -68,10 +68,38 @@ function buildDatabase() {
   return new DatabaseSync(config.databaseUrl.slice("sqlite:".length));
 }
 
+// Relying Party WebAuthn. Le greffon est configuré une fois au démarrage (et
+// non par requête comme l'ancienne implémentation) : en production, le domaine
+// doit donc être figé par SITE_URL ou WEBAUTHN_RP_ID.
+function webauthnConfig() {
+  const origin = process.env.WEBAUTHN_ORIGIN || baseUrl();
+  let host = "localhost";
+  try {
+    host = new URL(origin).hostname;
+  } catch (e) {
+    /* origine illisible : on garde localhost */
+  }
+  const rpID = process.env.WEBAUTHN_RP_ID || host;
+
+  // Une passkey est liée au domaine qui l'a créée. Si la production démarrait
+  // sur « localhost » faute de SITE_URL, aucune passkey ne fonctionnerait, et
+  // rien ne le signalerait avant qu'un visiteur n'essaie.
+  if (config.isProduction && rpID === "localhost") {
+    console.warn(
+      "[auth] SITE_URL et WEBAUTHN_RP_ID sont absents : les passkeys seront " +
+        "rattachées à « localhost » et ne fonctionneront pas en production."
+    );
+  }
+
+  return { rpID, rpName: "Paname Panade", origin };
+}
+
 async function build() {
   const { betterAuth } = await import("better-auth");
+  const { passkey } = await import("@better-auth/passkey");
 
   const google = googleCredentials();
+  const webauthn = webauthnConfig();
 
   return betterAuth({
     appName: "Paname Panade",
@@ -127,6 +155,17 @@ async function build() {
 
     account: { modelName: "account" },
     verification: { modelName: "verification" },
+
+    plugins: [
+      passkey({
+        rpID: webauthn.rpID,
+        rpName: webauthn.rpName,
+        origin: webauthn.origin,
+        // `residentKey: preferred` laisse l'appareil proposer une passkey
+        // découvrable, ce qui permet de se connecter sans saisir son email.
+        authenticatorSelection: { residentKey: "preferred", userVerification: "preferred" },
+      }),
+    ],
   });
 }
 

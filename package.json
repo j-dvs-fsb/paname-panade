@@ -17,6 +17,7 @@
     "make-admin": "node scripts/makeAdmin.js"
   },
   "dependencies": {
+    "@better-auth/passkey": "^1.6.25",
     "@simplewebauthn/server": "^13.3.2",
     "bcryptjs": "^2.4.3",
     "better-auth": "^1.6.25",

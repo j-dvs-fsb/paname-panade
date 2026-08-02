@@ -11,6 +11,7 @@ const {
   Favorite,
   Visit,
   Credential,
+  Passkey,
   Page,
   Report,
   PRICE_LABELS,
@@ -259,6 +260,7 @@ router.post("/utilisateurs/:id/supprimer", async (req, res) => {
     await Favorite.destroy({ where: { user_id: user.id }, transaction: t });
     await Visit.destroy({ where: { user_id: user.id }, transaction: t });
     await Credential.destroy({ where: { user_id: user.id }, transaction: t });
+    await Passkey.destroy({ where: { userId: user.id }, transaction: t });
     await user.destroy({ transaction: t });
   });
   req.flash("info", "Utilisateur supprimé (avec ses favoris, avis et passkeys).");

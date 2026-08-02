@@ -21,7 +21,7 @@ l'**Hébergement Web Infomaniak** via un site de type **Node.js**, et se connect
 | `ADMIN_EMAIL` | ton email (compte admin créé au 1er démarrage) |
 | `ADMIN_PASSWORD` | un mot de passe fort |
 | `ADMIN_PRENOM` | ton prénom (optionnel) |
-| `SITE_URL` | `https://paname-panade.fr` - fige les URL canoniques, le sitemap et le retour OAuth |
+| `SITE_URL` | `https://paname-panade.fr` - **obligatoire** : URL canoniques, sitemap, retour OAuth et domaine des passkeys |
 | `GOOGLE_CLIENT_ID` | (optionnel) identifiant OAuth Google |
 | `GOOGLE_CLIENT_SECRET` | (optionnel) secret OAuth Google |
 | `PORT` | **fournie automatiquement par Infomaniak** - ne pas fixer |
@@ -33,9 +33,19 @@ Les comptes, sessions et connexions sociales passent par **Better Auth**. Les ta
 `user.password_hash` vers `account.password` - **les comptes déjà créés continuent de se
 connecter avec leur mot de passe actuel, sans réinitialisation.**
 
-> `better-sqlite3` n'est qu'une dépendance de **développement** (base SQLite locale).
-> En production, Better Auth utilise le pool **mysql2** déjà présent : `npm ci --omit=dev`
-> reste la bonne commande de build, rien de natif à compiler.
+Les **passkeys** passent par le greffon officiel `@better-auth/passkey` (table
+`passkey`, points d'entrée `/api/auth/passkey/*`). Les clés enregistrées avec
+l'ancienne implémentation sont reprises au démarrage depuis la table
+`credential`, qui reste en place le temps de vérifier la migration.
+
+> ⚠️ Une passkey est liée au domaine qui l'a créée, et ce domaine est figé au
+> démarrage à partir de `SITE_URL`. Sans elle, l'application démarre sur
+> « localhost » et **aucune passkey ne fonctionne**. Un avertissement est écrit
+> dans le log de démarrage si le cas se produit.
+
+> En développement, Better Auth s'appuie sur `node:sqlite`, intégré à Node ; en
+> production sur le pool **mysql2** déjà présent. `npm ci --omit=dev` reste la
+> bonne commande de build, rien de natif à compiler.
 
 Pour activer la connexion Google, crée un « ID client OAuth » de type *Application Web*
 sur <https://console.cloud.google.com/apis/credentials> et déclare l'URI de redirection

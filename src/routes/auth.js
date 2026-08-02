@@ -12,6 +12,7 @@ const {
   Exposition,
   AuthSession,
   AuthAccount,
+  Passkey,
 } = require("../models");
 const { requireLogin, requireProfile } = require("../middleware/auth");
 const { authLimiter } = require("../middleware/rateLimit");
@@ -112,7 +113,10 @@ router.post("/inscription", authLimiter, async (req, res) => {
   }
 
   req.flash("success", `Bienvenue ${prenom} ! Ton compte est créé.`);
-  res.redirect(urlFor("main.profile"));
+  // On enchaîne sur la proposition de passkey : c'est le seul moment où elle
+  // a une chance d'être adoptée, une fois enfouie dans les réglages personne
+  // n'y va.
+  res.redirect(urlFor("auth.passkeys", { bienvenue: "1" }));
 });
 
 router.get("/connexion", (req, res) => {
@@ -194,7 +198,7 @@ router.post("/compte/complete", requireLogin, async (req, res) => {
   req.user.updated_at = new Date();
   await req.user.save();
   req.flash("success", "Merci ! Ton compte est complet.");
-  res.redirect(urlFor("main.profile"));
+  res.redirect(urlFor("auth.passkeys", { bienvenue: "1" }));
 });
 
 router.get("/compte", requireLogin, requireProfile, (req, res) => {
@@ -278,7 +282,7 @@ router.get("/compte/donnees", requireLogin, async (req, res) => {
       where: { user_id: req.user.id },
       include: [{ model: Exposition, as: "exposition", attributes: ["title", "slug"] }],
     }),
-    Credential.findAll({ where: { user_id: req.user.id } }),
+    Passkey.findAll({ where: { userId: req.user.id } }),
   ]);
 
   const data = {
@@ -299,7 +303,7 @@ router.get("/compte/donnees", requireLogin, async (req, res) => {
       commentaire: v.comment,
       visite_le: v.visited_at,
     })),
-    passkeys: credentials.map((c) => ({ nom: c.label, ajoutee_le: c.created_at })),
+    passkeys: credentials.map((c) => ({ nom: c.name, ajoutee_le: c.createdAt })),
   };
 
   res.setHeader("Content-Disposition", 'attachment; filename="paname-panade-mes-donnees.json"');
@@ -322,6 +326,7 @@ router.post("/compte/supprimer", requireLogin, async (req, res) => {
     await Favorite.destroy({ where: { user_id: userId }, transaction: t });
     await Visit.destroy({ where: { user_id: userId }, transaction: t });
     await Credential.destroy({ where: { user_id: userId }, transaction: t });
+    await Passkey.destroy({ where: { userId }, transaction: t });
     await AuthSession.destroy({ where: { userId }, transaction: t });
     await AuthAccount.destroy({ where: { userId }, transaction: t });
     await User.destroy({ where: { id: userId }, transaction: t });

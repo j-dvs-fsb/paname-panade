@@ -10,7 +10,7 @@
 
 const { DataTypes, Op } = require("sequelize");
 
-const { sequelize, Exposition, Museum, User, AuthAccount } = require("../models");
+const { sequelize, Exposition, Museum, User, AuthAccount, Credential, Passkey } = require("../models");
 const { SENTINEL_VALUES } = require("../lib/values");
 
 // Colonnes ajoutées après coup, par table. Y laisser les anciennes entrées :
@@ -141,6 +141,40 @@ async function backfillCredentialAccounts() {
   return rows.length;
 }
 
+// Les passkeys vivaient dans `credential` (implémentation maison) ; le greffon
+// de Better Auth les lit dans `passkey`. Le contenu est repris tel quel, à un
+// détail près : la clé publique était encodée en base64url, le greffon la lit
+// en base64 standard.
+//
+// `deviceType` et `backedUp` n'existaient pas : on prend les valeurs les plus
+// prudentes. Elles ne servent qu'à l'affichage et à la journalisation, pas à
+// la vérification cryptographique : les passkeys déjà enregistrées continuent
+// donc de fonctionner.
+async function migratePasskeys() {
+  const credentials = await Credential.findAll();
+  if (!credentials.length) return 0;
+
+  const existing = await Passkey.findAll({ attributes: ["credentialID"] });
+  const done = new Set(existing.map((p) => p.credentialID));
+
+  const rows = credentials
+    .filter((c) => !done.has(c.credential_id))
+    .map((c) => ({
+      name: c.label || null,
+      userId: c.user_id,
+      credentialID: c.credential_id,
+      publicKey: Buffer.from(c.public_key, "base64url").toString("base64"),
+      counter: Number(c.counter) || 0,
+      deviceType: "singleDevice",
+      backedUp: false,
+      transports: c.transports || null,
+      createdAt: c.created_at || new Date(),
+    }));
+  if (!rows.length) return 0;
+  await Passkey.bulkCreate(rows);
+  return rows.length;
+}
+
 async function runMigrations() {
   try {
     const added = await addMissingColumns();
@@ -164,6 +198,13 @@ async function runMigrations() {
   }
 
   try {
+    const moved = await migratePasskeys();
+    if (moved) console.log(`[migration] Passkeys reprises par Better Auth : ${moved}.`);
+  } catch (e) {
+    console.error("[migration] Reprise des passkeys échouée :", e.message);
+  }
+
+  try {
     const scrubbed = await scrubSentinels();
     if (scrubbed) console.log(`[migration] Valeurs « None » nettoyées : ${scrubbed}.`);
   } catch (e) {
@@ -176,6 +217,7 @@ module.exports = {
   addMissingColumns,
   relaxColumns,
   backfillCredentialAccounts,
+  migratePasskeys,
   scrubSentinels,
   ADDED_COLUMNS,
 };

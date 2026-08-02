@@ -1,19 +1,42 @@
 {% extends "base.njk" %}
 {% block title %}Mes passkeys | Paname Panade{% endblock %}
 {% block content %}
-<div class="container py-5" style="max-width:520px">
+<div class="container py-5" style="max-width:560px">
   <a href="{{ url_for('auth.account') }}" class="muted small">← Mon compte</a>
-  <h1 class="mt-2 mb-2">Mes passkeys</h1>
-  <p class="muted">Connecte-toi sans mot de passe avec l'empreinte, le visage ou le code de ton appareil.</p>
 
-  <button class="btn btn-ink mb-4" id="add-passkey">+ Ajouter une passkey</button>
+  {% if bienvenue %}
+    <h1 class="mt-2 mb-2">Ton compte est créé</h1>
+    <p class="muted">
+      Dernière étape facultative : ajoute une passkey et tu n'auras plus jamais
+      à saisir ton mot de passe. La connexion se fera avec l'empreinte, le
+      visage ou le code de ton appareil.
+    </p>
+  {% else %}
+    <h1 class="mt-2 mb-2">Mes passkeys</h1>
+    <p class="muted">Connecte-toi sans mot de passe avec l'empreinte, le visage ou le code de ton appareil.</p>
+  {% endif %}
 
-  {% if creds %}
-    <ul class="list-unstyled">
-      {% for c in creds %}
-        <li class="border-bottom py-2 d-flex justify-content-between align-items-center">
-          <span>{{ c.label or 'Passkey' }} <span class="muted small">· ajoutée le {{ c.created_at | dmy }}</span></span>
-          <form method="post" action="{{ url_for('auth.passkey_delete', passkey_id=c.id) }}" data-confirm="Supprimer cette passkey ?">
+  {# Le nom est saisi ici, dans le document. Un window.prompt() ferait perdre
+     le focus à la page, et navigator.credentials.create() refuse alors de
+     s'exécuter (« the document is not focused »). #}
+  <div class="stat-tile text-start mt-4">
+    <label class="form-label" for="passkey-name">Nom de cette passkey</label>
+    <input class="form-control mb-2" id="passkey-name" maxlength="120"
+           placeholder="iPhone, MacBook, clé USB…" autocomplete="off">
+    <button class="btn btn-ink w-100" id="add-passkey">Ajouter une passkey</button>
+    <p class="muted small mb-0 mt-2" id="passkey-status" role="status" aria-live="polite"></p>
+  </div>
+
+  {% if passkeys %}
+    <ul class="list-unstyled mt-4">
+      {% for p in passkeys %}
+        <li class="border-bottom py-2 d-flex justify-content-between align-items-center gap-2">
+          <span>
+            {{ p.name or 'Passkey' }}
+            <span class="muted small">· ajoutée le {{ p.createdAt | dmy }}</span>
+          </span>
+          <form method="post" action="{{ url_for('auth.passkey_delete', passkey_id=p.id) }}"
+                data-confirm="Supprimer cette passkey ?">
             <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
             <button class="btn btn-link btn-sm p-0 text-danger">Suppr.</button>
           </form>
@@ -21,7 +44,11 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p class="muted">Aucune passkey pour l'instant.</p>
+    <p class="muted mt-4">Aucune passkey pour l'instant.</p>
+  {% endif %}
+
+  {% if bienvenue %}
+    <a class="btn btn-outline-ink w-100 mt-3" href="{{ url_for('main.profile') }}">Plus tard, aller à mon profil</a>
   {% endif %}
 </div>
 {% endblock %}
@@ -29,23 +56,44 @@
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/@simplewebauthn/browser@13/dist/bundle/index.umd.min.js"></script>
 <script nonce="{{ csp_nonce }}">
-  document.getElementById('add-passkey').addEventListener('click', async () => {
-    if (!window.SimpleWebAuthnBrowser) { alert('Passkeys non supportées par ce navigateur.'); return; }
-    const label = prompt('Nom de cette passkey (ex. iPhone, MacBook) ?', '') || '';
-    const headers = { 'Content-Type': 'application/json', 'X-CSRF-Token': '{{ csrf_token() }}' };
+  // Cérémonie d'enregistrement : les défis et la vérification sont assurés par
+  // le greffon passkey de Better Auth, sur /api/auth/passkey/*.
+  const btn = document.getElementById('add-passkey');
+  const status = document.getElementById('passkey-status');
+
+  const say = (msg) => { status.textContent = msg; };
+
+  btn.addEventListener('click', async () => {
+    if (!window.SimpleWebAuthnBrowser) { say("Ce navigateur ne gère pas les passkeys."); return; }
+    const name = document.getElementById('passkey-name').value.trim();
+
+    btn.disabled = true;
+    say('Suis les instructions de ton appareil…');
     try {
-      const options = await (await fetch('/compte/passkeys/options', {
-        method: 'POST', headers, body: '{}'
-      })).json();
-      const credential = await SimpleWebAuthnBrowser.startRegistration({ optionsJSON: options });
-      const out = await (await fetch('/compte/passkeys/verify', {
-        method: 'POST', headers,
-        body: JSON.stringify({ credential, label })
-      })).json();
-      if (out.ok) location.reload();
-      else alert('Échec : ' + (out.error || 'inconnu'));
+      const optionsResponse = await fetch('/api/auth/passkey/generate-register-options', {
+        credentials: 'same-origin',
+      });
+      if (!optionsResponse.ok) throw new Error('options indisponibles');
+      const optionsJSON = await optionsResponse.json();
+
+      const credential = await SimpleWebAuthnBrowser.startRegistration({ optionsJSON });
+
+      const verifyResponse = await fetch('/api/auth/passkey/verify-registration', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ response: credential, name: name || undefined }),
+      });
+      if (!verifyResponse.ok) throw new Error('vérification refusée');
+
+      say('Passkey enregistrée.');
+      location.href = '{{ url_for("auth.passkeys") }}';
     } catch (e) {
-      alert('Annulé : ' + e.message);
+      btn.disabled = false;
+      // NotAllowedError = l'utilisateur a annulé, ou la fenêtre n'avait pas le focus.
+      say(e.name === 'NotAllowedError'
+        ? "Enregistrement annulé. Clique dans la page, puis réessaie."
+        : "Échec de l'enregistrement : " + (e.message || e.name));
     }
   });
 </script>
