@@ -41,9 +41,13 @@ function baseUrl() {
 }
 
 // Better Auth parle à la base par Kysely, pas par Sequelize : il lui faut un
-// pilote à lui. En production, le pool mysql2 déjà présent dans les
-// dépendances ; en développement, better-sqlite3 — dépendance de dev
-// uniquement, donc absente du serveur (`npm ci --omit=dev`).
+// pilote à lui.
+//
+// En production, le pool mysql2 déjà présent dans les dépendances. En
+// développement, `node:sqlite`, intégré à Node — surtout pas better-sqlite3 :
+// Better Auth le déclare en dépendance de pair *optionnelle*, ce qui suffit à
+// npm pour l'installer même avec `npm ci --omit=dev` (vérifié), et il faudrait
+// alors compiler un module natif sur le mutualisé.
 function buildDatabase() {
   if (config.db || !config.databaseUrl.startsWith("sqlite:")) {
     const mysql = require("mysql2/promise");
@@ -60,17 +64,8 @@ function buildDatabase() {
     return mysql.createPool(config.databaseUrl);
   }
 
-  let Database;
-  try {
-    Database = require("better-sqlite3");
-  } catch (e) {
-    throw new Error(
-      "better-sqlite3 est introuvable : c'est une dépendance de développement, " +
-        "et la base configurée est en SQLite. En production, renseigne DB_HOST/DB_NAME " +
-        "ou une DATABASE_URL mysql:// (cf. .env.example)."
-    );
-  }
-  return new Database(config.databaseUrl.slice("sqlite:".length));
+  const { DatabaseSync } = require("node:sqlite");
+  return new DatabaseSync(config.databaseUrl.slice("sqlite:".length));
 }
 
 async function build() {
