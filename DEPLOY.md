@@ -21,7 +21,26 @@ l'**Hébergement Web Infomaniak** via un site de type **Node.js**, et se connect
 | `ADMIN_EMAIL` | ton email (compte admin créé au 1er démarrage) |
 | `ADMIN_PASSWORD` | un mot de passe fort |
 | `ADMIN_PRENOM` | ton prénom (optionnel) |
+| `SITE_URL` | `https://paname-panade.fr` — fige les URL canoniques, le sitemap et le retour OAuth |
+| `GOOGLE_CLIENT_ID` | (optionnel) identifiant OAuth Google |
+| `GOOGLE_CLIENT_SECRET` | (optionnel) secret OAuth Google |
 | `PORT` | **fournie automatiquement par Infomaniak** — ne pas fixer |
+
+### Authentification (Better Auth)
+Les comptes, sessions et connexions sociales passent par **Better Auth**. Les tables
+`session`, `account` et `verification` sont créées automatiquement au démarrage
+(`sequelize.sync()`), et une mini-migration reprend les mots de passe existants depuis
+`user.password_hash` vers `account.password` — **les comptes déjà créés continuent de se
+connecter avec leur mot de passe actuel, sans réinitialisation.**
+
+> `better-sqlite3` n'est qu'une dépendance de **développement** (base SQLite locale).
+> En production, Better Auth utilise le pool **mysql2** déjà présent : `npm ci --omit=dev`
+> reste la bonne commande de build, rien de natif à compiler.
+
+Pour activer la connexion Google, crée un « ID client OAuth » de type *Application Web*
+sur <https://console.cloud.google.com/apis/credentials> et déclare l'URI de redirection
+`https://<ton-domaine>/api/auth/callback/google`. Sans ces variables, le bouton
+n'apparaît pas et le reste de l'authentification fonctionne normalement.
 
 ⚠️ Ne mets jamais ces secrets dans le code ni sur GitHub. Le mot de passe DB partagé
 en clair doit être **changé** (il a été exposé).

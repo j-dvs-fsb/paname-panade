@@ -11,6 +11,16 @@ const Credential = require("./credential")(sequelize);
 const Page = require("./page")(sequelize);
 const Report = require("./report")(sequelize);
 
+const {
+  defineAuthSession,
+  defineAuthAccount,
+  defineAuthVerification,
+} = require("./authTables");
+
+const AuthSession = defineAuthSession(sequelize);
+const AuthAccount = defineAuthAccount(sequelize);
+const AuthVerification = defineAuthVerification(sequelize);
+
 // --- Associations (alias = noms des backref SQLAlchemy, pour parité des templates) ---
 Museum.hasMany(Exposition, { as: "expositions", foreignKey: "museum_id", onDelete: "CASCADE" });
 Exposition.belongsTo(Museum, { as: "museum", foreignKey: "museum_id" });
@@ -52,6 +62,9 @@ module.exports = {
   Credential,
   Page,
   Report,
+  AuthSession,
+  AuthAccount,
+  AuthVerification,
   FREE_ACCESS_LABELS,
   PRICE_LABELS,
   RESERVATION_LABELS,

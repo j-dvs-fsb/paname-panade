@@ -10,15 +10,28 @@ module.exports = (sequelize) => {
     {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       email: { type: DataTypes.STRING(255), unique: true, allowNull: false },
-      password_hash: { type: DataTypes.STRING(255), allowNull: false },
-      prenom: { type: DataTypes.STRING(80), allowNull: false },
-      date_naissance: { type: DataTypes.DATEONLY, allowNull: false },
+      // Legacy : les mots de passe vivent désormais dans `account.password`
+      // (Better Auth). La colonne reste le temps de vérifier la migration ;
+      // elle est nullable, un compte Google n'en a pas.
+      password_hash: { type: DataTypes.STRING(255) },
+      prenom: { type: DataTypes.STRING(80), allowNull: false }, // `name` côté Better Auth
+      // Nullable : une première connexion Google ne la fournit pas, elle est
+      // demandée juste après (cf. /compte/complete).
+      date_naissance: { type: DataTypes.DATEONLY },
       is_admin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+      // Champs attendus par Better Auth.
+      emailVerified: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+      image: { type: DataTypes.STRING(500) },
       created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+      updated_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     },
     { tableName: "user", indexes: [{ fields: ["email"] }] }
   );
 
+  // Conservés pour le bootstrap (création du compte admin au 1er démarrage,
+  // avant que Better Auth ne soit sollicité). Le reste de l'application passe
+  // par Better Auth : cf. src/auth/index.js, qui réutilise le même bcrypt pour
+  // que les hachages déjà en base restent valables.
   User.prototype.setPassword = function (password) {
     this.password_hash = bcrypt.hashSync(password, 12);
   };

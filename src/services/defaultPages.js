@@ -87,6 +87,18 @@ aucune donnée personnelle. Il n'y a ni mesure d'audience, ni publicité.</p>
 <p>Si tu ajoutes une <strong>passkey</strong>, seule une clé publique est
 enregistrée. Aucune donnée biométrique ne quitte ton appareil.</p>
 
+<h2 class="h5 mt-5 mb-2">Connexion avec Google</h2>
+<p>Si tu choisis « Continuer avec Google », Google traite la connexion et
+nous transmet ton adresse email et ton prénom — rien d'autre. Ce
+traitement relève de la
+<a href="https://policies.google.com/privacy" rel="noopener">politique de
+confidentialité de Google</a>. Nous ne conservons aucun jeton d'accès
+au-delà de ce qui est nécessaire à la session, et tu peux à tout moment
+supprimer ton compte : le lien avec Google disparaît avec lui. Ton mot de
+passe Google ne nous est jamais communiqué.</p>
+<p>La date de naissance n'étant pas fournie par Google, elle t'est
+demandée juste après la première connexion.</p>
+
 <h2 class="h5 mt-5 mb-2">Signalements et suggestions</h2>
 <p>Quand tu signales une erreur sur une fiche ou proposes une expo, seuls
 le contenu du message, la fiche concernée et la date d'envoi sont

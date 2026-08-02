@@ -72,6 +72,20 @@ function createApp() {
   nunjucksSetup.configure(app);
   app.use("/static", express.static(path.join(config.baseDir, "public")));
 
+  // Points d'entrée de Better Auth (dont le retour OAuth de Google).
+  // Monté AVANT les parseurs de corps : son gestionnaire lit le flux lui-même,
+  // un corps déjà consommé lui arriverait vide. Il n'est pas non plus soumis à
+  // notre middleware CSRF — Better Auth fait sa propre vérification d'origine.
+  app.all("/api/auth/*", async (req, res, next) => {
+    try {
+      const { getAuth } = require("./auth");
+      const { toNodeHandler } = await import("better-auth/node");
+      return toNodeHandler(await getAuth())(req, res);
+    } catch (e) {
+      return next(e);
+    }
+  });
+
   // Corps de formulaire (POST classiques) + JSON (endpoints passkeys)
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json({ limit: "1mb" }));

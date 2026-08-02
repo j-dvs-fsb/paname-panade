@@ -7,7 +7,7 @@
 // Tout est idempotent : ne s'exécute que sur une base vide.
 
 const { Museum, User, Page } = require("./models");
-const { runMigrations } = require("./services/migrate");
+const { runMigrations, backfillCredentialAccounts } = require("./services/migrate");
 const { seedMuseums } = require("./services/seed");
 const { seedPages } = require("./services/defaultPages");
 
@@ -43,6 +43,10 @@ async function bootstrap() {
         });
         user.setPassword(password);
         await user.save();
+        // Le compte vient d'être créé avec un hachage dans `user.password_hash` :
+        // il faut le reporter dans `account`, sinon Better Auth ne le trouverait
+        // pas et l'admin ne pourrait pas se connecter avant un redémarrage.
+        await backfillCredentialAccounts();
         console.log(`[bootstrap] Compte admin créé : ${email}`);
       }
     } catch (e) {

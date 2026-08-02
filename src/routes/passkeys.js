@@ -13,6 +13,7 @@ const { requireLogin } = require("../middleware/auth");
 const { authLimiter, optionsLimiter } = require("../middleware/rateLimit");
 const { urlFor } = require("../lib/urls");
 const { rpConfig } = require("../services/webauthn");
+const { openSession } = require("../auth/session");
 
 const router = express.Router();
 
@@ -123,12 +124,10 @@ router.post("/connexion/passkey/verify", authLimiter, async (req, res) => {
     if (!verification.verified) return res.status(400).json({ error: "Vérification échouée." });
     cred.counter = verification.authenticationInfo.newCounter;
     await cred.save();
-    // Régénère l'ID de session à la connexion (anti-fixation de session).
-    req.session.regenerate((err) => {
-      if (err) return res.status(500).json({ error: "Erreur de session." });
-      req.session.userId = cred.user_id;
-      res.json({ ok: true, redirect: urlFor("main.profile") });
-    });
+    // L'assertion est vérifiée : on ouvre une session Better Auth, exactement
+    // comme le ferait une connexion par mot de passe (cf. auth/session.js).
+    await openSession(res, cred.user_id);
+    res.json({ ok: true, redirect: urlFor("main.profile") });
   } catch (e) {
     console.error("Passkey authentication failed:", e.message);
     res.status(400).json({ error: "Vérification échouée." });

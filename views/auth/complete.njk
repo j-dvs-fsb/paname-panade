@@ -1,0 +1,25 @@
+{% extends "base.njk" %}
+{% block title %}Compléter ton compte — Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:420px">
+  <h1 class="mb-2">Encore une chose</h1>
+  <p class="muted">
+    Le compte à rebours avant tes 26 ans a besoin de ta date de naissance.
+    C'est la seule information qui manque — elle n'est jamais affichée
+    publiquement et part avec ton compte si tu le supprimes.
+  </p>
+
+  <form method="post" class="mt-4">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+    <div class="mb-3">
+      <label class="form-label">Prénom</label>
+      <input class="form-control" name="prenom" value="{{ u.prenom or '' }}" required maxlength="80">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Date de naissance</label>
+      <input type="date" class="form-control" name="date_naissance" required>
+    </div>
+    <button class="btn btn-ink w-100">Terminer</button>
+  </form>
+</div>
+{% endblock %}

@@ -17,6 +17,9 @@
   </form>
 
   <div class="text-center my-3 muted small">— ou —</div>
+  {% if google_enabled %}
+    <a class="btn btn-outline-ink w-100 mb-2" href="{{ url_for('auth.google') }}">Continuer avec Google</a>
+  {% endif %}
   <button class="btn btn-outline-ink w-100" id="passkey-login">🔑 Se connecter avec une passkey</button>
 
   <p class="mt-3 muted">Pas de compte ? <a href="{{ url_for('auth.register') }}">Inscris-toi</a>.</p>

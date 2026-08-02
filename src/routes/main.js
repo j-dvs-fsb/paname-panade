@@ -13,7 +13,7 @@ const {
   Page,
   REPORT_PROBLEM_LABELS,
 } = require("../models");
-const { requireLogin } = require("../middleware/auth");
+const { requireLogin, requireProfile } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
 const { todayIso } = require("../lib/dates");
 const seo = require("../lib/seo");
@@ -369,7 +369,7 @@ router.get("/au-hasard", async (req, res) => {
 });
 
 // --- Profil ---
-router.get("/profil", requireLogin, async (req, res) => {
+router.get("/profil", requireLogin, requireProfile, async (req, res) => {
   const prog = await stats.progress(req.user);
   const fun = await stats.funStats(req.user);
   const visits = await Visit.findAll({
