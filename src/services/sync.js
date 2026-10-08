@@ -2,7 +2,6 @@
 
 // Synchronise les expositions gratuites depuis l'API « Que Faire à Paris ? ».
 // Source : https://opendata.paris.fr - dataset que-faire-a-paris- (Opendatasoft v2.1).
-// Port de scripts/sync_data.py.
 
 const { Op } = require("sequelize");
 const { Museum, Exposition } = require("../models");

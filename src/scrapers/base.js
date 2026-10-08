@@ -1,6 +1,6 @@
 "use strict";
 
-// Briques communes aux scrapers de sites de musées. Port de scripts/scrapers/base.py.
+// Briques communes aux scrapers de sites de musées.
 // Chaque scraper reçoit un Museum (avec son expos_url) et renvoie des dicts normalisés :
 //   title, subtitle, description, url, image_url, date_start, date_end (ISO|null),
 //   ext_key, tags[]

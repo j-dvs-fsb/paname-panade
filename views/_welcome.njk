@@ -1,0 +1,67 @@
+{# Pop-up de bienvenue : montré une seule fois par navigateur, aux visiteurs
+   sans compte, pour dire à quoi sert le site et pourquoi s'inscrire.
+
+   Le drapeau « déjà vu » vit dans le localStorage de l'appareil (jamais envoyé
+   au serveur). Si le stockage est indisponible (navigation privée stricte…),
+   on n'affiche rien plutôt que de relancer le message à chaque page.
+
+   Un visiteur connecté pose le drapeau sans rien afficher : sans cela, un
+   compte créé sur cet appareil se verrait proposer d'en créer un dès sa
+   première déconnexion. #}
+{% if current_user.is_authenticated %}
+<script nonce="{{ csp_nonce }}">
+  try { localStorage.setItem('paname:welcome', '1'); } catch (e) {}
+</script>
+{% elif welcome_eligible %}
+<div class="modal fade welcome-modal" id="welcome-modal" tabindex="-1" aria-labelledby="welcome-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="welcome-strip" aria-hidden="true"></div>
+      <button type="button" class="btn-close welcome-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      <div class="modal-body">
+        <span class="badge badge-free">Gratuit -26 ans</span>
+        <h2 class="welcome-title" id="welcome-title">Avant que tes <u>26 ans</u> te rattrapent.</h2>
+        <p class="mb-0">
+          Paname Panade réunit au même endroit les expos et musées gratuits pour les
+          moins de 26 ans à Paris.
+          <span class="d-none d-sm-inline">Fini les dix onglets de musées ouverts pour savoir
+          ce qui ne coûte rien.</span>
+        </p>
+
+        <p class="welcome-kicker">Tout se consulte sans compte. Un compte gratuit te laisse :</p>
+        <ul class="welcome-perks">
+          <li><span><strong>Cocher et noter</strong> les expos que tu as faites, de 1 à 5 étoiles.</span></li>
+          <li><span><strong>Garder tes favoris</strong> sous la main pour y aller plus tard.</span></li>
+          <li><span><strong>Suivre ton compte à rebours</strong> avant tes 26 ans, et le rythme pour tout voir à temps.</span></li>
+        </ul>
+
+        <div class="welcome-actions">
+          <a href="{{ url_for('auth.register') }}" class="btn btn-ink">Créer mon compte</a>
+          <button type="button" class="btn btn-outline-ink" data-bs-dismiss="modal">Je regarde d'abord</button>
+        </div>
+        <p class="welcome-login">Déjà inscrit ? <a href="{{ url_for('auth.login') }}">Connecte-toi</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script nonce="{{ csp_nonce }}">
+  (function () {
+    var KEY = 'paname:welcome';
+    var el = document.getElementById('welcome-modal');
+    if (!el || !window.bootstrap) return;
+    try { if (localStorage.getItem(KEY)) return; } catch (e) { return; }
+
+    // Petit délai : le visiteur voit d'abord la page. Et si, entre-temps, il a
+    // commencé à saisir quelque chose, on ne lui vole pas le focus.
+    setTimeout(function () {
+      var a = document.activeElement;
+      if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+      if (document.querySelector('.modal.show')) return;
+      // Drapeau posé à l'affichage : même un clic sur « Créer mon compte » ou
+      // un rechargement ne le fera pas revenir.
+      try { localStorage.setItem(KEY, '1'); } catch (e) { return; }
+      new bootstrap.Modal(el).show();
+    }, 1500);
+  })();
+</script>
+{% endif %}

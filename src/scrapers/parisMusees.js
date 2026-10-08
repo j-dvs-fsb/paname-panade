@@ -1,7 +1,7 @@
 "use strict";
 
 // Scraper générique de la plateforme « Paris Musées » (Drupal), deux générations
-// de thème : ancien (.showcase) et récent (.card). Port de scripts/scrapers/paris_musees.py.
+// de thème : ancien (.showcase) et récent (.card).
 
 const base = require("./base");
 const { todayIso } = require("../lib/dates");
