@@ -120,6 +120,9 @@ function createApp() {
     for (const c of cats) for (const m of req.flash(c)) flashes.push({ category: c, message: m });
     res.locals.flashes = flashes;
     res.locals.request = { args: req.query, path: req.path };
+    // Pop-up de bienvenue (views/_welcome.njk) : inutile, voire absurde, là où
+    // l'on est déjà en train de se connecter ou de gérer son compte.
+    res.locals.welcome_eligible = !PRIVATE_PATHS.test(req.path);
     // Métadonnées SEO par défaut : chaque route les affine, mais aucune page
     // ne doit arriver dans base.njk sans description ni URL canonique.
     res.locals.meta = pageMeta(req, { robots: PRIVATE_PATHS.test(req.path) ? "noindex, nofollow" : null });
@@ -135,7 +138,7 @@ function createApp() {
   app.use("/admin", require("./routes/admin"));
 
   // 404
-  app.use((req, res) => res.status(404).render("404.njk"));
+  app.use((req, res) => res.status(404).render("404.njk", { welcome_eligible: false }));
 
   return app;
 }

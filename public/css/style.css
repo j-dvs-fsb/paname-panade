@@ -285,3 +285,80 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
 .row > :nth-child(5n+3) .card-tint { background-color: #FF5757; }
 .row > :nth-child(5n+4) .card-tint { background-color: #7ED957; }
 .row > :nth-child(5n+5) .card-tint { background-color: #004AAD; }
+
+/* ---- Pop-up de bienvenue (première visite, cf. views/_welcome.njk) ---- */
+.welcome-modal .modal-content {
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+/* Les cinq couleurs des voiles de .card-tint, en aplats : seule touche de
+   couleur du pop-up, le reste reste en noir et blanc. */
+.welcome-strip {
+  flex: none;
+  height: 8px;
+  background: linear-gradient(90deg,
+    #8C52FF 0 20%, #FFDE59 20% 40%, #FF5757 40% 60%, #7ED957 60% 80%, #004AAD 80%);
+}
+.welcome-close {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 1;
+}
+.welcome-modal .modal-body { padding: 1.5rem 1.75rem 1.4rem; }
+.welcome-title {
+  margin: 1rem 2rem .75rem 0;
+  font-size: clamp(1.6rem, 5.5vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+.welcome-kicker {
+  margin: 1.25rem 0 .5rem;
+  font-size: .85rem;
+  font-weight: 600;
+}
+.welcome-perks {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.welcome-perks li {
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+  padding: .65rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: .92rem;
+}
+/* Pastille carrée aux couleurs des voiles, un cran en dessous de la ligne de texte */
+.welcome-perks li::before {
+  content: "";
+  flex: none;
+  width: .8rem;
+  height: .8rem;
+  margin-top: .28rem;
+  border: 1px solid var(--ink);
+  background: var(--swatch);
+}
+.welcome-perks li:nth-child(1) { --swatch: #8C52FF; }
+.welcome-perks li:nth-child(2) { --swatch: #FFDE59; }
+.welcome-perks li:nth-child(3) { --swatch: #FF5757; }
+.welcome-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.welcome-actions .btn { flex: 1 1 auto; }
+.welcome-login {
+  margin: 1rem 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+}
+/* Petits écrans : tout doit tenir sans défiler, bouton de sortie compris. */
+@media (max-width: 575.98px) {
+  .welcome-modal .modal-body { padding: 1.1rem 1.25rem 1rem; }
+  .welcome-title { margin-top: .75rem; }
+  .welcome-kicker { margin-top: 1rem; }
+  .welcome-perks { margin-bottom: 1rem; }
+  .welcome-perks li { padding: .5rem 0; }
+  .welcome-login { margin-top: .75rem; }
+}

@@ -109,7 +109,10 @@ supprimés au fil de l'eau.</p>
 
 <h2 class="h5 mt-5 mb-2">Cookies</h2>
 <p>Un unique cookie de session, strictement nécessaire à la connexion,
-valable 30 jours. C'est tout.</p>
+valable 30 jours.</p>
+<p>Ton navigateur retient aussi, sur ton appareil uniquement, que tu as déjà
+vu le message de bienvenue, pour ne pas te le montrer à chaque page. Cette
+information n'est jamais envoyée à nos serveurs. C'est tout.</p>
 
 <h2 class="h5 mt-5 mb-2">Qui peut voir tes données ?</h2>
 <p>Personne d'autre que toi. Par conception, les administrateurs du site
