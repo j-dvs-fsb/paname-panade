@@ -1,7 +1,7 @@
 "use strict";
 
 // Scrape les expositions des sites de musées (hors « Que Faire à Paris »).
-// Insère en status="draft" (file de validation admin). Port de scripts/scrape.py.
+// Insère en status="draft" (file de validation admin).
 //
 // Usage :
 //   npm run scrape                          # dry-run : affiche, n'écrit rien

@@ -1,7 +1,6 @@
 "use strict";
 
 // Registre des scrapers : slug de musée -> fonction scrape(museum) -> Promise<dict[]>.
-// Port de scripts/scrapers/__init__.py.
 
 const louvre = require("./louvre");
 const parisMusees = require("./parisMusees");

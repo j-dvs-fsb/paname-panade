@@ -245,7 +245,7 @@ router.get("/expositions", async (req, res) => {
   if (validPrix.length) where.price_category = { [Op.in]: validPrix };
   // Au-delà de 26 ans, seules les expos gratuites pour tous le restent.
   if (only_free_for_me) where.price_category = "gratuit_tous";
-  // nocturne / dimanche / climatisé : pas de données -> non filtré (parité Flask).
+  // nocturne / dimanche / climatisé : pas de données -> non filtré.
 
   const expos = await Exposition.findAll({
     where,

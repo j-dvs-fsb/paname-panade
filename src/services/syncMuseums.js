@@ -2,7 +2,6 @@
 
 // Synchronise / enrichit les musées depuis le dataset officiel Île-de-France
 // (data.iledefrance.fr, ~50 musées parisiens avec coordonnées GPS).
-// Port de scripts/sync_museums.py.
 
 const { Op } = require("sequelize");
 const { Museum } = require("../models");

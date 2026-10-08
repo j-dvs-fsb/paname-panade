@@ -24,7 +24,7 @@ function normalize(raw) {
 
 // Nettoie un champ pouvant contenir du HTML (descriptions QFAP). Renvoie un
 // texte brut multi-lignes (paragraphes séparés par des sauts de ligne), sans
-// balises ni entités. Renvoie null si vide. (Port de paname/utils.py:html_to_text)
+// balises ni entités. Renvoie null si vide.
 function htmlToText(value) {
   if (!value) return null;
   if (!value.includes("<") && !value.includes("&")) {

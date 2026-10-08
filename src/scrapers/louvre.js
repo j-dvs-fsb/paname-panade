@@ -2,7 +2,6 @@
 
 // Scraper du musée du Louvre (site Next.js : expositions dans __NEXT_DATA__).
 // On ne garde que les expositions EN COURS et physiquement au Louvre.
-// Port de scripts/scrapers/louvre.py.
 
 const base = require("./base");
 const { htmlToText } = require("../lib/text");

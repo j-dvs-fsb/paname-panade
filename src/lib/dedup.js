@@ -8,7 +8,7 @@ function normKey(value) {
 }
 
 // Cherche une exposition équivalente (même nom normalisé + même musée - ou même
-// lieu si pas de musée - + même date de début). Port de utils.py:find_duplicate_expo.
+// lieu si pas de musée - + même date de début).
 async function findDuplicateExpo(Exposition, { title, museumId, venueName, dateStart, excludeId } = {}) {
   const key = normKey(title);
   if (!key) return null;
