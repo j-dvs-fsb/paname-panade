@@ -1,4 +1,4 @@
-# Panade Collector — brief projet
+# Panade Collector - brief projet
 
 Logiciel auto-hébergé, **indépendant de paname-panade.fr**. Il collecte,
 range et valide les données des musées parisiens, puis pousse chaque matin
@@ -25,7 +25,7 @@ C'est la seule garantie qui compte. Tout le reste du document découle de là.
 
 ## Stack
 
-- **Python 3.11+** — meilleur écosystème pour la collecte.
+- **Python 3.11+** - meilleur écosystème pour la collecte.
 - **SQLite**, un seul fichier. 57 lieux et quelques milliers d'expos : largement suffisant.
   Pas de serveur de base à administrer, sauvegarde = copier le fichier.
 - **httpx** pour les requêtes, **selectolax** pour lire le HTML (plus léger que BeautifulSoup),
@@ -42,15 +42,15 @@ systèmes ne se parlent que par un fichier JSON.
 
 C'est la règle structurante du projet. Trois phases distinctes.
 
-**1. Découverte — une fois par musée, avec l'IA.**
+**1. Découverte - une fois par musée, avec l'IA.**
 Claude Code ouvre la page, comprend sa structure, et **écrit un extracteur** :
 un petit module Python déterministe, 30 lignes, qui sait lire cette page.
 Il enregistre aussi une copie de la page dans `fixtures/`.
 
-**2. Exploitation — toutes les nuits, sans IA.**
+**2. Exploitation - toutes les nuits, sans IA.**
 Les extracteurs tournent seuls. **Zéro token.** C'est du code ordinaire.
 
-**3. Réparation — rarement, avec l'IA.**
+**3. Réparation - rarement, avec l'IA.**
 Quand un extracteur ne renvoie plus rien (le musée a refait son site),
 il part dans une file, et on régénère l'extracteur.
 
@@ -63,7 +63,7 @@ propose la version déterministe à la place.**
 
 ---
 
-## Politesse réseau et éthique — non négociable
+## Politesse réseau et éthique - non négociable
 
 1. **Lire `robots.txt` avant tout.** S'il interdit, le lieu passe en tier T4 et on
    n'y va pas. Le navigateur ne change pas cette réponse, il permet seulement de
@@ -88,7 +88,7 @@ sans avoir essayé le niveau au-dessus.
 |---|---|---|
 | T0 | API ouverte : Que Faire à Paris, OpenAgenda Île-de-France | nul |
 | T1 | Le site expose du structuré : JSON-LD `Event`, RSS, `.ics`, `sitemap.xml` | faible |
-| T2 | Billetterie mutualisée — une intégration couvre plusieurs musées | moyen, très rentable |
+| T2 | Billetterie mutualisée - une intégration couvre plusieurs musées | moyen, très rentable |
 | T3 | HTML lu par un extracteur dédié | moyen |
 | T4 | Manuel : newsletter presse, formulaire de soumission | humain |
 

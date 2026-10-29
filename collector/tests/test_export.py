@@ -170,3 +170,9 @@ def test_export_deterministe(base):
     ajouter(base, "Une expo")
     a, b = contenu(base), contenu(base)
     assert a == b and a["empreinte"] == b["empreinte"]
+
+
+def test_aucun_tiret_long_dans_l_export(base):
+    ajouter(base, "Kurt Schwitters. Le chaos-monde 1918\u20131948 \u2014 parcours", url="https://x.test/schwitters")
+    titres = list(expos(contenu(base)))
+    assert titres == ["Kurt Schwitters. Le chaos-monde 1918-1948 - parcours"]

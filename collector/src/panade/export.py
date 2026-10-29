@@ -33,6 +33,15 @@ class Export:
     lieux_sans_expo: list[str] = field(default_factory=list)
 
 
+def typo(texte: str | None) -> str | None:
+    """Typographie du site : pas de tiret long ni moyen, un trait d'union à la place."""
+    if not texte:
+        return texte
+    for long_, court in ((" \u2014 ", " - "), (" \u2013 ", " - "), ("\u2014", "-"), ("\u2013", "-")):
+        texte = texte.replace(long_, court)
+    return texte
+
+
 def epurer(valeur):
     """Retire récursivement None, chaînes vides et conteneurs vides."""
     if isinstance(valeur, dict):
@@ -88,8 +97,8 @@ def construire(con: sqlite3.Connection, aujourdhui: date, maintenant: datetime |
                 exclues.append((e["id"], motif))
                 continue
             expos.append({
-                "id": e["id"], "titre": e["titre"], "portee": e["portee"], "date_debut": e["date_debut"],
-                "date_fin": e["date_fin"], "description": e["description"], "url": e["url"],
+                "id": e["id"], "titre": typo(e["titre"]), "portee": e["portee"], "date_debut": e["date_debut"],
+                "date_fin": e["date_fin"], "description": typo(e["description"]), "url": e["url"],
                 # une collection permanente n'a pas d'affiche : on prend le logo du lieu
                 "image_url": e["image_url"] or (lieu["logo_url"] if e["portee"] == "permanent" else None),
                 "gratuite": _gratuite_publique(fraiche)})
@@ -108,7 +117,7 @@ def construire(con: sqlite3.Connection, aujourdhui: date, maintenant: datetime |
             'SELECT "date", libelle, recurrent_annuel, note FROM fermetures WHERE lieu_id = ? ORDER BY recurrent_annuel DESC, "date"',
             (lieu["id"],))]
         lieux.append({
-            "id": lieu["id"], "nom": lieu["nom"], "famille": lieu["famille_id"], "logo_url": lieu["logo_url"],
+            "id": lieu["id"], "nom": typo(lieu["nom"]), "famille": lieu["famille_id"], "logo_url": lieu["logo_url"],
             "tarifs_url": lieu["tarifs_url"], "horaires_url": lieu["horaires_url"], "expos_url": lieu["expos_url"],
             "plateforme_billetterie": lieu["plateforme_billetterie"], "verifie_le": lieu["verifie_le"],
             "perime": True if lieu["verifie_le"] < limite_peremption else None,

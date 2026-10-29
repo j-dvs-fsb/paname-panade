@@ -20,7 +20,7 @@ MOIS = {
 }
 _MOIS_RE = (r"(?:janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre"
             r"|janv?\.?|f[ée]vr?\.?|avr\.?|juil\.?|sept?\.?|oct\.?|nov\.?|d[ée]c\.?)(?![a-zà-ÿ])")
-_TIRET = r"(?:-|–|—|au|à)"
+_TIRET = r"(?:-|\u2013|\u2014|au|à)"   # trait d'union, tirets demi-cadratin et cadratin
 
 
 def _lettres(n: int) -> str:
