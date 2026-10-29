@@ -1,0 +1,11 @@
+[Unit]
+Description=Validation (validate, tous les jours à 04:00)
+
+[Timer]
+OnCalendar=*-*-* 04:00:00 Europe/Paris
+# Si la machine dormait à l'heure dite, rattrape au réveil : un matin sans publication, c'est un site qui vieillit.
+Persistent=true
+Unit=panade@validate.service
+
+[Install]
+WantedBy=timers.target

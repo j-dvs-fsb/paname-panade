@@ -128,6 +128,21 @@ def cmd_discover(args: argparse.Namespace) -> int:
         con.close()
 
 
+def _alerter_muets(chemin_db: str) -> None:
+    """Un lieu silencieux deux nuits de suite déclenche une alerte, sans attendre le rapport du lundi."""
+    from datetime import date
+
+    from panade import alerts, health
+
+    con = db.connect(chemin_db)
+    try:
+        for muet in health.lieux_muets(con, date.today()):
+            if health.alerte_du_soir(muet):
+                alerts.notifier("alerte", muet.message, dossier=Path(chemin_db).parent)
+    finally:
+        con.close()
+
+
 def cmd_collect(args: argparse.Namespace) -> int:
     """Fait tourner les extracteurs. Aucun appel de modèle."""
     from panade import collect
@@ -141,6 +156,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
             resultats = collect.collecter(con, client, lieux_ids=args.lieu)
     finally:
         con.close()
+    _alerter_muets(args.db)
     comptes: dict[str, int] = {}
     for r in resultats:
         comptes[r.statut] = comptes.get(r.statut, 0) + 1
@@ -245,6 +261,46 @@ def cmd_publish(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_health(args: argparse.Namespace) -> int:
+    """Lieux muets, extracteurs cassés, données périmées. Code de sortie 1 s'il y a une alerte."""
+    import json
+    from datetime import date
+
+    from panade import alerts, health
+
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
+    try:
+        r = health.rapport(con, date.today(), args.dossier)
+    finally:
+        con.close()
+    if args.json:
+        print(json.dumps(r, ensure_ascii=False, indent=2))
+    else:
+        print(f"Santé du {r['date']} : {r['lieux'].get('verifie', 0)} lieux vérifiés, {r['lieux'].get('a_verifier', 0)} à vérifier")
+        print(f"  à relire : {r['relecture']['en_attente']} exposition(s)")
+        pub = r["publication"]
+        print(f"  dernière publication : {pub['derniere'] or 'aucune'}" + (f" (il y a {pub['jours']} jour(s))" if pub["jours"] is not None else ""))
+        for titre, liste in (("alerte", r["alertes"]),):
+            for a in liste:
+                print(f"  ALERTE : {a}")
+        if r["perimees"]["verifications"]:
+            print(f"  données de plus de {health.gratuite.PEREMPTION_JOURS} jours : {len(r['perimees']['verifications'])}")
+            for p in r["perimees"]["verifications"][:8]:
+                print(f"    - {p}")
+        for h in r["perimees"]["horaires_expires"]:
+            print(f"  horaires expirés : {h['lieu_id']} (valides jusqu'au {h['jusqu_au']})")
+        if r["sans_extracteur"]:
+            print(f"  lieux vérifiés sans extracteur : {len(r['sans_extracteur'])}")
+            for x in r["sans_extracteur"]:
+                print(f"    - {x['lieu']} ({x['raison']})")
+    if args.alerter:
+        for a in r["alertes"]:
+            alerts.notifier("alerte", a, dossier=args.dossier)
+    return 1 if r["alertes"] else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="panade", description="Panade Collector")
     sub = parser.add_subparsers(dest="commande", required=True)
@@ -275,6 +331,12 @@ def main(argv: list[str] | None = None) -> int:
     publication.add_argument("--dossier", default="data", help="dossier des exports (défaut : data)")
     publication.add_argument("--a-blanc", action="store_true", help="tout vérifier sans rien envoyer")
     publication.set_defaults(fonction=cmd_publish)
+
+    sante = sub.add_parser("health", parents=[commun], help="lieux muets, extracteurs cassés, données périmées")
+    sante.add_argument("--dossier", default="data", help="dossier des exports (défaut : data)")
+    sante.add_argument("--json", action="store_true")
+    sante.add_argument("--alerter", action="store_true", help="envoie aussi chaque alerte (journal, webhook)")
+    sante.set_defaults(fonction=cmd_health)
 
     validation = sub.add_parser("validate", parents=[commun],
                                 help="schéma, cohérence, dédoublonnage, confiance, gratuité")

@@ -1,0 +1,11 @@
+[Unit]
+Description=Collecte de nuit (collect, tous les jours à 03:00)
+
+[Timer]
+OnCalendar=*-*-* 03:00:00 Europe/Paris
+# Si la machine dormait à l'heure dite, rattrape au réveil : un matin sans publication, c'est un site qui vieillit.
+Persistent=true
+Unit=panade@collect.service
+
+[Install]
+WantedBy=timers.target

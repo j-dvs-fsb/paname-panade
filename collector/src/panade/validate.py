@@ -105,9 +105,11 @@ def valider(con: sqlite3.Connection, aujourdhui: date, *, seuil_confiance: float
 
 
 def _bloquer(con, expo_id: int, motif: str, rapport: Rapport) -> None:
+    avant = con.execute("SELECT etat, motif_revue FROM expositions WHERE id = ?", (expo_id,)).fetchone()
     con.execute("UPDATE expositions SET etat = 'en_revue', motif_revue = ? WHERE id = ?", (motif, expo_id))
     rapport.motifs[expo_id] = motif
-    rapport.bloquees += 1
+    if (avant["etat"], avant["motif_revue"]) != ("en_revue", motif):    # un re-passage identique ne compte pas
+        rapport.bloquees += 1
 
 
 def _integrite(con, rapport: Rapport) -> None:

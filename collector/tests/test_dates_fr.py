@@ -17,7 +17,7 @@ AUJOURDHUI = date(2026, 10, 29)
     ("Jusqu’au 13 décembre", Periode(None, "2026-12-13", annee_deduite=True)),
     ("à partir du 10 novembre 2026", Periode("2026-11-10", None)),
     ("14 octobre 2026", Periode("2026-10-14", None)),
-    ("5 août 2026 – 4 oct 2026", Periode("2026-08-05", None)),   # « oct » (abrégé) n'est pas reconnu : début seul
+    ("5 août 2026 \u2013 4 oct 2026", Periode("2026-08-05", None)),   # tiret demi-cadratin ; « oct » (abrégé) non reconnu : début seul
 ])
 def test_periodes(texte, attendu):
     assert analyser(texte, AUJOURDHUI) == attendu
@@ -35,6 +35,11 @@ def test_jusqu_au_sans_annee_recent_reste_dans_l_annee():
 @pytest.mark.parametrize("texte", ["", "Entrée gratuite", "31 février 2026", "ouvert toute l'année"])
 def test_rien_de_devine(texte):
     assert analyser(texte, AUJOURDHUI) is None
+
+
+@pytest.mark.parametrize("tiret", ["-", "\u2013", "\u2014"])
+def test_les_trois_tirets_separent_deux_dates(tiret):
+    assert analyser(f"15 septembre 2026 {tiret} 24 janvier 2027", AUJOURDHUI) == Periode("2026-09-15", "2027-01-24")
 
 
 def test_intervalle_inverse_est_refuse():

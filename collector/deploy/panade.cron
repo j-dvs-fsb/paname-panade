@@ -1,0 +1,15 @@
+# Planification du collecteur : `crontab deploy/panade.cron` (adapter le chemin de PANADE).
+# Les secrets vont dans .env à la racine du collecteur (chmod 600), jamais ici :
+#   PANADE_PUBLISH_URL=https://paname-panade.fr/api/import
+#   PANADE_PUBLISH_TOKEN=...
+#   PANADE_ALERT_WEBHOOK=...   (facultatif)
+CRON_TZ=Europe/Paris
+
+# Collecte de nuit : requêtes conditionnelles, 1 requête par seconde et par domaine.
+0 3 * * *   /opt/panade-collector/deploy/run.sh collect
+# Validation : schéma, doublons, confiance, gratuité.
+0 4 * * *   /opt/panade-collector/deploy/run.sh validate
+# Publication : elle relance validate elle-même et s'arrête si un garde-fou n'est pas vert.
+0 7 * * *   /opt/panade-collector/deploy/run.sh publish
+# Le lundi : lieux muets, extracteurs cassés, données de plus de 120 jours.
+30 7 * * 1  /opt/panade-collector/deploy/run.sh health --alerter

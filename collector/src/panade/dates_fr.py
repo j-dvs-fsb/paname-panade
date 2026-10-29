@@ -22,7 +22,7 @@ _D2 = _DATE.format(n=2)
 
 # Du plus précis au plus général : le premier motif qui correspond gagne.
 _MOTIFS = (
-    ("intervalle", re.compile(rf"(?:du\s+)?{_D1}\s*(?:-|–|—|au|à)\s*{_D2}", re.I)),
+    ("intervalle", re.compile(rf"(?:du\s+)?{_D1}\s*(?:-|\u2013|\u2014|au|à)\s*{_D2}", re.I)),
     ("jusqua", re.compile(rf"(?:jusqu['’]au|jusqu['’]à|jusqu['’]en)\s+{_D1}", re.I)),
     ("depuis", re.compile(rf"(?:à\s+partir\s+du|dès\s+le|depuis\s+le|ouvre\s+le|à\s+partir\s+de)\s+{_D1}", re.I)),
     ("seule", re.compile(_D1, re.I)),

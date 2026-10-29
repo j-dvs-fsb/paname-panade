@@ -147,7 +147,7 @@ def test_idempotent(base):
     avant = [tuple(r) for r in base.execute("SELECT * FROM expositions ORDER BY id")]
     r = validate.valider(base, AUJ)
     assert [tuple(x) for x in base.execute("SELECT * FROM expositions ORDER BY id")] == avant
-    assert (r.promues, r.doublons, r.gratuite_changee) == (0, 0, 0)
+    assert (r.promues, r.bloquees, r.doublons, r.gratuite_changee) == (0, 0, 0, 0)
 
 
 def test_donnees_perimees_signalees_sans_rien_changer(base):
