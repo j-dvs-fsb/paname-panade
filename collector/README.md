@@ -6,7 +6,7 @@ matin un `export.json` pour le site. Le brief complet est dans [CLAUDE.md](CLAUD
 Ce dossier est autonome (son propre `pyproject.toml`, aucun import du site Node) :
 il peut être déplacé tel quel dans son propre dépôt.
 
-**Avancement : étape 1 sur 8** (schéma SQLite et import du classeur).
+**Avancement : étapes 1 à 3 sur 8** (schéma et import, `probe`, extracteur Paris Musées).
 
 ## Installation
 
