@@ -11,7 +11,8 @@
 const { DataTypes, Op } = require("sequelize");
 
 const { sequelize, Exposition, Museum, User, AuthAccount, Credential, Passkey } = require("../models");
-const { SENTINEL_VALUES } = require("../lib/values");
+const { SENTINEL_VALUES, isIconUrl } = require("../lib/values");
+const MUSEUM_PHOTOS = require("../data/museumPhotos");
 
 // Colonnes ajoutées après coup, par table. Y laisser les anciennes entrées :
 // elles ne coûtent qu'un describeTable au démarrage et servent aux bases qui
@@ -175,6 +176,58 @@ async function migratePasskeys() {
   return rows.length;
 }
 
+// Remplace les icônes de site (favicons étirées, donc floues) par une vraie
+// photo du musée, relevée sur son site officiel (cf. data/museumPhotos.js).
+// Ne touche jamais une image choisie à la main : seules les valeurs vides ou
+// les icônes sont remplacées. Les collections permanentes du musée suivent.
+async function applyMuseumPhotos() {
+  const byMuseofile = new Map(
+    Object.values(MUSEUM_PHOTOS).filter((p) => p.museofile).map((p) => [p.museofile, p])
+  );
+  let museums = 0;
+  let expos = 0;
+  for (const museum of await Museum.findAll()) {
+    const photo = MUSEUM_PHOTOS[museum.slug] || (museum.museofile_id && byMuseofile.get(museum.museofile_id));
+    if (!photo) continue;
+    const changes = {};
+    if (!museum.image_url || isIconUrl(museum.image_url)) changes.image_url = photo.url;
+    if (!museum.logo_url || isIconUrl(museum.logo_url)) changes.logo_url = photo.url;
+    if (Object.keys(changes).length) {
+      await museum.update(changes, { hooks: false });
+      museums += 1;
+    }
+    const permanents = await Exposition.findAll({ where: { museum_id: museum.id, source: "permanent", image_local: null } });
+    for (const expo of permanents) {
+      if (expo.image_url && !isIconUrl(expo.image_url)) continue;
+      await expo.update({ image_url: photo.url }, { hooks: false });
+      expos += 1;
+    }
+  }
+  return { museums, expos };
+}
+
+// Plus aucun tiret long ni moyen dans les noms, titres et descriptions : un
+// espace-tiret long-espace devient « - », le reste un simple trait d'union.
+const DASHED_COLUMNS = { museum: ["name", "description"], exposition: ["title", "description"] };
+
+async function removeLongDashes() {
+  let total = 0;
+  for (const [table, columns] of Object.entries(DASHED_COLUMNS)) {
+    for (const column of columns) {
+      const col = `\`${column}\``;
+      const replaced =
+        `REPLACE(REPLACE(REPLACE(REPLACE(${col}, ' \u2014 ', ' - '), ' \u2013 ', ' - '), '\u2014', '-'), '\u2013', '-')`;
+      const where = `${col} LIKE '%\u2014%' OR ${col} LIKE '%\u2013%'`;
+      const [rows] = await sequelize.query(`SELECT COUNT(*) AS n FROM \`${table}\` WHERE ${where}`);
+      const count = Number(rows[0].n) || 0;
+      if (!count) continue;
+      await sequelize.query(`UPDATE \`${table}\` SET ${col} = ${replaced} WHERE ${where}`);
+      total += count;
+    }
+  }
+  return total;
+}
+
 async function runMigrations() {
   try {
     const added = await addMissingColumns();
@@ -205,6 +258,20 @@ async function runMigrations() {
   }
 
   try {
+    const { museums, expos } = await applyMuseumPhotos();
+    if (museums || expos) console.log(`[migration] Photos de musées appliquées : ${museums} musées, ${expos} collections permanentes.`);
+  } catch (e) {
+    console.error("[migration] Photos de musées échouées :", e.message);
+  }
+
+  try {
+    const dashes = await removeLongDashes();
+    if (dashes) console.log(`[migration] Tirets longs remplacés : ${dashes} champs.`);
+  } catch (e) {
+    console.error("[migration] Remplacement des tirets longs échoué :", e.message);
+  }
+
+  try {
     const scrubbed = await scrubSentinels();
     if (scrubbed) console.log(`[migration] Valeurs « None » nettoyées : ${scrubbed}.`);
   } catch (e) {
@@ -219,5 +286,7 @@ module.exports = {
   backfillCredentialAccounts,
   migratePasskeys,
   scrubSentinels,
+  applyMuseumPhotos,
+  removeLongDashes,
   ADDED_COLUMNS,
 };

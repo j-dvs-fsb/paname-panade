@@ -3,7 +3,7 @@
 const { DataTypes } = require("sequelize");
 const { PRICE_LABELS, RESERVATION_LABELS } = require("./labels");
 const { formatFrDate, todayIso } = require("../lib/dates");
-const { cleanValue, safeUrl } = require("../lib/values");
+const { cleanValue, safeUrl, isIconUrl } = require("../lib/values");
 
 module.exports = (sequelize) => {
   const Exposition = sequelize.define(
@@ -50,10 +50,14 @@ module.exports = (sequelize) => {
     return RESERVATION_LABELS[this.reservation] || "Sans réservation";
   });
 
-  // URL à afficher : copie locale si présente, sinon l'image distante.
+  // URL à afficher : copie locale si présente, sinon l'image distante. Une
+  // icône de site n'est jamais affichée (floue) : on prend la photo du musée
+  // si elle existe, sinon rien et le template montre le visuel neutre.
   def("image", function () {
     if (this.image_local) return "/static/" + this.image_local;
-    return safeUrl(this.image_url);
+    if (!isIconUrl(this.image_url)) return safeUrl(this.image_url);
+    const photo = this.museum && this.museum.image_url;
+    return photo && !isIconUrl(photo) ? safeUrl(photo) : null;
   });
 
   // --- Champs d'affichage : jamais de valeur vide ni de lien mort ---

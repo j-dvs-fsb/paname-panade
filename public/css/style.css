@@ -142,6 +142,8 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85r
 }
 /* Coins de la carte Leaflet alignés sur la tuile */
 #expo-map { z-index: 0; }
+/* Fond de carte en noir et blanc, comme le reste du site ; le marqueur garde sa couleur. */
+#expo-map .leaflet-tile-pane { filter: grayscale(1) contrast(0.9) brightness(1.05); }
 .leaflet-container { font: inherit; }
 
 /* Tuiles de filtres (même DA que .badge-free) - carré noir, texte blanc ;

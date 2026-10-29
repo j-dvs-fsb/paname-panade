@@ -202,8 +202,13 @@
   if (mapEl && window.L) {
     const lat = parseFloat(mapEl.dataset.lat), lon = parseFloat(mapEl.dataset.lon);
     const map = L.map(mapEl, { scrollWheelZoom: false }).setView([lat, lon], 15);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© OpenStreetMap, © CARTO', maxZoom: 19
+    // Tuiles OpenStreetMap : sans clé, à condition de citer les contributeurs et
+    // d'envoyer l'origine du site (la politique d'usage d'OSM l'exige ; le site
+    // est par ailleurs en Referrer-Policy: no-referrer). CARTO exige désormais une clé.
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">les contributeurs d’OpenStreetMap</a>',
+      maxZoom: 19,
+      referrerPolicy: 'strict-origin-when-cross-origin'
     }).addTo(map);
     L.marker([lat, lon]).addTo(map).bindPopup(mapEl.dataset.label);
   }
