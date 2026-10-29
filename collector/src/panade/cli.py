@@ -180,6 +180,28 @@ def cmd_validate(args: argparse.Namespace) -> int:
     return 1 if r.problemes_graves else 0
 
 
+def cmd_review(args: argparse.Namespace) -> int:
+    """Ouvre l'écran de relecture local (127.0.0.1 uniquement)."""
+    try:
+        import uvicorn
+
+        from panade.review.app import creer_app
+    except ImportError:
+        print("L'écran de relecture demande : pip install -e '.[review]'", file=sys.stderr)
+        return 1
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
+    con.close()
+    url = f"http://127.0.0.1:{args.port}/"
+    print(f"Écran de relecture : {url}   (Ctrl+C pour quitter)")
+    if not args.sans_navigateur:
+        import webbrowser
+        webbrowser.open(url)
+    uvicorn.run(creer_app(args.db), host="127.0.0.1", port=args.port, log_level="warning")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="panade", description="Panade Collector")
     sub = parser.add_subparsers(dest="commande", required=True)
@@ -196,6 +218,11 @@ def main(argv: list[str] | None = None) -> int:
     collecte = sub.add_parser("collect", parents=[commun], help="fait tourner les extracteurs (aucun appel de modèle)")
     collecte.add_argument("--lieu", action="append", metavar="lieu_id", help="un lieu seulement (répétable)")
     collecte.set_defaults(fonction=cmd_collect)
+
+    relecture = sub.add_parser("review", parents=[commun], help="ouvre l'écran de relecture local")
+    relecture.add_argument("--port", type=int, default=8765)
+    relecture.add_argument("--sans-navigateur", action="store_true")
+    relecture.set_defaults(fonction=cmd_review)
 
     validation = sub.add_parser("validate", parents=[commun],
                                 help="schéma, cohérence, dédoublonnage, confiance, gratuité")

@@ -15,7 +15,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+review = ["fastapi>=0.110", "uvicorn>=0.29", "jinja2>=3.1", "python-multipart>=0.0.9"]
+dev = ["pytest>=8", "fastapi>=0.110", "uvicorn>=0.29", "jinja2>=3.1", "python-multipart>=0.0.9"]
 
 [project.scripts]
 panade = "panade.cli:main"
@@ -24,7 +25,7 @@ panade = "panade.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-panade = ["schema.sql"]
+panade = ["schema.sql", "review/templates/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

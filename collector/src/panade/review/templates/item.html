@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block titre %}{{ e.titre }}{% endblock %}
+{% block contenu %}
+<p class="doux">{% if position %}{{ position }} sur {{ restantes }} à relire{% else %}Hors file (état : {{ e.etat }}){% endif %} · {{ e.lieu_nom }}{% if e.lieu_statut != 'verifie' %} · <strong>lieu à vérifier : cette expo ne sera pas exportée tant que le lieu ne l'est pas</strong>{% endif %}</p>
+<div class="carte grille">
+  <div>
+    {% if e.image_url %}<img class="visuel" src="{{ e.image_url }}" alt="" referrerpolicy="no-referrer">{% else %}<div class="visuel"></div>{% endif %}
+    {% if e.url %}<p><a href="{{ e.url }}" target="_blank" rel="noopener noreferrer">Ouvrir la page de l'expo ↗</a></p>{% endif %}
+  </div>
+  <div>
+    <h1>{{ e.titre }}</h1>
+    {% if e.description %}<p class="doux">{{ e.description }}</p>{% endif %}
+    {% if erreur %}<div class="erreur">Rien n'a été enregistré : {{ erreur }}</div>{% endif %}
+    {% if e.motif_revue %}<div class="motif"><strong>Pourquoi elle attend :</strong> {{ e.motif_revue }}</div>{% endif %}
+    <div class="puces">
+      {% for champ in ['titre', 'date_debut', 'date_fin', 'portee'] %}
+        {% set p = provenance.get(champ) %}
+        {% if p %}<span class="puce {{ 'faible' if p in ['texte_fr_annee_deduite', 'absente', 'incertaine'] }}">{{ champ }} : {{ p }}</span>{% endif %}
+      {% endfor %}
+      {% if score is not none %}<span class="puce">confiance {{ '%.2f' % score }}</span>{% endif %}
+      <span class="puce">source : {{ e.source }}</span>
+    </div>
+    <div class="gratuite {{ 'confirmer' if (e.gratuite_calculee or '').find('a_confirmer') != -1 }}">
+      <strong>Gratuité calculée :</strong> {{ e.gratuite_calculee | gratuite }}
+      {% if gratuite_avant %}<br><span class="doux">Avant : {{ gratuite_avant | gratuite }}</span>{% endif %}
+      <br><span class="doux">Calculée à partir des tarifs du lieu et de la portée, jamais lue sur la page de l'expo. Changer la portée la recalcule.</span>
+    </div>
+    <form method="post" action="/item/{{ e.id }}/publier">
+      <input type="hidden" name="csrf" value="{{ jeton }}">
+      <label for="titre">Titre</label><input id="titre" name="titre" value="{{ e.titre }}" required>
+      <div class="deux">
+        <div><label for="date_debut">Début</label><input id="date_debut" name="date_debut" type="date" value="{{ e.date_debut or '' }}"></div>
+        <div><label for="date_fin">Fin</label><input id="date_fin" name="date_fin" type="date" value="{{ e.date_fin or '' }}"></div>
+      </div>
+      <label for="portee">Portée</label>
+      <select id="portee" name="portee">
+        <option value="temporaire" {{ 'selected' if e.portee == 'temporaire' }}>Exposition temporaire</option>
+        <option value="permanent" {{ 'selected' if e.portee == 'permanent' }}>Collections permanentes</option>
+      </select>
+      <div class="actions">
+        <button class="publier" id="publier" type="submit">Publier <kbd>P</kbd></button>
+        <button class="rejeter" formaction="/item/{{ e.id }}/rejeter" formnovalidate id="rejeter" type="submit">Rejeter <kbd>R</kbd></button>
+        <a class="bouton" href="/liste" id="passer">Passer <kbd>S</kbd></a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script nonce="{{ nonce }}">
+  document.addEventListener('keydown', function (ev) {
+    if (ev.target.matches('input, select, textarea') || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+    var touche = ev.key.toLowerCase();
+    if (touche === 'p') document.getElementById('publier').click();
+    if (touche === 'r' && confirm('Rejeter cette exposition ?')) document.getElementById('rejeter').click();
+    if (touche === 's') location.href = '/liste';
+  });
+</script>
+{% endblock %}

@@ -182,3 +182,21 @@ def test_lieux_sans_extracteur_ne_laissent_aucune_ligne_dans_runs(base, faux_cli
     resultats = collect.collecter(base, client, maintenant=NUIT_1, lieux_ids=["musee-de-l-institut-du-monde-arabe"])
     assert resultats == [] or resultats[0].statut == "sans_extracteur"
     assert runs(base) == [] and reseau.vues == []
+
+
+def test_la_relecture_ne_vaut_que_tant_que_la_page_ne_change_pas(base, faux_client):
+    passage(base, faux_client, PAGE)
+    prov = json.loads(expos(base)["PARIS · ROME"]["provenance"])
+    prov["relu"] = "humain"
+    base.execute("UPDATE expositions SET etat = 'publie', confiance = 1.0, provenance = ? WHERE titre = 'PARIS · ROME'",
+                 (json.dumps(prov),))
+    base.commit()
+    # un changement de description n'annule pas la relecture
+    passage(base, faux_client, PAGE.replace("Une amitié historique", "Une grande amitié historique"), quand=NUIT_2)
+    e = expos(base)["PARIS · ROME"]
+    assert e["etat"] == "publie" and json.loads(e["provenance"]).get("relu") == "humain"
+    # un changement de dates, si
+    prolongee = PAGE.replace("2027-01-05T12:00:00Z", "2027-02-05T12:00:00Z").replace("05 janvier 2027", "05 février 2027")
+    passage(base, faux_client, prolongee, quand=lambda: datetime(2026, 11, 1, 3, 0, tzinfo=timezone.utc))
+    e = expos(base)["PARIS · ROME"]
+    assert e["etat"] == "en_revue" and "relu" not in json.loads(e["provenance"])

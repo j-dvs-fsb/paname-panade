@@ -185,6 +185,8 @@ def _mettre_a_jour(con, existante, nom: str, expo: ExpoBrute, aujourdhui: str) -
         nouveau[champ] = valeur
         provenance[champ] = expo.provenance.get(champ, "carte")
         cle_modifiee |= champ in CHAMPS_CLES and existante[champ] is not None
+    if cle_modifiee:
+        provenance.pop("relu", None)    # la page a changé depuis la relecture : elle ne vaut plus
     renvoyee = cle_modifiee and existante["etat"] == "publie"
     con.execute("UPDATE expositions SET vu_le = ?, source = ?, hash_source = ?, provenance = ? WHERE id = ?",
                 (aujourdhui, nom, _hash_source(expo), json.dumps(provenance, ensure_ascii=False), existante["id"]))

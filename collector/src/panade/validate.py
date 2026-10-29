@@ -58,6 +58,8 @@ def confiance(expo: sqlite3.Row | dict) -> tuple[float | None, str | None]:
     provenance = json.loads(expo["provenance"] or "{}")
     if not provenance:
         return None, None
+    if provenance.get("relu") == "humain":
+        return 1.0, None      # une personne a relu et publié : la machine ne revient pas dessus
     scores = {"titre": CONFIANCE_PROVENANCE.get(provenance.get("titre"), 0.0)}
     if expo["url"]:
         scores["url"] = CONFIANCE_PROVENANCE.get(provenance.get("url"), 0.0)
