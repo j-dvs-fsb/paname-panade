@@ -164,3 +164,40 @@ def test_fermeture_annuelle_29_fevrier_permise_30_fevrier_refuse(con):
     con.execute(insert, ("02-29",))
     with pytest.raises(sqlite3.IntegrityError):
         con.execute(insert, ("02-30",))
+
+
+# --- migration v1 -> v2 ------------------------------------------------------------
+
+def colonnes(con, table):
+    return {(c["name"], c["type"], c["notnull"]) for c in con.execute(f"PRAGMA table_info({table})")}
+
+
+def test_migration_v1_vers_v2_donne_le_meme_schema_et_garde_les_donnees(tmp_path):
+    from conftest import FIXTURES
+    ancienne = db.connect(tmp_path / "v1.db")
+    ancienne.executescript((FIXTURES / "schema_v1.sql").read_text(encoding="utf-8"))
+    assert ancienne.execute("PRAGMA user_version").fetchone()[0] == 1
+    ancienne.execute("INSERT INTO familles (id, libelle) VALUES ('f', 'F')")
+    ancienne.execute("INSERT INTO lieux (id, nom, famille_id, confiance_famille) VALUES ('l', 'L', 'f', 'sur')")
+    ancienne.execute("INSERT INTO expositions (lieu_id, titre, portee, source) VALUES ('l', 'T', 'temporaire', 's')")
+    ancienne.commit()
+
+    assert db.init_schema(ancienne) is True
+    neuve = db.connect(tmp_path / "v2.db")
+    db.init_schema(neuve)
+    assert ancienne.execute("PRAGMA user_version").fetchone()[0] == db.SCHEMA_VERSION
+    for table in TABLES:
+        assert colonnes(ancienne, table) == colonnes(neuve, table), table
+    assert ancienne.execute("SELECT titre, provenance, motif_revue FROM expositions").fetchone()[:] == ("T", None, None)
+    assert db.init_schema(ancienne) is False      # rejouée : rien à faire
+    with pytest.raises(sqlite3.IntegrityError):    # la nouvelle table runs a bien son CHECK
+        ancienne.execute("INSERT INTO runs (lieu_id, demarre_le, statut) VALUES ('l', '2026-10-30T03:00:00Z', 'bizarre')")
+    ancienne.close()
+    neuve.close()
+
+
+def test_runs_refuse_une_date_illisible(con):
+    lieu(con)
+    with pytest.raises(sqlite3.IntegrityError):
+        con.execute("INSERT INTO runs (lieu_id, demarre_le, statut) VALUES ('l', 'hier soir', 'ok')")
+    con.execute("INSERT INTO runs (lieu_id, demarre_le, statut) VALUES ('l', '2026-10-30T03:00:05Z', 'ok')")

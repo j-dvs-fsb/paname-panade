@@ -1,4 +1,4 @@
--- Schéma v1 du collecteur : un seul fichier SQLite, sauvegarde = copie du fichier.
+-- Schéma v2 du collecteur : un seul fichier SQLite, sauvegarde = copie du fichier.
 --
 -- Les listes fermées (CHECK ... IN) sont aussi déclarées dans models.py ;
 -- tests/test_schema.py vérifie qu'elles concordent.
@@ -117,20 +117,38 @@ CREATE TABLE expositions (
     hash_source       TEXT,
     vu_le             TEXT CHECK (vu_le IS NULL OR date(vu_le) IS vu_le),
     source            TEXT NOT NULL CHECK (source <> ''),
+    -- JSON : d'où vient chaque champ (time, texte_fr, og:image...). Sert à calculer la confiance.
+    provenance        TEXT,
+    -- Pourquoi l'expo attend une relecture, affiché tel quel à l'écran de relecture.
+    motif_revue       TEXT,
+    -- Valeur de gratuite_calculee au moment où l'expo a été publiée ou relue. Si elle
+    -- diffère de gratuite_calculee, la gratuité a changé sans relecture (garde-fou 3).
+    gratuite_validee  TEXT,
     CHECK (date_debut IS NULL OR date_fin IS NULL OR date_fin >= date_debut),
     -- Pas de publication sans score de confiance.
     CHECK (etat <> 'publie' OR confiance IS NOT NULL)
 );
 
--- Les valeurs de statut sont fixées à l'étape 4, avec `collect`.
+-- Une ligne par passage de `collect`, succès comme échec. Un passage fructueux garde les
+-- validateurs HTTP et l'empreinte de la page : la nuit suivante, un 304 ou une empreinte
+-- identique évite de tout relire.
+--   ok        page lue, des expositions extraites
+--   inchange  304, ou empreinte identique : rien à ré-extraire
+--   vide      page lue mais l'extracteur ne trouve rien : file de réparation
+--   erreur    réseau, HTTP non 2xx, robots.txt injoignable
+--   interdit  robots.txt interdit : le lieu relève du T4
 CREATE TABLE runs (
-    id            INTEGER PRIMARY KEY,
-    lieu_id       TEXT NOT NULL REFERENCES lieux(id),
-    demarre_le    TEXT NOT NULL,
-    duree_ms      INTEGER CHECK (duree_ms IS NULL OR duree_ms >= 0),
-    statut        TEXT NOT NULL,
-    items_trouves INTEGER CHECK (items_trouves IS NULL OR items_trouves >= 0),
-    erreur        TEXT
+    id             INTEGER PRIMARY KEY,
+    lieu_id        TEXT NOT NULL REFERENCES lieux(id),
+    demarre_le     TEXT NOT NULL CHECK (datetime(demarre_le) IS NOT NULL),
+    duree_ms       INTEGER CHECK (duree_ms IS NULL OR duree_ms >= 0),
+    statut         TEXT NOT NULL CHECK (statut IN ('ok', 'inchange', 'vide', 'erreur', 'interdit')),
+    items_trouves  INTEGER CHECK (items_trouves IS NULL OR items_trouves >= 0),
+    erreur         TEXT,
+    url            TEXT,
+    etag           TEXT,
+    derniere_modif TEXT,
+    hash_page      TEXT
 );
 
 CREATE INDEX idx_tarifs_lieu      ON tarifs (lieu_id);
@@ -139,4 +157,4 @@ CREATE INDEX idx_fermetures_lieu  ON fermetures (lieu_id);
 CREATE INDEX idx_expositions_lieu ON expositions (lieu_id, etat);
 CREATE INDEX idx_runs_lieu        ON runs (lieu_id, demarre_le);
 
-PRAGMA user_version = 1;
+PRAGMA user_version = 2;

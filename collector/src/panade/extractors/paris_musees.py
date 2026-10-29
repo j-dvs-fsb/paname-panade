@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import re
 from datetime import date
+from urllib.parse import urlsplit
 
 from panade import html as h
 from panade.dates_fr import analyser
@@ -39,7 +40,9 @@ MENTION_TARIF = re.compile(r"gratuit|payant|tarif|prix|entr[ée]e|billet|€|r[�
 
 
 def convient(lieu) -> bool:
-    return lieu["famille_id"] == "paris_musees" and bool(lieu["expos_url"])
+    """Une page d'accueil n'est pas une page d'expositions : `discover` doit d'abord trouver la bonne."""
+    return (lieu["famille_id"] == "paris_musees" and bool(lieu["expos_url"])
+            and urlsplit(lieu["expos_url"]).path not in ("", "/"))
 
 
 def extraire(page_html: str, url_page: str, aujourdhui: date) -> list[ExpoBrute]:
@@ -92,6 +95,10 @@ def _carte(carte, url_page: str, aujourdhui: date) -> ExpoBrute | None:
     expo = ExpoBrute(titre=titre, url=url, date_debut=debut, date_fin=fin,
                      image_url=_image(carte, url_page), description=_description(carte))
     expo.provenance = {"titre": "carte", "url": "carte", "date_debut": provenance_dates, "date_fin": provenance_dates}
+    if any("accrochage" in c for c in categories):
+        # Un accrochage se tient souvent dans les collections permanentes (gratuites), parfois non :
+        # la portée détermine la gratuité, on ne la devine pas.
+        expo.provenance["portee"] = "incertaine"
     if expo.image_url:
         expo.provenance["image_url"] = "carte"
     if expo.description:

@@ -113,4 +113,14 @@ def test_registre():
     assert extractors.choisir(lieu_pm)[0] == "paris_musees"
     assert extractors.choisir({**lieu_pm, "tier": "T4"}) is None         # T4 : jamais d'extracteur
     assert extractors.choisir({**lieu_pm, "expos_url": None}) is None
+    assert extractors.choisir({**lieu_pm, "expos_url": "https://www.mam.paris.fr/"}) is None   # accueil : discover d'abord
     assert extractors.choisir({**lieu_pm, "famille_id": "cmn"}) is None
+
+
+def test_un_accrochage_a_une_portee_incertaine_les_autres_non():
+    """Gratuit si c'est dans les collections permanentes, payant sinon : on ne devine pas."""
+    expos = {e.titre: e for e in lire("carnavalet_expositions_en_cours", CARNAVALET)}
+    assert expos["Nouveau Paris, de 1977 à nos jours"].provenance["portee"] == "incertaine"
+    assert expos["En mémoire de Georges Cain (1853-1919), refondateur du musée Carnavalet"].provenance["portee"] == "incertaine"
+    assert "portee" not in expos["Paris à l’arraché"].provenance
+    assert all(e.portee == "temporaire" for e in expos.values())     # la valeur par défaut reste la plus prudente

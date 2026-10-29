@@ -12,14 +12,26 @@ DB_PAR_DEFAUT = "data/panade.db"
 CLASSEUR_PAR_DEFAUT = "data/PP_lieux_v2.xlsx"
 
 
+def _ouvrir(chemin: str):
+    """Ouvre une base existante (et la migre si elle est ancienne), sans jamais en créer une."""
+    if not Path(chemin).is_file():
+        print(f"Base introuvable : {chemin}. Premier lancement : panade init", file=sys.stderr)
+        return None
+    con = db.connect(chemin)
+    db.init_schema(con)
+    return con
+
+
 def cmd_init(args: argparse.Namespace) -> int:
     """Crée la base et la remplit depuis le classeur, une seule fois."""
     chemin_db = Path(args.db)
     chemin_db.parent.mkdir(parents=True, exist_ok=True)
     con = db.connect(chemin_db)
     try:
-        cree = db.init_schema(con)
-        print(f"{'Base créée' if cree else 'Base existante'} : {chemin_db} (schéma v{db.SCHEMA_VERSION})")
+        avant = con.execute("PRAGMA user_version").fetchone()[0]
+        db.init_schema(con)
+        action = "Base créée" if avant == 0 else "Base migrée" if avant < db.SCHEMA_VERSION else "Base existante"
+        print(f"{action} : {chemin_db} (schéma v{db.SCHEMA_VERSION})")
         if not db.est_vide(con):
             print("Déjà initialisée, le classeur n'est pas réimporté.")
             return 0
@@ -59,7 +71,9 @@ def cmd_probe(args: argparse.Namespace) -> int:
     from panade import probe
     from panade.http import ClientPoli
 
-    con = db.connect(args.db)
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
     try:
         if args.verifies:
             lieux = con.execute("SELECT * FROM lieux WHERE statut = 'verifie' ORDER BY id").fetchall()
@@ -94,7 +108,9 @@ def cmd_discover(args: argparse.Namespace) -> int:
     from panade import discover
     from panade.http import ClientPoli
 
-    con = db.connect(args.db)
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
     try:
         lieu = con.execute("SELECT * FROM lieux WHERE id = ?", (args.lieu,)).fetchone()
         if lieu is None:
@@ -112,6 +128,58 @@ def cmd_discover(args: argparse.Namespace) -> int:
         con.close()
 
 
+def cmd_collect(args: argparse.Namespace) -> int:
+    """Fait tourner les extracteurs. Aucun appel de modèle."""
+    from panade import collect
+    from panade.http import ClientPoli
+
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
+    try:
+        with ClientPoli() as client:
+            resultats = collect.collecter(con, client, lieux_ids=args.lieu)
+    finally:
+        con.close()
+    comptes: dict[str, int] = {}
+    for r in resultats:
+        comptes[r.statut] = comptes.get(r.statut, 0) + 1
+        if r.statut == "sans_extracteur" and not args.lieu:
+            continue    # 40 lignes inutiles : l'inventaire est dans `panade health`
+        suite = f" ({r.nouveaux} nouvelle(s), {r.modifies} modifiée(s), {r.renvoyes_en_revue} renvoyée(s) en relecture)" \
+            if r.statut == "ok" else f" {r.detail}" if r.detail else ""
+        print(f"{r.statut:16} {r.lieu}{suite}")
+    print("Bilan : " + ", ".join(f"{n} {s}" for s, n in sorted(comptes.items())))
+    return 0
+
+
+def cmd_validate(args: argparse.Namespace) -> int:
+    """Schéma, cohérence, dédoublonnage, confiance, gratuité. Code de sortie 1 si la base est en cause."""
+    from datetime import date
+
+    from panade import validate
+
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
+    try:
+        r = validate.valider(con, date.today())
+        en_revue = con.execute("SELECT COUNT(*) FROM expositions WHERE etat = 'en_revue'").fetchone()[0]
+        publiees = con.execute("SELECT COUNT(*) FROM expositions WHERE etat = 'publie'").fetchone()[0]
+    finally:
+        con.close()
+    print(f"{r.verifiees} expositions vérifiées : {publiees} publiées, {en_revue} en relecture")
+    print(f"  ce passage : {r.promues} promue(s), {r.bloquees} bloquée(s), {r.doublons} doublon(s) écarté(s), "
+          f"{r.gratuite_changee} gratuité(s) modifiée(s) sans relecture")
+    for p in r.perimes[:10]:
+        print(f"  périmé (plus de {validate.gratuite.PEREMPTION_JOURS} jours) : {p}")
+    if len(r.perimes) > 10:
+        print(f"  ... et {len(r.perimes) - 10} autre(s)")
+    for p in r.problemes_graves:
+        print(f"  GRAVE : {p}", file=sys.stderr)
+    return 1 if r.problemes_graves else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="panade", description="Panade Collector")
     sub = parser.add_subparsers(dest="commande", required=True)
@@ -124,6 +192,14 @@ def main(argv: list[str] | None = None) -> int:
     sonde.add_argument("--verifies", action="store_true", help="tous les lieux au statut vérifié")
     sonde.add_argument("--ecrire", action="store_true", help="enregistre le tier trouvé (jamais sur un lieu T4)")
     sonde.set_defaults(fonction=cmd_probe)
+
+    collecte = sub.add_parser("collect", parents=[commun], help="fait tourner les extracteurs (aucun appel de modèle)")
+    collecte.add_argument("--lieu", action="append", metavar="lieu_id", help="un lieu seulement (répétable)")
+    collecte.set_defaults(fonction=cmd_collect)
+
+    validation = sub.add_parser("validate", parents=[commun],
+                                help="schéma, cohérence, dédoublonnage, confiance, gratuité")
+    validation.set_defaults(fonction=cmd_validate)
 
     decouverte = sub.add_parser("discover", parents=[commun],
                                 help="trouve la page des expositions d'un lieu et en garde une fixture (sans modèle)")
