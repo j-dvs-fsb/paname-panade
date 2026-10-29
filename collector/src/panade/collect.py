@@ -60,16 +60,17 @@ def collecter(con: sqlite3.Connection, client: ClientPoli, *, maintenant=None, l
         requete += f" AND id IN ({','.join('?' * len(lieux_ids))})"
         params = list(lieux_ids)
     resultats = []
+    deja: dict[str, object] = {}     # une source partagée (portail Paris Musées) n'est lue qu'une fois
     for lieu in con.execute(requete + " ORDER BY id", params).fetchall():
         choix = extractors.choisir(lieu)
         if choix is None:
             resultats.append(Resultat(lieu["id"], "sans_extracteur"))
             continue
-        resultats.append(_passage(con, client, lieu, *choix, maintenant))
+        resultats.append(_passage(con, client, lieu, *choix, maintenant, deja))
     return resultats
 
 
-def _passage(con, client, lieu, nom, extracteur, maintenant) -> Resultat:
+def _passage(con, client, lieu, nom, extracteur, maintenant, deja=None) -> Resultat:
     debut = maintenant()
     chrono = time.monotonic()
     url = extracteur.source(lieu) if hasattr(extracteur, "source") else lieu["expos_url"]
@@ -79,9 +80,20 @@ def _passage(con, client, lieu, nom, extracteur, maintenant) -> Resultat:
 
     run = {"statut": "erreur", "erreur": None, "items": None, "etag": None, "derniere_modif": None, "hash": None}
     resultat = Resultat(lieu["id"], "erreur")
+    deja = {} if deja is None else deja
     try:
-        reponse = client.get(url, etag=precedent["etag"] if precedent else None,
-                             derniere_modif=precedent["derniere_modif"] if precedent else None)
+        if url in deja:
+            reponse = deja[url]
+            if isinstance(reponse, Exception):
+                raise reponse
+        else:
+            try:
+                reponse = client.get(url, etag=precedent["etag"] if precedent else None,
+                                     derniere_modif=precedent["derniere_modif"] if precedent else None)
+            except (AccesRefuse, ErreurReseau) as exc:
+                deja[url] = exc
+                raise
+            deja[url] = reponse
     except AccesRefuse as exc:
         run["erreur"] = exc.raison
         if exc.verdict is Verdict.INTERDIT:

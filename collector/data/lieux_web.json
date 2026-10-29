@@ -124,8 +124,8 @@
    }
   },
   "crypte-archeologique-de-l-ile-de-la-cite": {
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "fondation-cartier-pour-l-art-contemporain": {
    "expos_url": "https://www.fondationcartier.com/en-ce-moment",
@@ -137,8 +137,8 @@
    "note": "programme commun au Muséum (jardindesplantesdeparis.fr), collecté sur la fiche du Muséum pour éviter les doublons"
   },
   "maison-de-balzac": {
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "musee-bourdelle": {
    "expos_url": "https://www.bourdelle.paris.fr/visiter/expositions/expositions-en-cours",
@@ -207,31 +207,53 @@
      "verifie_par": "claude",
      "source_url": "https://www.carnavalet.paris.fr/visiter/informations-pratiques"
     }
-   ]
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-cernuschi-musee-des-arts-de-l-asie-de-la-ville-de-pari": {
    "expos_url": "https://www.cernuschi.paris.fr/",
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "musee-cognacq-jay-musee-du-xviiie-siecle-de-la-ville-de-pari": {
    "expos_url": "https://www.museecognacqjay.paris.fr/",
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "musee-d-art-et-d-histoire-de-l-hopital-sainte-anne": {
    "expos_url": "https://mahhsa.fr/expo-du-moment/",
    "etat_web": "ok",
    "tarifs_url": "https://mahhsa.fr/informations-pratiques/",
-   "horaires_url": "https://mahhsa.fr/informations-pratiques/"
+   "horaires_url": "https://mahhsa.fr/informations-pratiques/",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26",
+     "prix": 0,
+     "plein_tarif": 5,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans ; musée ouvert pendant les expositions temporaires",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://mahhsa.fr/informations-pratiques/"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-d-art-et-d-histoire-du-judaisme": {
    "expos_url": "https://www.mahj.org/fr/programme/l-agenda-du-mahj?f%5B0%5D=field_ag_type_manifestation%3A422",
    "etat_web": "ok"
   },
   "musee-d-art-moderne-de-la-ville-de-paris": {
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "musee-d-ennery": {
    "etat_web": "sans_liste",
@@ -245,7 +267,37 @@
   },
   "musee-de-l-armee": {
    "expos_url": "https://www.musee-armee.fr/au-programme/expositions.html",
-   "etat_web": "ok"
+   "etat_web": "ok",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 17,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans résidents de l'UE, collections permanentes uniquement",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-armee.fr/votre-visite/horaires-et-tarifs/gratuites-et-reduction.html"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 17,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-armee.fr/votre-visite/horaires-et-tarifs/gratuites-et-reduction.html"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   },
+   "tarifs_url": "https://www.musee-armee.fr/votre-visite/horaires-et-tarifs.html"
   },
   "musee-de-l-assistance-publique-hopitaux-de-paris": {
    "etat_web": "hors_ligne",
@@ -280,7 +332,48 @@
    "expos_url": "https://www.musee-orangerie.fr/fr/programme/agenda/expositions",
    "etat_web": "ok",
    "tarifs_url": "https://www.musee-orangerie.fr/fr/visite/acces-horaires-tarifs",
-   "horaires_url": "https://www.musee-orangerie.fr/fr/visite/acces-horaires-tarifs"
+   "horaires_url": "https://www.musee-orangerie.fr/fr/visite/acces-horaires-tarifs",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 12.5,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans ressortissants de l'UE ou de l'EEE, pièce d'identité ; le billet couvre collections et expositions temporaires",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-orangerie.fr/articles/conditions-de-gratuite-105449"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 12.5,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-orangerie.fr/articles/conditions-de-gratuite-105449"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 12.5,
+     "recurrence": "1er_dimanche",
+     "justificatif": "premier dimanche du mois, réservation obligatoire",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-orangerie.fr/articles/conditions-de-gratuite-105449"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-de-la-franc-maconnerie": {
    "expos_url": "https://www.museefm.org/expositions-du-musee/",
@@ -307,8 +400,8 @@
   },
   "musee-de-la-liberation-de-paris-musee-du-general-leclerc-mus": {
    "expos_url": "https://www.museeliberation-leclerc.paris.fr/",
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "musee-de-la-musique": {
    "expos_url": "https://philharmoniedeparis.fr/fr/musee-de-la-musique",
@@ -324,8 +417,8 @@
    "expos_url": "https://www.museepostal.fr/"
   },
   "musee-de-la-vie-romantique": {
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "musee-de-montmartre": {
    "etat_web": "t4_brief",
@@ -682,7 +775,47 @@
    "expos_url": "https://musee-henner.fr/",
    "etat_web": "ok",
    "tarifs_url": "https://musee-henner.fr/horaires-et-tarifs",
-   "horaires_url": "https://musee-henner.fr/horaires-et-tarifs"
+   "horaires_url": "https://musee-henner.fr/horaires-et-tarifs",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 8,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans résidents de l'EEE (visite libre des collections et des expositions temporaires)",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://musee-henner.fr/sites/henner/files/documents/Liste%20des%20tarifs%20sp%C3%A9ciaux.pdf"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 8,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://musee-henner.fr/sites/henner/files/documents/Liste%20des%20tarifs%20sp%C3%A9ciaux.pdf"
+    },
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 8,
+     "recurrence": "1er_dimanche",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://musee-henner.fr/sites/henner/files/documents/Liste%20des%20tarifs%20sp%C3%A9ciaux.pdf"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-national-d-art-moderne-centre-national-d-art-et-de-cul": {
    "expos_url": "https://www.centrepompidou.fr/fr/programme/expositions",
@@ -733,7 +866,26 @@
   },
   "musee-national-de-la-marine": {
    "expos_url": "https://www.musee-marine.fr/nos-musees/paris/expositions-et-evenements/les-expositions.html",
-   "etat_web": "ok"
+   "etat_web": "ok",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans ; le billet couvre collections permanentes et expositions temporaires",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-marine.fr/nos-musees/paris/visiter/informations-pratiques/acces-horaires-tarifs.html"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   },
+   "tarifs_url": "https://www.musee-marine.fr/nos-musees/paris/visiter/informations-pratiques/acces-horaires-tarifs.html"
   },
   "musee-nissim-de-camondo-union-centrale-des-arts-decoratifs": {
    "etat_web": "anti_robots",
@@ -787,7 +939,48 @@
    "expos_url": "https://www.musee-rodin.fr/musee/expositions",
    "etat_web": "ok",
    "tarifs_url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques",
-   "horaires_url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques"
+   "horaires_url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 14,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans inclus résidents de l'UE : collections permanentes, jardin de sculptures et exposition temporaire",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques/avez-vous-droit-gratuite"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 14,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques/avez-vous-droit-gratuite"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 14,
+     "recurrence": "1er_dimanche_oct_a_mars",
+     "justificatif": "premier dimanche du mois d'octobre à mars",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques/avez-vous-droit-gratuite"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-yves-saint-laurent-paris": {
    "expos_url": "https://museeyslparis.com/programme",
@@ -796,8 +989,8 @@
   },
   "musee-zadkine": {
    "expos_url": "https://www.zadkine.paris.fr/",
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "museum-national-d-histoire-naturelle": {
    "expos_url": "https://www.jardindesplantesdeparis.fr/fr/expositions-evenements",
@@ -807,8 +1000,8 @@
    "note": "mnhn.fr refuse les robots (403) ; programme parisien lu sur jardindesplantesdeparis.fr, site du Muséum"
   },
   "palais-galliera-musee-de-la-mode-et-de-la-ville-de-paris": {
-   "etat_web": "maintenance",
-   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+   "etat_web": "ok",
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
   },
   "pantheon": {
    "expos_url": "https://www.paris-pantheon.fr/agenda",

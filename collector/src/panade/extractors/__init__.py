@@ -27,9 +27,10 @@ class ExpoBrute:
 
 
 def disponibles() -> dict[str, ModuleType]:
-    from panade.extractors import generique, paris_musees
-    # L'ordre compte : un extracteur de mutualisation passe avant la config générique.
-    return {"paris_musees": paris_musees, "generique": generique}
+    from panade.extractors import generique, paris_musees, parismusees
+    # L'ordre compte : le portail du réseau d'abord (il couvre les sites en maintenance), puis
+    # le site propre d'un musée Paris Musées, puis la config générique.
+    return {"parismusees": parismusees, "paris_musees": paris_musees, "generique": generique}
 
 
 def choisir(lieu) -> tuple[str, ModuleType] | None:

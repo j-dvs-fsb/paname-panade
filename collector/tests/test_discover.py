@@ -6,6 +6,14 @@ from panade import db, discover, seed
 
 from conftest import CLASSEUR, fixture
 
+
+@pytest.fixture(autouse=True)
+def sans_portail(monkeypatch):
+    """Ces tests portent sur le lecteur du site propre d'un musée : le portail du réseau est mis de côté."""
+    from panade.extractors import parismusees
+    monkeypatch.setattr(parismusees, "MUSEES", {})
+
+
 ROBOTS = "User-agent: *\nDisallow:\n"
 
 

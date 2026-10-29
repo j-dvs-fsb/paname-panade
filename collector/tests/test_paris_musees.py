@@ -7,6 +7,14 @@ from panade.extractors import paris_musees as pm
 
 from conftest import fixture
 
+
+@pytest.fixture(autouse=True)
+def sans_portail(monkeypatch):
+    """Ces tests portent sur le lecteur du site propre d'un musée : le portail du réseau est mis de côté."""
+    from panade.extractors import parismusees
+    monkeypatch.setattr(parismusees, "MUSEES", {})
+
+
 AUJOURDHUI = date(2026, 10, 29)
 CARNAVALET = "https://www.carnavalet.paris.fr/expositions/expositions-en-cours"
 PETIT_PALAIS = "https://www.petitpalais.paris.fr/decouvrir-la-programmation/expositions"

@@ -98,3 +98,12 @@ def test_couverture_apres_completion(base):
     completer.appliquer(base, WEB)
     couverts = [r["id"] for r in base.execute("SELECT * FROM lieux") if choisir(r)]
     assert len(couverts) >= 30
+
+
+def test_musee_de_l_armee_gratuit_en_permanent_seulement(base):
+    from datetime import date
+    from panade import gratuite
+    completer.appliquer(base, WEB)
+    l = gratuite.charger(base, "musee-de-l-armee")
+    assert gratuite.calculer(l, "permanent", date(2026, 10, 29)).statut == "gratuit_26"
+    assert gratuite.calculer(l, "temporaire", date(2026, 10, 29)).statut == "a_confirmer"
