@@ -86,8 +86,8 @@ def test_lieu_jamais_collecte_n_est_pas_muet(base):
 
 
 def test_lieu_sans_extracteur_n_est_jamais_muet(base):
-    run(base, 1, "erreur", lieu="musee-de-l-institut-du-monde-arabe")
-    run(base, 2, "erreur", lieu="musee-de-l-institut-du-monde-arabe")
+    run(base, 1, "erreur", lieu="musee-de-la-poste")
+    run(base, 2, "erreur", lieu="musee-de-la-poste")
     assert health.lieux_muets(base, AUJ) == []
 
 

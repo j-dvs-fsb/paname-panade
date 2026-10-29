@@ -182,3 +182,9 @@ def test_titres_qui_ne_different_que_par_un_nombre_ne_sont_pas_des_doublons(base
     b = ajouter(base, titre="Nocturne 2", url="https://x.test/n2")
     r = validate.valider(base, AUJ)
     assert r.doublons == 0 and ligne(base, a)["etat"] != "rejete" and ligne(base, b)["etat"] != "rejete"
+
+
+def test_jusqu_au_suffit_sans_date_de_debut(base):
+    i = ajouter(base, debut=None, prov={"titre": "carte", "url": "carte", "date_debut": "texte_fr", "date_fin": "texte_fr"})
+    validate.valider(base, AUJ)
+    assert ligne(base, i)["etat"] == "publie"

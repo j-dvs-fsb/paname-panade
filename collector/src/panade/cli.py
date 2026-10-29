@@ -48,6 +48,14 @@ def cmd_init(args: argparse.Namespace) -> int:
     finally:
         con.close()
 
+    if Path(args.web).is_file():
+        from panade import completer
+        con = db.connect(chemin_db)
+        try:
+            n = len(completer.appliquer(con, args.web))
+        finally:
+            con.close()
+        print(f"Découverte web appliquée : {args.web} ({n} changement(s))")
     c = rapport.comptes
     print(f"Import : {args.xlsx}")
     print(f"  familles {c['Familles']} · lieux {c['Lieux']} ({rapport.lieux_verifies} vérifiés)"
@@ -301,6 +309,23 @@ def cmd_health(args: argparse.Namespace) -> int:
     return 1 if r["alertes"] else 0
 
 
+def cmd_completer(args: argparse.Namespace) -> int:
+    """Applique data/lieux_web.json : comble les trous, ne réécrit jamais une saisie humaine."""
+    from panade import completer
+
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
+    try:
+        changements = completer.appliquer(con, args.fichier)
+    finally:
+        con.close()
+    for c in changements:
+        print(f"  {c}")
+    print(f"{len(changements)} changement(s)")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="panade", description="Panade Collector")
     sub = parser.add_subparsers(dest="commande", required=True)
@@ -313,6 +338,10 @@ def main(argv: list[str] | None = None) -> int:
     sonde.add_argument("--verifies", action="store_true", help="tous les lieux au statut vérifié")
     sonde.add_argument("--ecrire", action="store_true", help="enregistre le tier trouvé (jamais sur un lieu T4)")
     sonde.set_defaults(fonction=cmd_probe)
+
+    completion = sub.add_parser("completer", parents=[commun], help="applique les pages officielles trouvées (data/lieux_web.json)")
+    completion.add_argument("--fichier", default="data/lieux_web.json")
+    completion.set_defaults(fonction=cmd_completer)
 
     collecte = sub.add_parser("collect", parents=[commun], help="fait tourner les extracteurs (aucun appel de modèle)")
     collecte.add_argument("--lieu", action="append", metavar="lieu_id", help="un lieu seulement (répétable)")
@@ -354,6 +383,7 @@ def main(argv: list[str] | None = None) -> int:
                           help="crée la base et importe le classeur (premier lancement)")
     init.add_argument("--xlsx", default=CLASSEUR_PAR_DEFAUT,
                       help=f"classeur de départ (défaut : {CLASSEUR_PAR_DEFAUT})")
+    init.add_argument("--web", default="data/lieux_web.json", help="pages officielles à appliquer après la graine")
     init.set_defaults(fonction=cmd_init)
 
     args = parser.parse_args(argv)

@@ -109,12 +109,13 @@ def test_page_de_liste_vide_ne_renvoie_rien():
 
 
 def test_registre():
-    lieu_pm = {"famille_id": "paris_musees", "expos_url": CARNAVALET, "tier": "T1"}
+    lieu_pm = {"id": "musee-carnavalet-histoire-de-paris", "famille_id": "paris_musees", "expos_url": CARNAVALET, "tier": "T1"}
     assert extractors.choisir(lieu_pm)[0] == "paris_musees"
     assert extractors.choisir({**lieu_pm, "tier": "T4"}) is None         # T4 : jamais d'extracteur
     assert extractors.choisir({**lieu_pm, "expos_url": None}) is None
     assert extractors.choisir({**lieu_pm, "expos_url": "https://www.mam.paris.fr/"}) is None   # accueil : discover d'abord
     assert extractors.choisir({**lieu_pm, "famille_id": "cmn"}) is None
+    assert extractors.choisir({**lieu_pm, "id": "musee-du-louvre", "famille_id": "musee_national"})[0] == "generique"
 
 
 def test_un_accrochage_a_une_portee_incertaine_les_autres_non():

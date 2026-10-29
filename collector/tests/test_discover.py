@@ -60,8 +60,9 @@ def test_lieu_t4_rien_n_est_telecharge(lieux, faux_client, tmp_path):
 
 
 def test_lieu_sans_extracteur_garde_quand_meme_la_fixture(lieux, faux_client, tmp_path):
+    lieu = {**dict(lieux["musee-de-la-poste"]), "expos_url": "https://www.imarabe.org/fr/agenda/expositions-musee"}
     client, _ = faux_client({"https://www.imarabe.org/robots.txt": ROBOTS,
                              "https://www.imarabe.org/fr/agenda/expositions-musee": fixture("pages/ima_expositions.html")})
-    d = discover.decouvrir(lieux["musee-de-l-institut-du-monde-arabe"], client, tmp_path, date(2026, 10, 29))
+    d = discover.decouvrir(lieu, client, tmp_path, date(2026, 10, 29))
     assert d.statut == "ok" and d.extracteur is None and "pas d'extracteur" in d.detail
     assert d.octets_reduits <= d.octets_bruts   # la fixture de test est déjà réduite : idempotent

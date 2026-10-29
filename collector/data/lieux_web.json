@@ -1,0 +1,302 @@
+{
+ "genere_le": "2026-10-29",
+ "lieux": {
+  "arc-de-triomphe": {
+   "expos_url": "https://www.paris-arc-de-triomphe.fr/agenda",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.paris-arc-de-triomphe.fr/visiter/informations-pratiques",
+   "horaires_url": "https://www.paris-arc-de-triomphe.fr/visiter/informations-pratiques"
+  },
+  "bourse-de-commerce-pinault-collection": {
+   "expos_url": "https://www.pinaultcollection.com/fr/boursedecommerce/programme",
+   "etat_web": "ok"
+  },
+  "cite-des-sciences-et-de-l-industrie": {
+   "expos_url": "https://www.cite-sciences.fr/fr/au-programme/expos-temporaires",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.cite-sciences.fr/fr/infos-pratiques/preparez-votre-visite",
+   "horaires_url": "https://www.cite-sciences.fr/fr/infos-pratiques/preparez-votre-visite"
+  },
+  "conciergerie": {
+   "expos_url": "https://www.paris-conciergerie.fr/agenda",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.paris-conciergerie.fr/visiter/informations-pratiques",
+   "horaires_url": "https://www.paris-conciergerie.fr/visiter/informations-pratiques"
+  },
+  "crypte-archeologique-de-l-ile-de-la-cite": {
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "fondation-cartier-pour-l-art-contemporain": {
+   "expos_url": "https://www.fondationcartier.com/en-ce-moment",
+   "etat_web": "ok"
+  },
+  "grande-galerie-de-l-evolution": {
+   "tarifs_url": "https://www.jardindesplantesdeparis.fr/fr/tarifs-horaires-acces",
+   "etat_web": "doublon",
+   "note": "programme commun au Muséum (jardindesplantesdeparis.fr), collecté sur la fiche du Muséum pour éviter les doublons"
+  },
+  "maison-de-balzac": {
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "musee-bourdelle": {
+   "expos_url": "https://www.bourdelle.paris.fr/visiter/expositions/expositions-en-cours",
+   "etat_web": "ok",
+   "corriger": [
+    "expos_url"
+   ]
+  },
+  "musee-carnavalet-histoire-de-paris": {
+   "expos_url": "https://www.carnavalet.paris.fr/expositions/expositions-en-cours",
+   "etat_web": "ok",
+   "corriger": [
+    "expos_url"
+   ]
+  },
+  "musee-cernuschi-musee-des-arts-de-l-asie-de-la-ville-de-pari": {
+   "expos_url": "https://www.cernuschi.paris.fr/",
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "musee-cognacq-jay-musee-du-xviiie-siecle-de-la-ville-de-pari": {
+   "expos_url": "https://www.museecognacqjay.paris.fr/",
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "musee-d-art-et-d-histoire-de-l-hopital-sainte-anne": {
+   "expos_url": "https://mahhsa.fr/expo-du-moment/",
+   "etat_web": "ok",
+   "tarifs_url": "https://mahhsa.fr/informations-pratiques/",
+   "horaires_url": "https://mahhsa.fr/informations-pratiques/"
+  },
+  "musee-d-art-et-d-histoire-du-judaisme": {
+   "expos_url": "https://www.mahj.org/fr/programme/l-agenda-du-mahj?f%5B0%5D=field_ag_type_manifestation%3A422",
+   "etat_web": "ok"
+  },
+  "musee-d-art-moderne-de-la-ville-de-paris": {
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "musee-d-ennery": {
+   "etat_web": "sans_liste",
+   "note": "annexe de Guimet, ouverture très limitée, aucune page d'expositions propre"
+  },
+  "musee-d-orsay": {
+   "etat_web": "anti_robots",
+   "note": "403 au robot identifié : pas de contournement, collecte manuelle",
+   "tier": "T4",
+   "expos_url": "https://www.musee-orsay.fr/fr/expositions"
+  },
+  "musee-de-l-armee": {
+   "expos_url": "https://www.musee-armee.fr/au-programme/expositions.html",
+   "etat_web": "ok"
+  },
+  "musee-de-l-assistance-publique-hopitaux-de-paris": {
+   "etat_web": "hors_ligne",
+   "note": "https://musee.aphp.fr/ ne répond pas : musée probablement fermé, à confirmer avant de le garder"
+  },
+  "musee-de-l-ecole-nationale-superieure-des-beaux-arts": {
+   "expos_url": "https://beauxartsparis.fr/fr/exposition/a-voir",
+   "etat_web": "ok"
+  },
+  "musee-de-l-institut-du-monde-arabe": {
+   "expos_url": "https://www.imarabe.org/fr/agenda/expositions-musee",
+   "etat_web": "ok"
+  },
+  "musee-de-l-orangerie-des-tuileries": {
+   "expos_url": "https://www.musee-orangerie.fr/fr/programme/agenda/expositions",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.musee-orangerie.fr/fr/visite/acces-horaires-tarifs",
+   "horaires_url": "https://www.musee-orangerie.fr/fr/visite/acces-horaires-tarifs"
+  },
+  "musee-de-la-franc-maconnerie": {
+   "expos_url": "https://www.museefm.org/expositions-du-musee/",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.museefm.org/activites-et-tarifs-pour-les-individuels/",
+   "horaires_url": "https://www.museefm.org/horaires-et-acces/"
+  },
+  "musee-de-la-grande-loge-de-france": {
+   "etat_web": "anti_robots",
+   "note": "gldf.org : 403 au robot identifié : pas de contournement, collecte manuelle",
+   "tier": "T4"
+  },
+  "musee-de-la-liberation-de-paris-musee-du-general-leclerc-mus": {
+   "expos_url": "https://www.museeliberation-leclerc.paris.fr/",
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "musee-de-la-musique": {
+   "expos_url": "https://philharmoniedeparis.fr/fr/musee-de-la-musique",
+   "etat_web": "ok",
+   "corriger": [
+    "expos_url"
+   ]
+  },
+  "musee-de-la-poste": {
+   "etat_web": "anti_robots",
+   "note": "pare-feu applicatif (« Request Rejected ») : pas de contournement, collecte manuelle",
+   "tier": "T4",
+   "expos_url": "https://www.museepostal.fr/"
+  },
+  "musee-de-la-vie-romantique": {
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "musee-de-montmartre": {
+   "etat_web": "t4_brief",
+   "note": "robots.txt actuel n'interdit pas ; T4 maintenu par décision du brief"
+  },
+  "musee-des-arts-asiatiques-guimet": {
+   "expos_url": "https://www.guimet.fr/fr/expositions",
+   "etat_web": "ok"
+  },
+  "musee-des-arts-decoratifs-union-centrale-des-arts-decoratifs": {
+   "etat_web": "anti_robots",
+   "note": "madparis.fr coupe la connexion aux robots : pas de contournement, collecte manuelle ou flux RSS si le site le rouvre"
+  },
+  "musee-des-arts-et-metiers": {
+   "expos_url": "https://www.arts-et-metiers.net/musee/programmation-2026-2027",
+   "tarifs_url": "https://www.arts-et-metiers.net/musee/tarifs",
+   "horaires_url": "https://www.arts-et-metiers.net/musee/horaires-et-acces",
+   "etat_web": "sans_liste",
+   "note": "pas de liste d'expositions lisible : l'agenda est un moteur de recherche à facettes ; à écrire avec la page de programmation"
+  },
+  "musee-des-monnaies-et-medailles": {
+   "expos_url": "https://www.monnaiedeparis.fr/fr/expositions",
+   "horaires_url": "https://www.monnaiedeparis.fr/fr/horaires-acces",
+   "tier": "T4",
+   "etat_web": "robots_interdit",
+   "note": "robots.txt de monnaiedeparis.fr interdit /fr/expositions : collecte manuelle"
+  },
+  "musee-des-monuments-francais": {
+   "expos_url": "https://www.citedelarchitecture.fr/fr/agenda/type_evenement/exposition-98?date=tout",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.citedelarchitecture.fr/fr/article/billets-et-tarifs",
+   "horaires_url": "https://www.citedelarchitecture.fr/fr/informations-pratiques"
+  },
+  "musee-des-plans-reliefs": {
+   "expos_url": "https://museedesplansreliefs.fr/visiteurs-individuels",
+   "tarifs_url": "https://museedesplansreliefs.fr/visiteurs-individuels",
+   "etat_web": "sans_liste",
+   "note": "pas de programme d'expositions publié ; billet couplé avec le musée de l'Armée"
+  },
+  "musee-du-louvre": {
+   "expos_url": "https://www.louvre.fr/expositions-et-evenements/expositions",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.louvre.fr/visiter/horaires-tarifs",
+   "horaires_url": "https://www.louvre.fr/visiter/horaires-tarifs"
+  },
+  "musee-du-moyen-age-thermes-et-hotel-de-cluny": {
+   "etat_web": "anti_robots",
+   "note": "défi JavaScript anti-robots (« requires JS enabled and cookies ») : pas de contournement, collecte manuelle",
+   "tier": "T4",
+   "expos_url": "https://www.musee-moyenage.fr/"
+  },
+  "musee-du-quai-branly-jacques-chirac": {
+   "expos_url": "https://www.quaibranly.fr/fr/expositions-evenements/au-musee/expositions",
+   "etat_web": "ok"
+  },
+  "musee-du-service-de-sante-des-armees-du-val-de-grace": {
+   "etat_web": "introuvable",
+   "note": "aucune page officielle trouvée (defense.gouv.fr renvoie 404)"
+  },
+  "musee-eugene-delacroix": {
+   "expos_url": "https://www.musee-delacroix.fr/expositions",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.musee-delacroix.fr/horaires-et-tarifs",
+   "horaires_url": "https://www.musee-delacroix.fr/horaires-et-tarifs"
+  },
+  "musee-gustave-moreau": {
+   "expos_url": "https://musee-moreau.fr/fr/exposition-en-cours",
+   "etat_web": "ok",
+   "tarifs_url": "https://musee-moreau.fr/fr/horaires-et-tarifs",
+   "horaires_url": "https://musee-moreau.fr/fr/horaires-et-tarifs"
+  },
+  "musee-hebert": {
+   "etat_web": "hors_ligne",
+   "note": "https://www.musee-hebert.fr/ ne répond pas : musée probablement fermé, à confirmer avant de le garder"
+  },
+  "musee-jean-jacques-henner": {
+   "expos_url": "https://musee-henner.fr/",
+   "etat_web": "ok",
+   "tarifs_url": "https://musee-henner.fr/horaires-et-tarifs",
+   "horaires_url": "https://musee-henner.fr/horaires-et-tarifs"
+  },
+  "musee-national-d-art-moderne-centre-national-d-art-et-de-cul": {
+   "expos_url": "https://www.centrepompidou.fr/fr/programme/expositions",
+   "etat_web": "ferme_travaux",
+   "note": "Centre Pompidou fermé pour travaux : les expositions listées se tiennent ailleurs (Malaga, Séoul, Izmir...), rien n'est collecté"
+  },
+  "musee-national-de-l-histoire-et-des-cultures-de-l-immigratio": {
+   "expos_url": "https://www.histoire-immigration.fr/expositions",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.histoire-immigration.fr/informations-pratiques",
+   "horaires_url": "https://www.histoire-immigration.fr/informations-pratiques"
+  },
+  "musee-national-de-la-legion-d-honneur-et-des-ordres-de-cheva": {
+   "expos_url": "https://www.legiondhonneur.fr/fr/le-musee/visiter-le-musee/la-programmation-et-les-visites",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.legiondhonneur.fr/fr/page/le-musee",
+   "note": "ATTENTION : musee-legiondhonneur.fr n'est plus le site officiel (blog sans rapport) ; source officielle : legiondhonneur.fr"
+  },
+  "musee-national-de-la-marine": {
+   "expos_url": "https://www.musee-marine.fr/nos-musees/paris/expositions-et-evenements/les-expositions.html",
+   "etat_web": "ok"
+  },
+  "musee-nissim-de-camondo-union-centrale-des-arts-decoratifs": {
+   "etat_web": "anti_robots",
+   "note": "madparis.fr coupe la connexion aux robots : pas de contournement, collecte manuelle ou flux RSS si le site le rouvre"
+  },
+  "musee-picasso": {
+   "expos_url": "https://www.museepicassoparis.fr/fr/agenda/types/exposition/",
+   "etat_web": "ok"
+  },
+  "musee-rodin": {
+   "expos_url": "https://www.musee-rodin.fr/musee/expositions",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques",
+   "horaires_url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques"
+  },
+  "musee-yves-saint-laurent-paris": {
+   "expos_url": "https://museeyslparis.com/programme",
+   "etat_web": "ferme_travaux",
+   "note": "musée fermé temporairement pour travaux : la page ne liste que des expositions passées ou hors les murs"
+  },
+  "musee-zadkine": {
+   "expos_url": "https://www.zadkine.paris.fr/",
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "museum-national-d-histoire-naturelle": {
+   "expos_url": "https://www.jardindesplantesdeparis.fr/fr/expositions-evenements",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.jardindesplantesdeparis.fr/fr/tarifs-horaires-acces",
+   "horaires_url": "https://www.jardindesplantesdeparis.fr/fr/tarifs-horaires-acces",
+   "note": "mnhn.fr refuse les robots (403) ; programme parisien lu sur jardindesplantesdeparis.fr, site du Muséum"
+  },
+  "palais-galliera-musee-de-la-mode-et-de-la-ville-de-paris": {
+   "etat_web": "maintenance",
+   "note": "réseau Paris Musées en maintenance (503) le 2026-10-29 : lancer `panade discover` quand le site répond"
+  },
+  "pantheon": {
+   "expos_url": "https://www.paris-pantheon.fr/agenda",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.paris-pantheon.fr/visiter/informations-pratiques",
+   "horaires_url": "https://www.paris-pantheon.fr/visiter/informations-pratiques"
+  },
+  "petit-palais-musee-des-beaux-arts-de-la-ville-de-paris": {
+   "expos_url": "https://www.petitpalais.paris.fr/decouvrir-la-programmation/expositions",
+   "etat_web": "ok",
+   "corriger": [
+    "expos_url"
+   ]
+  },
+  "sainte-chapelle": {
+   "expos_url": "https://www.sainte-chapelle.fr/agenda",
+   "etat_web": "ok",
+   "tarifs_url": "https://www.sainte-chapelle.fr/visiter/informations-pratiques",
+   "horaires_url": "https://www.sainte-chapelle.fr/visiter/informations-pratiques"
+  }
+ }
+}

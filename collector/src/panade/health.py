@@ -33,7 +33,7 @@ class Muet:
 
 
 def _lieux_collectes(con):
-    return [l for l in con.execute("SELECT * FROM lieux WHERE expos_url IS NOT NULL ORDER BY id") if extractors.choisir(l)]
+    return [l for l in con.execute("SELECT * FROM lieux ORDER BY id") if extractors.choisir(l)]
 
 
 def lieux_muets(con: sqlite3.Connection, aujourdhui: date) -> list[Muet]:

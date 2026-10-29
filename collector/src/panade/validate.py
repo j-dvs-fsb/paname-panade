@@ -63,9 +63,16 @@ def confiance(expo: sqlite3.Row | dict) -> tuple[float | None, str | None]:
     scores = {"titre": CONFIANCE_PROVENANCE.get(provenance.get("titre"), 0.0)}
     if expo["url"]:
         scores["url"] = CONFIANCE_PROVENANCE.get(provenance.get("url"), 0.0)
-    dates = [CONFIANCE_PROVENANCE.get(provenance.get(c), 0.0) for c in ("date_debut", "date_fin") if expo[c]]
-    # Une seule borne connue : exposition « ouverte » ou date de fin manquante, on ne tranche pas seul.
-    scores["dates"] = 0.0 if not dates else min(dates) if len(dates) == 2 else min(dates[0], 0.6)
+    if expo["date_debut"] and expo["date_fin"]:
+        scores["dates"] = min(CONFIANCE_PROVENANCE.get(provenance.get(c), 0.0) for c in ("date_debut", "date_fin"))
+    elif expo["date_fin"]:
+        # « Jusqu'au 25 janvier » : une exposition en cours, la fin suffit à l'afficher.
+        scores["dates"] = CONFIANCE_PROVENANCE.get(provenance.get("date_fin"), 0.0)
+    elif expo["date_debut"]:
+        # Pas de date de fin : exposition ouverte ou fin oubliée, une personne tranche.
+        scores["dates"] = min(CONFIANCE_PROVENANCE.get(provenance.get("date_debut"), 0.0), 0.6)
+    else:
+        scores["dates"] = 0.0
     if "portee" in provenance:
         scores["portée"] = CONFIANCE_PROVENANCE.get(provenance["portee"], 0.0)
     faible = min(scores, key=scores.get)

@@ -54,7 +54,7 @@ def _hash_source(expo: ExpoBrute) -> str:
 
 def collecter(con: sqlite3.Connection, client: ClientPoli, *, maintenant=None, lieux_ids=None) -> list[Resultat]:
     maintenant = maintenant or (lambda: datetime.now(timezone.utc))
-    requete = "SELECT * FROM lieux WHERE expos_url IS NOT NULL"
+    requete = "SELECT * FROM lieux WHERE 1 = 1"
     params: list = []
     if lieux_ids:
         requete += f" AND id IN ({','.join('?' * len(lieux_ids))})"
@@ -72,7 +72,7 @@ def collecter(con: sqlite3.Connection, client: ClientPoli, *, maintenant=None, l
 def _passage(con, client, lieu, nom, extracteur, maintenant) -> Resultat:
     debut = maintenant()
     chrono = time.monotonic()
-    url = lieu["expos_url"]
+    url = extracteur.source(lieu) if hasattr(extracteur, "source") else lieu["expos_url"]
     precedent = con.execute(
         "SELECT * FROM runs WHERE lieu_id = ? AND url = ? AND statut IN ('ok', 'inchange') ORDER BY id DESC LIMIT 1",
         (lieu["id"], url)).fetchone()
@@ -100,7 +100,10 @@ def _passage(con, client, lieu, nom, extracteur, maintenant) -> Resultat:
             if precedent and precedent["hash_page"] == run["hash"]:
                 run["statut"] = "inchange"
             else:
-                expos = extracteur.extraire(reponse.texte, reponse.url, debut.date())
+                if hasattr(extracteur, "extraire_pour"):
+                    expos = extracteur.extraire_pour(lieu["id"], reponse.texte, reponse.url, debut.date())
+                else:
+                    expos = extracteur.extraire(reponse.texte, reponse.url, debut.date())
                 run["items"] = len(expos)
                 if expos:
                     run["statut"] = "ok"
@@ -180,7 +183,11 @@ def _mettre_a_jour(con, existante, nom: str, expo: ExpoBrute, aujourdhui: str) -
     nouveau, cle_modifiee = {}, False
     for champ in CHAMPS_PAGE:
         valeur = getattr(expo, champ)
-        if provenance.get(champ) == "humain" or valeur is None or valeur == existante[champ]:
+        if provenance.get(champ) == "humain" or valeur is None:
+            continue
+        if valeur == existante[champ]:
+            if champ not in provenance:      # la page confirme une valeur venue d'ailleurs (classeur)
+                provenance[champ] = expo.provenance.get(champ, "carte")
             continue
         nouveau[champ] = valeur
         provenance[champ] = expo.provenance.get(champ, "carte")

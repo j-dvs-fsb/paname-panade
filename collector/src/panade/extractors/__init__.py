@@ -2,7 +2,8 @@
 
 Un extracteur expose :
     convient(lieu) -> bool
-    extraire(page_html, url_page, aujourdhui) -> list[ExpoBrute]
+    extraire(page_html, url_page, aujourdhui) -> list[ExpoBrute]     (ou extraire_pour(lieu_id, ...))
+    source(lieu) -> str                                             (facultatif : sinon lieu["expos_url"])
 et déclare pour chaque champ d'où il le tient (`provenance`) : c'est `validate` qui
 traduit cette provenance en score de confiance.
 """
@@ -26,8 +27,9 @@ class ExpoBrute:
 
 
 def disponibles() -> dict[str, ModuleType]:
-    from panade.extractors import paris_musees
-    return {"paris_musees": paris_musees}
+    from panade.extractors import generique, paris_musees
+    # L'ordre compte : un extracteur de mutualisation passe avant la config générique.
+    return {"paris_musees": paris_musees, "generique": generique}
 
 
 def choisir(lieu) -> tuple[str, ModuleType] | None:

@@ -179,7 +179,7 @@ def test_une_expo_de_la_graine_est_retrouvee_par_son_url_pas_dupliquee(base, fau
 
 def test_lieux_sans_extracteur_ne_laissent_aucune_ligne_dans_runs(base, faux_client):
     client, reseau = faux_client({})
-    resultats = collect.collecter(base, client, maintenant=NUIT_1, lieux_ids=["musee-de-l-institut-du-monde-arabe"])
+    resultats = collect.collecter(base, client, maintenant=NUIT_1, lieux_ids=["musee-de-la-poste"])
     assert resultats == [] or resultats[0].statut == "sans_extracteur"
     assert runs(base) == [] and reseau.vues == []
 
