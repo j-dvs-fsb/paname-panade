@@ -175,3 +175,10 @@ def test_portee_incertaine_reste_en_revue(base):
     validate.valider(base, AUJ)
     e = ligne(base, i)
     assert e["etat"] == "en_revue" and e["motif_revue"] == "confiance 0.50 sous le seuil 0.80 (portée)"
+
+
+def test_titres_qui_ne_different_que_par_un_nombre_ne_sont_pas_des_doublons(base):
+    a = ajouter(base, titre="Nocturne 1", url="https://x.test/n1")
+    b = ajouter(base, titre="Nocturne 2", url="https://x.test/n2")
+    r = validate.valider(base, AUJ)
+    assert r.doublons == 0 and ligne(base, a)["etat"] != "rejete" and ligne(base, b)["etat"] != "rejete"

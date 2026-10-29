@@ -87,6 +87,8 @@ def _doublons(a, b) -> bool:
     if a["url"] and a["url"] == b["url"]:
         return True
     ta, tb = _normaliser(a["titre"]), _normaliser(b["titre"])
+    if re.findall(r"\d+", ta) != re.findall(r"\d+", tb):
+        return False       # « Nocturne 1 » et « Nocturne 2 » ne sont pas la même exposition
     return ta == tb or SequenceMatcher(None, ta, tb).ratio() >= 0.88
 
 

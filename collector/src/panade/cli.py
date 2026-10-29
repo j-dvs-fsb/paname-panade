@@ -202,6 +202,49 @@ def cmd_review(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_export(args: argparse.Namespace) -> int:
+    """Produit l'export du jour. Ne publie pas."""
+    import json
+    from datetime import date
+
+    from panade import export
+
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
+    try:
+        resultat = export.construire(con, date.today())
+        chemin = export.ecrire(resultat, Path(args.dossier) / "exports")
+    finally:
+        con.close()
+    c = resultat.contenu["compte"]
+    print(f"{chemin} : {c['lieux']} lieux, {c['expositions']} expositions")
+    for expo_id, motif in resultat.exclues:
+        print(f"  exposition {expo_id} sortie de l'export, repartie en relecture : {motif}")
+    return 0
+
+
+def cmd_publish(args: argparse.Namespace) -> int:
+    """Vérifie les garde-fous puis pousse l'export vers le site."""
+    import json
+    from datetime import date
+
+    from panade import publish
+
+    con = _ouvrir(args.db)
+    if con is None:
+        return 1
+    try:
+        resume = publish.publier(con, date.today(), args.dossier, a_blanc=args.a_blanc)
+    except publish.PublicationRefusee as exc:
+        print(f"Publication refusée : {exc.raison}", file=sys.stderr)
+        return exc.code
+    finally:
+        con.close()
+    print(json.dumps(resume, ensure_ascii=False, indent=2))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="panade", description="Panade Collector")
     sub = parser.add_subparsers(dest="commande", required=True)
@@ -223,6 +266,15 @@ def main(argv: list[str] | None = None) -> int:
     relecture.add_argument("--port", type=int, default=8765)
     relecture.add_argument("--sans-navigateur", action="store_true")
     relecture.set_defaults(fonction=cmd_review)
+
+    exportation = sub.add_parser("export", parents=[commun], help="produit l'export du jour (ne publie pas)")
+    exportation.add_argument("--dossier", default="data", help="dossier des exports (défaut : data)")
+    exportation.set_defaults(fonction=cmd_export)
+
+    publication = sub.add_parser("publish", parents=[commun], help="vérifie les garde-fous puis pousse vers le site")
+    publication.add_argument("--dossier", default="data", help="dossier des exports (défaut : data)")
+    publication.add_argument("--a-blanc", action="store_true", help="tout vérifier sans rien envoyer")
+    publication.set_defaults(fonction=cmd_publish)
 
     validation = sub.add_parser("validate", parents=[commun],
                                 help="schéma, cohérence, dédoublonnage, confiance, gratuité")
