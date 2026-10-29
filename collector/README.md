@@ -30,6 +30,7 @@ remplie : pour repartir de zéro, supprimer le fichier. La sauvegarde est une co
 |---|---|---|
 | `panade probe <lieu_id>`, `--verifies` | classe en T0..T4, rien d'écrit sans `--ecrire` | oui, poli |
 | `panade discover <lieu_id>` | trouve la page des expositions, garde une fixture réduite | oui, poli |
+| `panade completer` | applique `data/lieux_web.json` (fait aussi par `init`) | non |
 | `panade collect [--lieu X]` | fait tourner les extracteurs, **aucun appel de modèle** | oui, poli |
 | `panade validate` | conformité, doublons, confiance, gratuité calculée | non |
 | `panade review` | écran de relecture local (`http://127.0.0.1:8765`) | non |
