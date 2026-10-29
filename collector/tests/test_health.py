@@ -129,3 +129,10 @@ def test_cli_health_code_de_sortie_et_alerte(base, tmp_path, capsys):
     assert cli.main(["health", "--db", chemin, "--dossier", str(tmp_path), "--alerter"]) == 1      # jamais publié
     sortie = capsys.readouterr()
     assert "ALERTE" in sortie.out and "aucune publication" in (tmp_path / "alertes.log").read_text(encoding="utf-8")
+
+
+def test_un_musee_sans_exposition_en_cours_n_est_ni_muet_ni_casse(base):
+    run(base, 1, "vide", 0, erreur="l'extracteur ne trouve rien sur la page")
+    run(base, 2, "vide", 0, erreur="l'extracteur ne trouve rien sur la page")
+    run(base, 3, "vide", 0, erreur="l'extracteur ne trouve rien sur la page")
+    assert health.lieux_muets(base, AUJ) == [] and health.extracteurs_casses(base) == []

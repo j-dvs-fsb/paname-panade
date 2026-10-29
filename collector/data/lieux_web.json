@@ -46,7 +46,117 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "22:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "22:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "22:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "22:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "22:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "22:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "22:30",
+     "derniere_entree_min": 45
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-08",
+     "libelle": "8 mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "07-14",
+     "libelle": "14 juillet",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "bourse-de-commerce-pinault-collection": {
    "expos_url": "https://www.pinaultcollection.com/fr/boursedecommerce/programme",
@@ -121,7 +231,91 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "crypte-archeologique-de-l-ile-de-la-cite": {
    "etat_web": "ok",
@@ -186,7 +380,93 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-carnavalet-histoire-de-paris": {
    "expos_url": "https://www.carnavalet.paris.fr/expositions/expositions-en-cours",
@@ -211,7 +491,93 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-cernuschi-musee-des-arts-de-l-asie-de-la-ville-de-pari": {
    "expos_url": "https://www.cernuschi.paris.fr/",
@@ -245,7 +611,82 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_au": "2026-12-20",
+     "note": "ouvert pendant les expositions temporaires (jusqu'au 20 décembre 2026)",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_au": "2026-12-20",
+     "note": "ouvert pendant les expositions temporaires (jusqu'au 20 décembre 2026)",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_au": "2026-12-20",
+     "note": "ouvert pendant les expositions temporaires (jusqu'au 20 décembre 2026)",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_au": "2026-12-20",
+     "note": "ouvert pendant les expositions temporaires (jusqu'au 20 décembre 2026)",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_au": "2026-12-20",
+     "note": "ouvert pendant les expositions temporaires (jusqu'au 20 décembre 2026)",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_au": "2026-12-20",
+     "note": "ouvert pendant les expositions temporaires (jusqu'au 20 décembre 2026)",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_au": "2026-12-20",
+     "note": "ouvert pendant les expositions temporaires (jusqu'au 20 décembre 2026)",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00"
+    }
+   ]
   },
   "musee-d-art-et-d-histoire-du-judaisme": {
    "expos_url": "https://www.mahj.org/fr/programme/l-agenda-du-mahj?f%5B0%5D=field_ag_type_manifestation%3A422",
@@ -297,7 +738,96 @@
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
    },
-   "tarifs_url": "https://www.musee-armee.fr/votre-visite/horaires-et-tarifs.html"
+   "tarifs_url": "https://www.musee-armee.fr/votre-visite/horaires-et-tarifs.html",
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne le 1er vendredi du mois jusqu'à 22 h",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne le 1er vendredi du mois jusqu'à 22 h",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne le 1er vendredi du mois jusqu'à 22 h",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne le 1er vendredi du mois jusqu'à 22 h",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne le 1er vendredi du mois jusqu'à 22 h",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne le 1er vendredi du mois jusqu'à 22 h",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne le 1er vendredi du mois jusqu'à 22 h",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-de-l-assistance-publique-hopitaux-de-paris": {
    "etat_web": "hors_ligne",
@@ -373,7 +903,95 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne du vendredi jusqu'à 21 h pendant les périodes d'exposition",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne du vendredi jusqu'à 21 h pendant les périodes d'exposition",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne du vendredi jusqu'à 21 h pendant les périodes d'exposition",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne du vendredi jusqu'à 21 h pendant les périodes d'exposition",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne du vendredi jusqu'à 21 h pendant les périodes d'exposition",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "21:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne du vendredi jusqu'à 21 h pendant les périodes d'exposition",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne du vendredi jusqu'à 21 h pendant les périodes d'exposition",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-de-la-franc-maconnerie": {
    "expos_url": "https://www.museefm.org/expositions-du-musee/",
@@ -657,7 +1275,83 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturnes le mercredi et le vendredi jusqu'à 21 h",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturnes le mercredi et le vendredi jusqu'à 21 h",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturnes le mercredi et le vendredi jusqu'à 21 h",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "21:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturnes le mercredi et le vendredi jusqu'à 21 h",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturnes le mercredi et le vendredi jusqu'à 21 h",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "21:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturnes le mercredi et le vendredi jusqu'à 21 h",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturnes le mercredi et le vendredi jusqu'à 21 h",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    }
+   ]
   },
   "musee-du-moyen-age-thermes-et-hotel-de-cluny": {
    "etat_web": "anti_robots",
@@ -718,7 +1412,87 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "12:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "12:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "12:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "12:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "17:30"
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-gustave-moreau": {
    "expos_url": "https://musee-moreau.fr/fr/exposition-en-cours",
@@ -765,7 +1539,93 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-hebert": {
    "etat_web": "hors_ligne",
@@ -815,7 +1675,100 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne jusqu'à 21 h le 2e jeudi du mois, de septembre à juin",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne jusqu'à 21 h le 2e jeudi du mois, de septembre à juin",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne jusqu'à 21 h le 2e jeudi du mois, de septembre à juin",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne jusqu'à 21 h le 2e jeudi du mois, de septembre à juin",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne jusqu'à 21 h le 2e jeudi du mois, de septembre à juin",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne jusqu'à 21 h le 2e jeudi du mois, de septembre à juin",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "nocturne jusqu'à 21 h le 2e jeudi du mois, de septembre à juin",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-national-d-art-moderne-centre-national-d-art-et-de-cul": {
    "expos_url": "https://www.centrepompidou.fr/fr/programme/expositions",
@@ -856,7 +1809,87 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "17:30"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "19:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "19:00"
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-national-de-la-legion-d-honneur-et-des-ordres-de-cheva": {
    "expos_url": "https://www.legiondhonneur.fr/fr/le-musee/visiter-le-musee/la-programmation-et-les-visites",
@@ -933,7 +1966,93 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "09:30",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-rodin": {
    "expos_url": "https://www.musee-rodin.fr/musee/expositions",
@@ -980,7 +2099,76 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:30",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:30",
+     "derniere_entree_min": 45
+    }
+   ]
   },
   "musee-yves-saint-laurent-paris": {
    "expos_url": "https://museeyslparis.com/programme",
@@ -1048,7 +2236,117 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "petit-palais-musee-des-beaux-arts-de-la-ville-de-paris": {
    "expos_url": "https://www.petitpalais.paris.fr/decouvrir-la-programmation/expositions",
@@ -1102,7 +2400,117 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "17:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "17:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "17:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "17:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "17:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "17:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "horaires d'hiver (1er octobre - 31 mars)",
+     "ferme": false,
+     "ouverture": "09:00",
+     "fermeture": "17:00",
+     "derniere_entree_min": 30
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   }
  },
  "familles": {

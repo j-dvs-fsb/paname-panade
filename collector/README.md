@@ -7,8 +7,7 @@ l'export dans [docs/export.md](docs/export.md).
 Ce dossier est autonome (son propre `pyproject.toml`, aucun import du site Node) : il peut
 être déplacé tel quel dans son propre dépôt.
 
-**Avancement : les 8 étapes du brief sont construites.** Ce qui reste est de la donnée et du
-branchement (voir « À faire »), pas du code de base.
+**Avancement : les 8 étapes du brief sont construites, et la base est remplie** (voir « État de la base »).
 
 ## Installation
 
@@ -82,39 +81,46 @@ PANADE_ALERT_WEBHOOK=...        # facultatif, format compatible Slack, Mattermos
 Un lieu silencieux deux nuits de suite déclenche une alerte à la fin de `collect`, puis une
 fois par semaine tant qu'il l'est. Les alertes vont dans `data/alertes.log`.
 
-## Constats du 2026-10-29 (premier passage sur les vrais sites)
+## État de la base (nuit du 29 au 30 octobre 2026)
 
-- **Musée de Montmartre.** Le brief et le classeur disent « le `robots.txt` interdit les robots ».
-  Le fichier actuel ne l'interdit pas (`Allow: /`, quelques chemins exclus). Le lieu reste en T4,
-  décision du brief, et rien n'est téléchargé : à réexaminer par une personne.
-- **Paris Musées.** Ce jour-là, 6 des 12 sites répondaient par une page de maintenance (503), 3
-  n'ont aucune URL dans la base (Cernuschi, Cognacq-Jay, Libération). Seuls Carnavalet, Bourdelle
-  et Petit Palais ont pu être lus. Les chemins des pages d'expositions varient plus que le brief
-  ne le dit : `discover` les trouve et `--ecrire` enregistre l'`expos_url`.
-- **madparis.fr** coupe la connexion aux robots : MAD et Nissim de Camondo restent
-  indéterminés, sans contournement.
-- **Tiers du classeur.** Sur les 9 lieux vérifiés, la sonde confirme 3 tiers (Bourse de Commerce,
-  IMA, Montmartre), en contredit 3 (Cartier : T3 au lieu de T1, mahJ : T2 au lieu de T1, Musée de
-  la musique : T1 au lieu de T3) et n'a pas pu conclure pour 3 (Vie romantique en maintenance, MAD et
-  Nissim de Camondo qui coupent la connexion). Les tiers du classeur étaient posés à la main :
-  `panade probe --verifies` les contrôle.
-- **T0 non validé en direct.** La requête vers « Que Faire à Paris » a répondu une fois avec
-  les bons événements du mahJ, puis le réseau du bac à sable a coupé la connexion. La logique est
-  testée hors ligne contre le schéma réel de l'API, pas confirmée de bout en bout.
-- **Données du classeur.** Horaires du mahJ valides jusqu'au 14 octobre (expirés). Tarifs du mahJ
-  contradictoires pour les expos temporaires (gratuit pour tous, et 5 € pour les moins de 26
-  ans) : `a_confirmer` tant que la ligne « galerie contemporaine » n'est pas rattachée à son
-  espace.
+`panade init` construit tout depuis le classeur et `data/lieux_web.json`, la mémoire de la
+découverte : pages officielles, état des sites, tarifs et horaires lus sur les pages officielles.
+
+| | |
+|---|---|
+| Lieux collectés automatiquement | 31 sur 57, sans erreur (12 Paris Musées par leur portail, 19 par config) |
+| Lieux vérifiés | 32 sur 57 (`verifie_par` = claude pour ceux vérifiés cette nuit) |
+| Expositions exportées | 61 dans 32 lieux : 37 gratuites -26 ans, 16 à tarif réduit, 8 à confirmer |
+| Lignes de tarifs | 125, chacune avec sa page source |
+| Horaires | 24 lieux |
+
+Pièges trouvés en lisant les pages officielles, tous testés :
+- **Arts et Métiers** et **musée de l'Armée** : gratuité des moins de 26 ans UE pour les
+  collections permanentes uniquement. Les expositions restent « à confirmer ».
+- **Paris Musées** : la règle de famille disait « payant » sur les expositions ; la page de
+  Bourdelle dit tarif réduit de 18 à 26 ans inclus. Règle corrigée.
+- **mahJ** : « gratuit pour tous » (galerie contemporaine) et « 5 € pour les moins de 26 ans »
+  sur la même portée : à confirmer tant que la ligne de la galerie n'est pas rattachée à son espace.
+- **musee-legiondhonneur.fr** n'est plus le site officiel (blog sans rapport) : écarté au profit
+  de legiondhonneur.fr.
+
+Lieux non collectés, et pourquoi (détail dans `data/lieux_web.json`) :
+- refusent les robots, sans contournement (T4) : Orsay (403), Cluny (défi JavaScript), musée de
+  la Poste (pare-feu), Grande Loge (403), Monnaie de Paris (`robots.txt` interdit la page),
+  MAD et Nissim de Camondo (connexion coupée) ;
+- Montmartre : T4 par décision du brief (son `robots.txt` actuel ne l'interdit pas) ;
+- fermés pour travaux : Centre Pompidou, musée Yves Saint Laurent ;
+- sans page d'expositions : Ennery, Plans-reliefs, Arts et Métiers (agenda à facettes) ;
+- introuvables ou hors ligne : Val-de-Grâce, Hébert, musée de l'AP-HP ;
+- Grande Galerie de l'Évolution : même programme que le Muséum, collecté une seule fois.
 
 ## À faire
 
 - Brancher le site : un point d'entrée qui respecte [docs/export.md](docs/export.md). Rien n'a
   été modifié dans le site Node.
-- Vérifier des lieux (`statut`) : tant qu'un lieu est `a_verifier`, aucune de ses expositions
-  ne sort. Aujourd'hui seuls 9 lieux sur 57 sont vérifiés, et un seul (Vie romantique) a un
-  extracteur.
-- Extracteurs pour les autres mutualisations : Drupal avec agenda filtrable (mahJ, IMA), billetterie
-  Tickeasy/Vivaticket, flux RSS de MAD. Une mutualisation à la fois, avec `discover`.
+- Relire les 30 expositions en attente (`panade review`) et les lieux vérifiés par Claude.
+- Expositions « à venir » du portail Paris Musées (filtre `filtre_temps=a venir`) : une seconde
+  source par lieu à prévoir.
 - Source OpenAgenda Île-de-France pour `probe` : non vérifiable depuis l'environnement de
   développement (connexion coupée).
 
@@ -155,13 +161,15 @@ collector/
 ├── CLAUDE.md                 brief du projet
 ├── docs/export.md            contrat de l'export, à lire côté site
 ├── data/PP_lieux_v2.xlsx     graine de la base
+├── data/lieux_web.json       découverte : pages officielles, tarifs, horaires
 ├── deploy/                   cron, systemd, run.sh
 ├── src/panade/
 │   ├── schema.sql, db.py     schéma v2 et migrations
 │   ├── models.py, seed.py    modèles stricts, import du classeur
 │   ├── http.py, robots.py    client poli, robots.txt (RFC 9309)
 │   ├── probe.py, discover.py classer un lieu, trouver sa page d'expositions
-│   ├── extractors/           un extracteur par mutualisation
+│   ├── extractors/           portail Paris Musées, site Paris Musées, générique + sites.py
+│   ├── completer.py          applique data/lieux_web.json
 │   ├── collect.py            collecte conditionnelle
 │   ├── validate.py           conformité, doublons, confiance
 │   ├── gratuite.py           moteur de gratuité (fonction pure)

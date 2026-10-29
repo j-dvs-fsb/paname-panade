@@ -57,6 +57,15 @@ def appliquer(con: sqlite3.Connection, chemin: str | Path) -> list[str]:
                     v = ligne.values()
                     con.execute(f"INSERT INTO tarifs ({', '.join(v)}) VALUES ({', '.join(':' + k for k in v)})", v)
                     changements.append(f"{lid} : tarif {ligne.portee}/{ligne.regime}/{ligne.audience}/{ligne.recurrence}")
+            # Horaires et fermetures : posés seulement si le lieu n'en a aucun (jamais deux sources mêlées).
+            for table, modele, cle in (("horaires", models.Horaire, "horaires"), ("fermetures", models.Fermeture, "fermetures")):
+                lignes = info.get(cle, [])
+                if lignes and not con.execute(f"SELECT 1 FROM {table} WHERE lieu_id = ?", (lid,)).fetchone():
+                    for brut in lignes:
+                        v = modele(lieu_id=lid, **brut).values()
+                        colonnes = ", ".join(f'"{k}"' for k in v)
+                        con.execute(f"INSERT INTO {table} ({colonnes}) VALUES ({', '.join(':' + k for k in v)})", v)
+                    changements.append(f"{lid} : {len(lignes)} ligne(s) de {table}")
             verif = info.get("verification")
             if verif and lieu["statut"] == "a_verifier":
                 con.execute("UPDATE lieux SET statut = 'verifie', verifie_le = ?, verifie_par = ? WHERE id = ?",

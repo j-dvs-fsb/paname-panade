@@ -107,3 +107,15 @@ def test_musee_de_l_armee_gratuit_en_permanent_seulement(base):
     l = gratuite.charger(base, "musee-de-l-armee")
     assert gratuite.calculer(l, "permanent", date(2026, 10, 29)).statut == "gratuit_26"
     assert gratuite.calculer(l, "temporaire", date(2026, 10, 29)).statut == "a_confirmer"
+
+
+def test_horaires_poses_une_fois_et_jamais_sur_ceux_du_classeur(base):
+    avant = base.execute("SELECT COUNT(*) FROM horaires WHERE lieu_id = 'musee-de-la-vie-romantique'").fetchone()[0]
+    completer.appliquer(base, WEB)
+    louvre = {r["jour"]: r for r in base.execute("SELECT * FROM horaires WHERE lieu_id = 'musee-du-louvre' AND nocturne = 0")}
+    assert louvre["mardi"]["ferme"] == 1 and (louvre["vendredi"]["ouverture"], louvre["vendredi"]["fermeture"]) == ("09:00", "21:00")
+    assert base.execute("SELECT COUNT(*) FROM horaires WHERE lieu_id = 'musee-de-la-vie-romantique'").fetchone()[0] == avant
+    n = base.execute("SELECT COUNT(*) FROM horaires").fetchone()[0]
+    completer.appliquer(base, WEB)
+    assert base.execute("SELECT COUNT(*) FROM horaires").fetchone()[0] == n
+    assert base.execute("SELECT COUNT(*) FROM fermetures WHERE lieu_id = 'musee-picasso'").fetchone()[0] == 3

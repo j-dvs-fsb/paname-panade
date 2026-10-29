@@ -50,6 +50,10 @@ def lieux_muets(con: sqlite3.Connection, aujourdhui: date) -> list[Muet]:
             jours_echec.add(r["demarre_le"][:10])
         dernier = runs[0]
         sans_passage = (aujourdhui - date.fromisoformat(dernier["demarre_le"][:10])).days
+        deja_trouve = con.execute("SELECT 1 FROM runs WHERE lieu_id = ? AND statut = 'ok' AND items_trouves > 0",
+                                  (lieu["id"],)).fetchone() is not None
+        if all(r["statut"] == "vide" for r in runs[:len(jours_echec) or 1]) and not deja_trouve:
+            continue      # page lue, aucune exposition, et il n'y en a jamais eu : rien d'anormal
         if len(jours_echec) >= NUITS_MUET:
             genre = {"vide": "casse", "interdit": "interdit"}.get(dernier["statut"], "indisponible")
             muets.append(Muet(lieu["id"], len(jours_echec), genre, reussite["demarre_le"][:10] if reussite else None,
@@ -69,6 +73,8 @@ def extracteurs_casses(con: sqlite3.Connection) -> list[dict]:
             continue
         avant = con.execute("SELECT demarre_le, items_trouves FROM runs WHERE lieu_id = ? AND statut = 'ok' AND items_trouves > 0 "
                             "ORDER BY id DESC LIMIT 1", (lieu["id"],)).fetchone()
+        if avant is None:
+            continue      # jamais rien trouvé : un musée sans exposition en cours, pas un extracteur cassé
         casses.append({"lieu": lieu["id"], "depuis": dernier["demarre_le"][:10],
                        "dernier_succes": avant["demarre_le"][:10] if avant else None,
                        "reparation": f"panade discover {lieu['id']}"})
