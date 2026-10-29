@@ -23,12 +23,52 @@ def lieu(con, lid):
     return con.execute("SELECT * FROM lieux WHERE id = ?", (lid,)).fetchone()
 
 
-def test_comble_les_trous_et_ne_touche_pas_au_statut(base):
+def test_comble_les_trous_et_ne_retrograde_aucun_statut(base):
     avant = {r["id"]: r["statut"] for r in base.execute("SELECT id, statut FROM lieux")}
     completer.appliquer(base, WEB)
     assert lieu(base, "musee-du-louvre")["expos_url"] == "https://www.louvre.fr/expositions-et-evenements/expositions"
     assert lieu(base, "musee-du-louvre")["tarifs_url"] == "https://www.louvre.fr/visiter/horaires-tarifs"
-    assert {r["id"]: r["statut"] for r in base.execute("SELECT id, statut FROM lieux")} == avant
+    apres = {r["id"]: r["statut"] for r in base.execute("SELECT id, statut FROM lieux")}
+    assert all(apres[i] == "verifie" for i, s in avant.items() if s == "verifie")        # rien n'est rétrogradé
+    nouveaux = {i for i in apres if apres[i] != avant[i]}
+    assert "musee-du-louvre" in nouveaux and lieu(base, "musee-du-louvre")["verifie_par"] == "claude"
+
+
+def test_tarifs_officiels_ajoutes_une_seule_fois_et_conformes(base):
+    completer.appliquer(base, WEB)
+    n = base.execute("SELECT COUNT(*) FROM tarifs").fetchone()[0]
+    completer.appliquer(base, WEB)
+    assert base.execute("SELECT COUNT(*) FROM tarifs").fetchone()[0] == n
+    louvre = base.execute("SELECT * FROM tarifs WHERE lieu_id = 'musee-du-louvre' AND audience = 'moins_26_ue'").fetchone()
+    assert (louvre["portee"], louvre["regime"], louvre["prix"], louvre["source_url"]) == \
+        ("tout", "gratuit", 0, "https://www.louvre.fr/visiter/horaires-tarifs")
+
+
+def test_arts_et_metiers_le_piege_central(base):
+    """Gratuit 18-25 ans UE « uniquement pour l'exposition permanente » : pas pour les temporaires."""
+    from datetime import date
+    from panade import gratuite
+    completer.appliquer(base, WEB)
+    l = gratuite.charger(base, "musee-des-arts-et-metiers")
+    assert gratuite.calculer(l, "permanent", date(2026, 10, 29)).statut == "gratuit_26"
+    assert gratuite.calculer(l, "temporaire", date(2026, 10, 29)).statut == "a_confirmer"
+
+
+def test_paris_musees_temporaire_reduit_et_non_payant(base):
+    from datetime import date
+    from panade import gratuite
+    completer.appliquer(base, WEB)
+    carnavalet = gratuite.calculer(gratuite.charger(base, "musee-carnavalet-histoire-de-paris"), "temporaire", date(2026, 10, 29))
+    assert carnavalet.statut == "reduit_26" and carnavalet.source == "famille"
+    bourdelle = gratuite.calculer(gratuite.charger(base, "musee-bourdelle"), "temporaire", date(2026, 10, 29))
+    assert (bourdelle.statut, bourdelle.prix, bourdelle.plein_tarif) == ("reduit_26", 10, 12)
+
+
+def test_une_verification_existante_n_est_pas_reecrite(base):
+    avant = lieu(base, "musee-de-montmartre")
+    completer.appliquer(base, WEB)
+    assert (lieu(base, "musee-de-montmartre")["verifie_le"], lieu(base, "musee-de-montmartre")["verifie_par"]) == \
+        (avant["verifie_le"], avant["verifie_par"])
 
 
 def test_ne_reecrit_pas_une_saisie_sauf_correction_declaree(base, tmp_path):

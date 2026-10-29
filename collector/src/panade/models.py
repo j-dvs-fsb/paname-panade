@@ -32,7 +32,7 @@ JOURS: tuple[str, ...] = ("lundi", "mardi", "mercredi", "jeudi", "vendredi", "sa
 # | avant_16h | annuel | <période datée> (jusqu_au_..., du_...)
 RECURRENCE_RE = re.compile(
     r"^(toujours|annuel|apres_16h|avant_16h"
-    r"|1er_(dimanche|samedi)(_[a-z0-9_]+)?"
+    r"|1er_(" + "|".join(JOURS) + r")(_[a-z0-9_]+)?"
     r"|nocturne_(" + "|".join(JOURS) + r")"
     r"|(jusqu_au|du)_[a-z0-9_]+)$"
 )

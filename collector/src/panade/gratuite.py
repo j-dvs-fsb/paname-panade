@@ -177,6 +177,9 @@ def _depuis_la_famille(famille: Famille, portee: str, note: str) -> Gratuite:
     if regle == "Gratuit" and famille.age_max and famille.age_max >= 26:
         return Gratuite("gratuit_26", "famille", f"règle de la famille {famille.id} ({portee}), moins de {famille.age_max} ans",
                         prix=0, audience="moins_26_ue", justificatif=famille.conditions)
+    if regle == "Payant, tarif réduit 18-26 ans inclus (gratuit -18 ans)":
+        return Gratuite("reduit_26", "famille", f"règle de la famille {famille.id} ({portee}) : tarif réduit de 18 à 26 ans inclus, "
+                        "montant selon l'exposition", audience="moins_26")
     if regle == "Payant pour tous (gratuit -18 ans)":
         return Gratuite("payant", "famille", f"règle de la famille {famille.id} ({portee}) : payant à partir de 18 ans")
     return a_confirmer(f"règle de la famille {famille.id} ({portee}) non exploitable : « {regle} »{note}", "famille")

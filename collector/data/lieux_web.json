@@ -5,7 +5,48 @@
    "expos_url": "https://www.paris-arc-de-triomphe.fr/agenda",
    "etat_web": "ok",
    "tarifs_url": "https://www.paris-arc-de-triomphe.fr/visiter/informations-pratiques",
-   "horaires_url": "https://www.paris-arc-de-triomphe.fr/visiter/informations-pratiques"
+   "horaires_url": "https://www.paris-arc-de-triomphe.fr/visiter/informations-pratiques",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans ressortissants de l'UE et résidents réguliers non européens en France, pièce d'identité, passage en caisse ; tarif EEE",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-arc-de-triomphe.fr/visiter/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-arc-de-triomphe.fr/visiter/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "1er_dimanche_nov_a_mars",
+     "justificatif": "premier dimanche du mois, de novembre à mars",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-arc-de-triomphe.fr/visiter/informations-pratiques"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "bourse-de-commerce-pinault-collection": {
    "expos_url": "https://www.pinaultcollection.com/fr/boursedecommerce/programme",
@@ -15,13 +56,72 @@
    "expos_url": "https://www.cite-sciences.fr/fr/au-programme/expos-temporaires",
    "etat_web": "ok",
    "tarifs_url": "https://www.cite-sciences.fr/fr/infos-pratiques/preparez-votre-visite",
-   "horaires_url": "https://www.cite-sciences.fr/fr/infos-pratiques/preparez-votre-visite"
+   "horaires_url": "https://www.cite-sciences.fr/fr/infos-pratiques/preparez-votre-visite",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "prix": 12,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "de 6 à 25 ans inclus, billet Expositions, carte d'identité",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.cite-sciences.fr/fr/infos-pratiques/nos-tarifs"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "conciergerie": {
    "expos_url": "https://www.paris-conciergerie.fr/agenda",
    "etat_web": "ok",
    "tarifs_url": "https://www.paris-conciergerie.fr/visiter/informations-pratiques",
-   "horaires_url": "https://www.paris-conciergerie.fr/visiter/informations-pratiques"
+   "horaires_url": "https://www.paris-conciergerie.fr/visiter/informations-pratiques",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans ressortissants de l'UE et résidents réguliers non européens en France, pièce d'identité, passage en caisse ; tarif EEE",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-conciergerie.fr/visiter/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-conciergerie.fr/visiter/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "1er_dimanche_nov_a_mars",
+     "justificatif": "premier dimanche du mois, de novembre à mars",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-conciergerie.fr/visiter/informations-pratiques"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "crypte-archeologique-de-l-ile-de-la-cite": {
    "etat_web": "maintenance",
@@ -45,13 +145,68 @@
    "etat_web": "ok",
    "corriger": [
     "expos_url"
-   ]
+   ],
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites, sans réservation",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.bourdelle.paris.fr/visiter/preparer-sa-visite/informations-pratiques"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "prix": 10,
+     "plein_tarif": 12,
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus, justificatif de moins de 3 mois",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.bourdelle.paris.fr/visiter/preparer-sa-visite/informations-pratiques"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 12,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.bourdelle.paris.fr/visiter/preparer-sa-visite/informations-pratiques"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-carnavalet-histoire-de-paris": {
    "expos_url": "https://www.carnavalet.paris.fr/expositions/expositions-en-cours",
    "etat_web": "ok",
    "corriger": [
     "expos_url"
+   ],
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites, en accès libre, sans réservation",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.carnavalet.paris.fr/visiter/informations-pratiques"
+    }
    ]
   },
   "musee-cernuschi-musee-des-arts-de-l-asie-de-la-ville-de-pari": {
@@ -98,7 +253,24 @@
   },
   "musee-de-l-ecole-nationale-superieure-des-beaux-arts": {
    "expos_url": "https://beauxartsparis.fr/fr/exposition/a-voir",
-   "etat_web": "ok"
+   "etat_web": "ok",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26",
+     "prix": 0,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans sur justificatif (Palais des expositions et Cabinet des dessins)",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://beauxartsparis.fr/fr/venir-aux-beaux-arts"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-de-l-institut-du-monde-arabe": {
    "expos_url": "https://www.imarabe.org/fr/agenda/expositions-musee",
@@ -114,7 +286,19 @@
    "expos_url": "https://www.museefm.org/expositions-du-musee/",
    "etat_web": "ok",
    "tarifs_url": "https://www.museefm.org/activites-et-tarifs-pour-les-individuels/",
-   "horaires_url": "https://www.museefm.org/horaires-et-acces/"
+   "horaires_url": "https://www.museefm.org/horaires-et-acces/",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "tarif réduit sur justificatif pour les moins de 26 ans ; montant non lu avec certitude sur la page",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.museefm.org/activites-et-tarifs-pour-les-individuels/"
+    }
+   ]
   },
   "musee-de-la-grande-loge-de-france": {
    "etat_web": "anti_robots",
@@ -149,7 +333,48 @@
   },
   "musee-des-arts-asiatiques-guimet": {
    "expos_url": "https://www.guimet.fr/fr/expositions",
-   "etat_web": "ok"
+   "etat_web": "ok",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans ressortissants de l'Union européenne ; billet unique collections et expositions temporaires",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.guimet.fr/fr/tarifs"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.guimet.fr/fr/tarifs"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "1er_dimanche",
+     "justificatif": "site Iéna, premier dimanche du mois",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.guimet.fr/fr/tarifs"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-des-arts-decoratifs-union-centrale-des-arts-decoratifs": {
    "etat_web": "anti_robots",
@@ -160,7 +385,49 @@
    "tarifs_url": "https://www.arts-et-metiers.net/musee/tarifs",
    "horaires_url": "https://www.arts-et-metiers.net/musee/horaires-et-acces",
    "etat_web": "sans_liste",
-   "note": "pas de liste d'expositions lisible : l'agenda est un moteur de recherche à facettes ; à écrire avec la page de programmation"
+   "note": "pas de liste d'expositions lisible : l'agenda est un moteur de recherche à facettes ; à écrire avec la page de programmation",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 12,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans ressortissants de l'UE, uniquement pour l'exposition permanente",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.arts-et-metiers.net/musee/tarifs"
+    },
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 12,
+     "recurrence": "toujours",
+     "justificatif": "uniquement pour l'exposition permanente",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.arts-et-metiers.net/musee/tarifs"
+    },
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 12,
+     "recurrence": "1er_dimanche",
+     "justificatif": "premier dimanche du mois, hors expérience immersive",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.arts-et-metiers.net/musee/tarifs"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-des-monnaies-et-medailles": {
    "expos_url": "https://www.monnaiedeparis.fr/fr/expositions",
@@ -173,19 +440,131 @@
    "expos_url": "https://www.citedelarchitecture.fr/fr/agenda/type_evenement/exposition-98?date=tout",
    "etat_web": "ok",
    "tarifs_url": "https://www.citedelarchitecture.fr/fr/article/billets-et-tarifs",
-   "horaires_url": "https://www.citedelarchitecture.fr/fr/informations-pratiques"
+   "horaires_url": "https://www.citedelarchitecture.fr/fr/informations-pratiques",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans, de l'Union européenne ou hors Union européenne (conditions au 6 mai 2026)",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.citedelarchitecture.fr/sites/default/files/documents/2026-07/conditions_particuliy_res_05-2026_0.pdf"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.citedelarchitecture.fr/sites/default/files/documents/2026-07/conditions_particuliy_res_05-2026_0.pdf"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "1er_dimanche",
+     "justificatif": "musée et expositions temporaires, premier dimanche du mois",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.citedelarchitecture.fr/sites/default/files/documents/2026-07/conditions_particuliy_res_05-2026_0.pdf"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-des-plans-reliefs": {
    "expos_url": "https://museedesplansreliefs.fr/visiteurs-individuels",
    "tarifs_url": "https://museedesplansreliefs.fr/visiteurs-individuels",
    "etat_web": "sans_liste",
-   "note": "pas de programme d'expositions publié ; billet couplé avec le musée de l'Armée"
+   "note": "pas de programme d'expositions publié ; billet couplé avec le musée de l'Armée",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 17,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans résidents de l'UE",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://museedesplansreliefs.fr/tarifs-et-exonerations"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 17,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://museedesplansreliefs.fr/tarifs-et-exonerations"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-du-louvre": {
    "expos_url": "https://www.louvre.fr/expositions-et-evenements/expositions",
    "etat_web": "ok",
    "tarifs_url": "https://www.louvre.fr/visiter/horaires-tarifs",
-   "horaires_url": "https://www.louvre.fr/visiter/horaires-tarifs"
+   "horaires_url": "https://www.louvre.fr/visiter/horaires-tarifs",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 22,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans résidents ou ressortissants de l'Espace économique européen, pièce d'identité (et justificatif de résidence pour les non-ressortissants) ; le billet donne accès aux collections et aux expositions temporaires",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.louvre.fr/visiter/horaires-tarifs"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 22,
+     "recurrence": "toujours",
+     "justificatif": "toutes nationalités, pièce d'identité",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.louvre.fr/visiter/horaires-tarifs"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 22,
+     "recurrence": "1er_vendredi_apres_18h_hors_ete",
+     "justificatif": "premier vendredi du mois après 18 h, hors juillet et août",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.louvre.fr/visiter/horaires-tarifs"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-du-moyen-age-thermes-et-hotel-de-cluny": {
    "etat_web": "anti_robots",
@@ -205,13 +584,95 @@
    "expos_url": "https://www.musee-delacroix.fr/expositions",
    "etat_web": "ok",
    "tarifs_url": "https://www.musee-delacroix.fr/horaires-et-tarifs",
-   "horaires_url": "https://www.musee-delacroix.fr/horaires-et-tarifs"
+   "horaires_url": "https://www.musee-delacroix.fr/horaires-et-tarifs",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 9,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans résidents de l'Espace économique européen, justificatif",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-delacroix.fr/horaires-et-tarifs"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 9,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-delacroix.fr/horaires-et-tarifs"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 9,
+     "recurrence": "1er_dimanche",
+     "justificatif": "premier dimanche du mois et 14 juillet",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.musee-delacroix.fr/horaires-et-tarifs"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-gustave-moreau": {
    "expos_url": "https://musee-moreau.fr/fr/exposition-en-cours",
    "etat_web": "ok",
    "tarifs_url": "https://musee-moreau.fr/fr/horaires-et-tarifs",
-   "horaires_url": "https://musee-moreau.fr/fr/horaires-et-tarifs"
+   "horaires_url": "https://musee-moreau.fr/fr/horaires-et-tarifs",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 8,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans résidents de l'Espace économique européen (visite libre des collections et des expositions temporaires)",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://musee-moreau.fr/sites/moreau/files/documents/Liste%20des%20tarifs%20sp%C3%A9ciaux%20Mus%C3%A9e%20Gustave%20Moreau%20MAJ%20juillet%202024_1.pdf"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 8,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://musee-moreau.fr/sites/moreau/files/documents/Liste%20des%20tarifs%20sp%C3%A9ciaux%20Mus%C3%A9e%20Gustave%20Moreau%20MAJ%20juillet%202024_1.pdf"
+    },
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 8,
+     "recurrence": "1er_dimanche",
+     "justificatif": "collections permanentes, premier dimanche du mois",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://musee-moreau.fr/sites/moreau/files/documents/Liste%20des%20tarifs%20sp%C3%A9ciaux%20Mus%C3%A9e%20Gustave%20Moreau%20MAJ%20juillet%202024_1.pdf"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-hebert": {
    "etat_web": "hors_ligne",
@@ -232,7 +693,37 @@
    "expos_url": "https://www.histoire-immigration.fr/expositions",
    "etat_web": "ok",
    "tarifs_url": "https://www.histoire-immigration.fr/informations-pratiques",
-   "horaires_url": "https://www.histoire-immigration.fr/informations-pratiques"
+   "horaires_url": "https://www.histoire-immigration.fr/informations-pratiques",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26",
+     "prix": 0,
+     "plein_tarif": 12,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans, toutes nationalités, justificatif et pièce d'identité",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.palais-portedoree.fr/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 12,
+     "recurrence": "1er_dimanche",
+     "justificatif": "le musée et ses expositions, premier dimanche du mois",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.palais-portedoree.fr/informations-pratiques"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-national-de-la-legion-d-honneur-et-des-ordres-de-cheva": {
    "expos_url": "https://www.legiondhonneur.fr/fr/le-musee/visiter-le-musee/la-programmation-et-les-visites",
@@ -250,7 +741,47 @@
   },
   "musee-picasso": {
    "expos_url": "https://www.museepicassoparis.fr/fr/agenda/types/exposition/",
-   "etat_web": "ok"
+   "etat_web": "ok",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "justificatif": "moins de 26 ans résidents ou ressortissants de l'Union européenne, justificatif",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.museepicassoparis.fr/fr/visiter/"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.museepicassoparis.fr/fr/visiter/"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "1er_dimanche",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.museepicassoparis.fr/fr/visiter/"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "musee-rodin": {
    "expos_url": "https://www.musee-rodin.fr/musee/expositions",
@@ -283,7 +814,48 @@
    "expos_url": "https://www.paris-pantheon.fr/agenda",
    "etat_web": "ok",
    "tarifs_url": "https://www.paris-pantheon.fr/visiter/informations-pratiques",
-   "horaires_url": "https://www.paris-pantheon.fr/visiter/informations-pratiques"
+   "horaires_url": "https://www.paris-pantheon.fr/visiter/informations-pratiques",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans ressortissants de l'UE et résidents réguliers non européens en France, pièce d'identité, passage en caisse ; tarif EEE",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-pantheon.fr/visiter/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-pantheon.fr/visiter/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "1er_dimanche_nov_a_mars",
+     "justificatif": "premier dimanche du mois, de novembre à mars",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.paris-pantheon.fr/visiter/informations-pratiques"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
   },
   "petit-palais-musee-des-beaux-arts-de-la-ville-de-paris": {
    "expos_url": "https://www.petitpalais.paris.fr/decouvrir-la-programmation/expositions",
@@ -296,7 +868,57 @@
    "expos_url": "https://www.sainte-chapelle.fr/agenda",
    "etat_web": "ok",
    "tarifs_url": "https://www.sainte-chapelle.fr/visiter/informations-pratiques",
-   "horaires_url": "https://www.sainte-chapelle.fr/visiter/informations-pratiques"
+   "horaires_url": "https://www.sainte-chapelle.fr/visiter/informations-pratiques",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans ressortissants de l'UE et résidents réguliers non européens en France, pièce d'identité, passage en caisse ; tarif EEE",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.sainte-chapelle.fr/visiter/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.sainte-chapelle.fr/visiter/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 16,
+     "recurrence": "1er_dimanche_nov_a_mars",
+     "justificatif": "premier dimanche du mois, de novembre à mars",
+     "verifie_le": "2026-10-29",
+     "verifie_par": "claude",
+     "source_url": "https://www.sainte-chapelle.fr/visiter/informations-pratiques"
+    }
+   ],
+   "verification": {
+    "verifie_le": "2026-10-29",
+    "verifie_par": "claude"
+   }
+  }
+ },
+ "familles": {
+  "paris_musees": {
+   "gratuite_temporaire": "Payant, tarif réduit 18-26 ans inclus (gratuit -18 ans)",
+   "corriger": [
+    "gratuite_temporaire"
+   ],
+   "source": "Bourdelle, informations pratiques (2026-10-29) : expositions temporaires à tarif réduit pour les jeunes de 18 à 26 ans inclus"
   }
  }
 }
