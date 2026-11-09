@@ -1,0 +1,240 @@
+{
+ "genere_le": "2026-11-09",
+ "note": "saisie manuelle à relire : expositions lues sur les sites officiels, aucune n'est importée automatiquement",
+ "expositions": [
+  {
+   "lieu_id": "petit-palais-musee-des-beaux-arts-de-la-ville-de-paris",
+   "titre": "Eva Gonzalès (1847-1883) : parcours d'une artiste libre",
+   "date_debut": "2026-09-15",
+   "date_fin": "2027-01-24",
+   "url": "https://www.petitpalais.paris.fr/decouvrir-la-programmation/expositions/eva-gonzales",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "petit-palais-musee-des-beaux-arts-de-la-ville-de-paris",
+   "titre": "Visionnaires : carte blanche à Prune Nourry",
+   "date_debut": "2026-10-20",
+   "date_fin": "2027-01-24",
+   "url": "https://www.petitpalais.paris.fr/decouvrir-la-programmation/expositions/visionnaires",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "petit-palais-musee-des-beaux-arts-de-la-ville-de-paris",
+   "titre": "Bruxelles 1900",
+   "date_debut": "2026-11-10",
+   "date_fin": "2027-04-25",
+   "url": "https://www.petitpalais.paris.fr/decouvrir-la-programmation/expositions/bruxelles-1900",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "palais-galliera-musee-de-la-mode-et-de-la-ville-de-paris",
+   "titre": "Un vestiaire à soi : féminités dissidentes au 19e siècle",
+   "date_debut": "2026-09-26",
+   "date_fin": "2027-02-14",
+   "url": "https://www.palaisgalliera.paris.fr/expositions/un-vestiaire-soi-feminites-dissidentes-au-19e-siecle",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "palais-galliera-musee-de-la-mode-et-de-la-ville-de-paris",
+   "titre": "En volume ! Donner corps à la mode",
+   "date_debut": "2026-12-12",
+   "date_fin": "2027-10-17",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/en-volume",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "palais-galliera-musee-de-la-mode-et-de-la-ville-de-paris",
+   "titre": "Lucy McKenzie : la mode rêvée",
+   "date_debut": "2027-04-24",
+   "date_fin": "2027-07-18",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/lucy-mckenzie",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-d-art-moderne-de-la-ville-de-paris",
+   "titre": "Kerry James Marshall : The Histories",
+   "date_debut": "2026-09-18",
+   "date_fin": "2027-01-24",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/kerry-james-marshall",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-d-art-moderne-de-la-ville-de-paris",
+   "titre": "Simone Fattal : des villes au fond d'un lac",
+   "date_debut": "2026-09-18",
+   "date_fin": "2027-01-24",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/simone-fattal",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-d-art-moderne-de-la-ville-de-paris",
+   "titre": "Prix Marcel Duchamp 2026",
+   "date_debut": "2026-10-02",
+   "date_fin": "2027-02-07",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/prix-marcel-duchamp-2026",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-d-art-moderne-de-la-ville-de-paris",
+   "titre": "Leonor Fini",
+   "date_debut": "2027-03-26",
+   "date_fin": "2027-08-15",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/leonor-fini",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-d-art-moderne-de-la-ville-de-paris",
+   "titre": "Józef Czapski",
+   "date_debut": "2027-03-26",
+   "date_fin": "2027-08-15",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/jozef-czapski",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-d-art-moderne-de-la-ville-de-paris",
+   "titre": "Donation Kamel Mennour",
+   "date_debut": "2027-03-26",
+   "date_fin": "2027-07-25",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/donation-kamel-mennour",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-cernuschi-musee-des-arts-de-l-asie-de-la-ville-de-pari",
+   "titre": "Corée : le royaume des lettrés (1600-1900)",
+   "date_debut": "2026-11-20",
+   "date_fin": "2027-04-04",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/coree",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "maison-de-balzac",
+   "titre": "De la vigne au verre : le vin chez Balzac",
+   "date_debut": "2026-11-26",
+   "date_fin": "2027-04-06",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/de-la-vigne-au-verre",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-cognacq-jay-musee-du-xviiie-siecle-de-la-ville-de-pari",
+   "titre": "Carte blanche à Claire Tabouret",
+   "date_debut": "2027-09-15",
+   "date_fin": "2028-03-12",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/carte-blanche-a-claire-tabouret",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-de-la-liberation-de-paris-musee-du-general-leclerc-mus",
+   "titre": "Robert Capa, photographe de guerre",
+   "date_debut": "2026-02-18",
+   "date_fin": "2026-12-20",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/robert-capa-photographe-de-guerre",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-de-la-liberation-de-paris-musee-du-general-leclerc-mus",
+   "titre": "Archéologie de la Seconde Guerre mondiale",
+   "date_debut": "2027-02-24",
+   "date_fin": "2027-07-11",
+   "url": "https://www.parismusees.paris.fr/fr/exposition/archeologie-de-la-seconde-guerre-mondiale",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-du-quai-branly-jacques-chirac",
+   "titre": "Echoes of the tides (Échos des marées)",
+   "date_debut": "2026-03-11",
+   "date_fin": "2027-02-21",
+   "url": "https://www.quaibranly.fr/fr/expositions-evenements/au-musee/expositions/details-de-levenement/e/echoes-of-the-tides-40978",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-du-quai-branly-jacques-chirac",
+   "titre": "Premières Nations : arts et cultures du Nord-Ouest de l'Amérique",
+   "date_debut": "2026-09-29",
+   "date_fin": "2027-01-17",
+   "url": "https://www.quaibranly.fr/fr/expositions-evenements/au-musee/expositions/details-de-levenement/e/premieres-nations",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-du-quai-branly-jacques-chirac",
+   "titre": "Voir Tahiti : premières photographies 1859-1870",
+   "date_debut": "2026-09-29",
+   "date_fin": "2027-01-31",
+   "url": "https://www.quaibranly.fr/fr/expositions-evenements/au-musee/expositions/details-de-levenement/e/voir-tahiti",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-du-quai-branly-jacques-chirac",
+   "titre": "Violence silencieuse : sous le regard de Roméo Mivekannin",
+   "date_debut": "2026-11-10",
+   "date_fin": "2027-04-04",
+   "url": "https://www.quaibranly.fr/fr/expositions-evenements/au-musee/expositions/details-de-levenement/e/violence-silencieuse",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-national-de-la-legion-d-honneur-et-des-ordres-de-cheva",
+   "titre": "Jean-Michel Fauquet : théâtre de la mémoire",
+   "date_debut": "2026-11-11",
+   "date_fin": "2027-02-28",
+   "url": "https://www.legiondhonneur.fr/fr/actualites/jean-michel-fauquet-theatre-de-la-memoire-la-nouvelle-exposition-du-musee",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-de-la-franc-maconnerie",
+   "titre": "Lumières dans la ville : Paris et les francs-maçons",
+   "date_debut": "2026-04-29",
+   "date_fin": "2026-12-20",
+   "url": "https://www.museefm.org/2026/04/29/lumieres-dans-la-ville-paris-et-les-francs-macons/",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "museum-national-d-histoire-naturelle",
+   "titre": "Automne tropical : palmiers, trésors et secrets",
+   "date_debut": "2026-10-15",
+   "date_fin": "2026-11-23",
+   "url": "https://www.jardindesplantesdeparis.fr/fr/automne-tropical",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "museum-national-d-histoire-naturelle",
+   "titre": "Artistes au Muséum",
+   "date_debut": "2026-09-23",
+   "date_fin": "2027-03-07",
+   "url": "https://www.jardindesplantesdeparis.fr/fr/expo-artistes",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  },
+  {
+   "lieu_id": "musee-des-arts-et-metiers",
+   "titre": "Lady Liberté : de la sueur, de l'audace, du génie",
+   "date_debut": "2026-09-22",
+   "date_fin": "2027-08-01",
+   "url": "https://www.arts-et-metiers.net/musee/lady-liberte-de-la-sueur-de-laudace-du-genie",
+   "vu_le": "2026-11-09",
+   "verifie_par": "claude-client-poli"
+  }
+ ]
+}

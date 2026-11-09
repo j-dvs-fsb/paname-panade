@@ -115,6 +115,14 @@ Lieux non collectés, et pourquoi (détail dans `data/lieux_web.json`) :
 - introuvables ou hors ligne : Val-de-Grâce, Hébert, musée de l'AP-HP ;
 - Grande Galerie de l'Évolution : même programme que le Muséum, collecté une seule fois.
 
+Passe de découverte du 9 novembre 2026 (`verifie_par` = `claude-client-poli`, à relire) : 21 lieux
+complétés dans `data/lieux_web.json` (tarifs sourcés, horaires, fermetures, état des sites), lus avec
+le client poli du collecteur, sans navigateur. Les lieux T4 n'ont pas été visités. Aucun lieu n'est passé
+« vérifié » : c'est à faire après relecture. Les expositions en cours et à venir de ces lieux sont dans
+`data/expos_manuelles.json`, une saisie manuelle qu'aucune commande n'importe.
+- Hébert : fermé depuis 2004 ; Ennery : fermé pour rénovation jusqu'en 2028 ;
+- Val-de-Grâce et AP-HP : pages officielles retrouvées (defense.gouv.fr, aphp.fr/musee).
+
 ## À faire
 
 - Brancher le site : un point d'entrée qui respecte [docs/export.md](docs/export.md). Rien n'a
@@ -163,6 +171,7 @@ collector/
 ├── docs/export.md            contrat de l'export, à lire côté site
 ├── data/PP_lieux_v2.xlsx     graine de la base
 ├── data/lieux_web.json       découverte : pages officielles, tarifs, horaires
+├── data/expos_manuelles.json expositions relevées à la main, à saisir après relecture
 ├── deploy/                   cron, systemd, run.sh
 ├── src/panade/
 │   ├── schema.sql, db.py     schéma v2 et migrations

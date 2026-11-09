@@ -319,7 +319,20 @@
   },
   "crypte-archeologique-de-l-ile-de-la-cite": {
    "etat_web": "ok",
-   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr ; site propre toujours en maintenance (503) le 2026-11-09 ; payante toute l'année (portail Paris Musées), montant et horaires non trouvés",
+   "tarifs_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus (tarif réduit de la grille Crypte et Catacombes) ; montant non lu",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    }
+   ]
   },
   "fondation-cartier-pour-l-art-contemporain": {
    "expos_url": "https://www.fondationcartier.com/en-ce-moment",
@@ -328,11 +341,201 @@
   "grande-galerie-de-l-evolution": {
    "tarifs_url": "https://www.jardindesplantesdeparis.fr/fr/tarifs-horaires-acces",
    "etat_web": "doublon",
-   "note": "programme commun au Muséum (jardindesplantesdeparis.fr), collecté sur la fiche du Muséum pour éviter les doublons"
+   "note": "programme commun au Muséum (jardindesplantesdeparis.fr), collecté sur la fiche du Muséum pour éviter les doublons",
+   "horaires_url": "https://www.jardindesplantesdeparis.fr/fr/grande-galerie-de-l-evolution",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "moins_26",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "jeunes de moins de 25 ans révolus, résidents UE et hors UE, sur justificatif ; collection permanente seulement",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.jardindesplantesdeparis.fr/fr/grande-galerie-de-l-evolution"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "prix": 13,
+     "plein_tarif": 16,
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 3 à 25 ans révolus, résidents UE et hors UE ; billet exposition temporaire + collection permanente",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.jardindesplantesdeparis.fr/fr/grande-galerie-de-l-evolution"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "maison-de-balzac": {
    "etat_web": "ok",
-   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr ; site propre toujours en maintenance (503) le 2026-11-09 ; tarifs lus sur la grille du portail parismusees.paris.fr, horaires sur la fiche d'exposition du portail ; collections gratuites seulement hors période d'exposition : aucune ligne de gratuité posée",
+   "tarifs_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+   "horaires_url": "https://www.parismusees.paris.fr/fr/exposition/de-la-vigne-au-verre",
+   "tarifs": [
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus ; montant propre à chaque exposition, non lu",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    }
+   ]
   },
   "musee-bourdelle": {
    "expos_url": "https://www.bourdelle.paris.fr/visiter/expositions/expositions-en-cours",
@@ -582,12 +785,190 @@
   "musee-cernuschi-musee-des-arts-de-l-asie-de-la-ville-de-pari": {
    "expos_url": "https://www.cernuschi.paris.fr/",
    "etat_web": "ok",
-   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr ; site propre toujours en maintenance (503) le 2026-11-09 ; tarifs lus sur la grille du portail parismusees.paris.fr, horaires sur la fiche d'exposition du portail",
+   "tarifs_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+   "horaires_url": "https://www.parismusees.paris.fr/fr/exposition/coree",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites pour tous",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus ; montant propre à chaque exposition, non lu",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    }
+   ]
   },
   "musee-cognacq-jay-musee-du-xviiie-siecle-de-la-ville-de-pari": {
    "expos_url": "https://www.museecognacqjay.paris.fr/",
    "etat_web": "ok",
-   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr ; site propre toujours en maintenance (503) le 2026-11-09 ; tarifs lus sur la grille du portail parismusees.paris.fr, horaires sur la fiche d'exposition du portail",
+   "tarifs_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+   "horaires_url": "https://www.parismusees.paris.fr/fr/exposition/carte-blanche-a-claire-tabouret",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites, seulement en partie en temps d'exposition",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus ; montant propre à chaque exposition, non lu",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    }
+   ]
   },
   "musee-d-art-et-d-histoire-de-l-hopital-sainte-anne": {
    "expos_url": "https://mahhsa.fr/expo-du-moment/",
@@ -694,11 +1075,100 @@
   },
   "musee-d-art-moderne-de-la-ville-de-paris": {
    "etat_web": "ok",
-   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr ; site propre toujours en maintenance (503) le 2026-11-09 ; tarifs lus sur la grille du portail parismusees.paris.fr, horaires sur la fiche d'exposition du portail",
+   "tarifs_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+   "horaires_url": "https://www.parismusees.paris.fr/fr/exposition/kerry-james-marshall",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites pour tous",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus ; montant propre à chaque exposition, non lu",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": true,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "21:30"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    }
+   ]
   },
   "musee-d-ennery": {
-   "etat_web": "sans_liste",
-   "note": "annexe de Guimet, ouverture très limitée, aucune page d'expositions propre"
+   "etat_web": "ferme_travaux",
+   "note": "fermé pour rénovation jusqu'en 2028 (https://www.guimet.fr/fr/musee-d-ennery, lu le 2026-11-09)"
   },
   "musee-d-orsay": {
    "etat_web": "anti_robots",
@@ -830,8 +1300,9 @@
    ]
   },
   "musee-de-l-assistance-publique-hopitaux-de-paris": {
-   "etat_web": "hors_ligne",
-   "note": "https://musee.aphp.fr/ ne répond pas : musée probablement fermé, à confirmer avant de le garder"
+   "etat_web": "ok",
+   "note": "site officiel : aphp.fr/musee (musee.aphp.fr ne répond plus) ; pas d'espace d'exposition permanente, expositions temporaires dans les hôpitaux, siège à Bicêtre (Le Kremlin-Bicêtre, hors Paris) ; aucune exposition en cours ni à venir le 2026-11-09",
+   "expos_url": "https://www.aphp.fr/musee/expositions"
   },
   "musee-de-l-ecole-nationale-superieure-des-beaux-arts": {
    "expos_url": "https://beauxartsparis.fr/fr/exposition/a-voir",
@@ -1003,13 +1474,199 @@
      "portee": "tout",
      "regime": "reduit",
      "audience": "moins_26",
+     "prix": 5,
+     "plein_tarif": 8,
      "recurrence": "toujours",
-     "justificatif": "tarif réduit sur justificatif pour les moins de 26 ans ; montant non lu avec certitude sur la page",
-     "verifie_le": "2026-10-29",
-     "verifie_par": "claude",
+     "justificatif": "billet visite libre (collection permanente et exposition temporaire en cours), moins de 26 ans sur justificatif",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.museefm.org/activites-et-tarifs-pour-les-individuels/"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 8,
+     "recurrence": "toujours",
+     "justificatif": "billet visite libre, sur justificatif",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
      "source_url": "https://www.museefm.org/activites-et-tarifs-pour-les-individuels/"
     }
-   ]
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "12:30",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "14:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "12:30",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "14:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "12:30",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "14:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "12:30",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "14:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "13:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "14:00",
+     "fermeture": "19:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "12:30",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "14:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-08",
+     "libelle": "8 mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "07-14",
+     "libelle": "14 juillet",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "08-15",
+     "libelle": "15 août",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "11-01",
+     "libelle": "1er novembre",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "11-11",
+     "libelle": "11 novembre",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ],
+   "note": "fermé les jours fériés (seuls les fériés à date fixe sont posés) ; pause de midi chaque jour"
   },
   "musee-de-la-grande-loge-de-france": {
    "etat_web": "anti_robots",
@@ -1019,7 +1676,96 @@
   "musee-de-la-liberation-de-paris-musee-du-general-leclerc-mus": {
    "expos_url": "https://www.museeliberation-leclerc.paris.fr/",
    "etat_web": "ok",
-   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr ; site propre toujours en maintenance (503) le 2026-11-09 ; tarifs lus sur la grille du portail parismusees.paris.fr, horaires sur la fiche d'exposition du portail",
+   "tarifs_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+   "horaires_url": "https://www.parismusees.paris.fr/fr/exposition/robert-capa-photographe-de-guerre",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites pour tous",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus ; montant propre à chaque exposition, non lu",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00"
+    }
+   ]
   },
   "musee-de-la-musique": {
    "expos_url": "https://philharmoniedeparis.fr/fr/musee-de-la-musique",
@@ -1096,7 +1842,7 @@
    "tarifs_url": "https://www.arts-et-metiers.net/musee/tarifs",
    "horaires_url": "https://www.arts-et-metiers.net/musee/horaires-et-acces",
    "etat_web": "sans_liste",
-   "note": "pas de liste d'expositions lisible : l'agenda est un moteur de recherche à facettes ; à écrire avec la page de programmation",
+   "note": "pas de liste d'expositions lisible : l'agenda est un moteur de recherche à facettes ; à écrire avec la page de programmation ; exposition temporaire Lady Liberté : tarif unique de 9 € en plus du billet exposition permanente, aucune réduction jeunes affichée (relu le 2026-11-09)",
    "tarifs": [
     {
      "portee": "permanent",
@@ -1138,14 +1884,213 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": true,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "21:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-des-monnaies-et-medailles": {
    "expos_url": "https://www.monnaiedeparis.fr/fr/expositions",
    "horaires_url": "https://www.monnaiedeparis.fr/fr/horaires-acces",
    "tier": "T4",
    "etat_web": "robots_interdit",
-   "note": "robots.txt de monnaiedeparis.fr interdit /fr/expositions : collecte manuelle"
+   "note": "le 2026-11-09, robots.txt autorise /fr/expositions mais la page redirige vers une adresse interdite : reste T4 ; tarifs et horaires lus sur des pages autorisées",
+   "tarifs_url": "https://www.monnaiedeparis.fr/fr/le-lieu-culturel/preparer-sa-visite/billets-et-tarifs",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "moins_26",
+     "prix": 0,
+     "plein_tarif": 12,
+     "recurrence": "toujours",
+     "justificatif": "« tarif jeunes -26 ans » du billet musée ; conditions détaillées dans un PDF non lu ; accès aux expositions non confirmé",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.monnaiedeparis.fr/fr/le-lieu-culturel/preparer-sa-visite/billets-et-tarifs"
+    },
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 12,
+     "recurrence": "1er_dimanche",
+     "justificatif": "billet musée du premier dimanche, sans accès à l'exposition Fragonard",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.monnaiedeparis.fr/fr/le-lieu-culturel/preparer-sa-visite/billets-et-tarifs"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": true,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "21:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-des-monuments-francais": {
    "expos_url": "https://www.citedelarchitecture.fr/fr/agenda/type_evenement/exposition-98?date=tout",
@@ -1227,7 +2172,197 @@
    "verification": {
     "verifie_le": "2026-10-29",
     "verifie_par": "claude"
-   }
+   },
+   "horaires_url": "https://museedesplansreliefs.fr/horaires-et-acces",
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "note": "fermé le 1er lundi du mois",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2026-10-01",
+     "valide_au": "2027-03-31",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2027-04-01",
+     "valide_au": "2027-09-30",
+     "note": "fermé le 1er lundi du mois en avril, mai et juin",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2027-04-01",
+     "valide_au": "2027-09-30",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2027-04-01",
+     "valide_au": "2027-09-30",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2027-04-01",
+     "valide_au": "2027-09-30",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2027-04-01",
+     "valide_au": "2027-09-30",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2027-04-01",
+     "valide_au": "2027-09-30",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "valide_du": "2027-04-01",
+     "valide_au": "2027-09-30",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-du-louvre": {
    "expos_url": "https://www.louvre.fr/expositions-et-evenements/expositions",
@@ -1361,11 +2496,180 @@
   },
   "musee-du-quai-branly-jacques-chirac": {
    "expos_url": "https://www.quaibranly.fr/fr/expositions-evenements/au-musee/expositions",
-   "etat_web": "ok"
+   "etat_web": "ok",
+   "tarifs_url": "https://www.quaibranly.fr/fr/informations-pratiques/venir/horaires-acces-et-tarifs/tarifs",
+   "horaires_url": "https://www.quaibranly.fr/fr/informations-pratiques/venir/horaires-acces-et-tarifs/horaires",
+   "note": "conditions de réduction et de gratuité (dont les jeunes) seulement dans un PDF sous /fileadmin/, interdit par robots.txt : non lues, aucune ligne jeunes posée",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 14,
+     "recurrence": "1er_dimanche",
+     "justificatif": "premier dimanche du mois, collections permanentes et expositions temporaires",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.quaibranly.fr/fr/informations-pratiques/venir/horaires-acces-et-tarifs/tarifs"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "ouvert les lundis des vacances scolaires toutes zones, sauf juillet et août",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:30",
+     "fermeture": "19:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:30",
+     "fermeture": "19:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": true,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:30",
+     "fermeture": "22:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:30",
+     "fermeture": "19:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:30",
+     "fermeture": "19:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:30",
+     "fermeture": "19:00",
+     "derniere_entree_min": 60
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "musee-du-service-de-sante-des-armees-du-val-de-grace": {
-   "etat_web": "introuvable",
-   "note": "aucune page officielle trouvée (defense.gouv.fr renvoie 404)"
+   "etat_web": "sans_liste",
+   "note": "page officielle trouvée sur defense.gouv.fr le 2026-11-09 ; pas de page d'expositions ; plein tarif 5 €, réduit 2,50 € sans bénéficiaires indiqués : aucune ligne de tarif posée",
+   "tarifs_url": "https://www.defense.gouv.fr/sante/musee-du-service-sante-armees",
+   "horaires_url": "https://www.defense.gouv.fr/sante/musee-du-service-sante-armees",
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "fermé en août",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "fermé en août",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "fermé en août",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "fermé en août",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "fermé en août",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "fermé en août",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "fermé en août",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00"
+    }
+   ]
   },
   "musee-eugene-delacroix": {
    "expos_url": "https://www.musee-delacroix.fr/expositions",
@@ -1628,8 +2932,8 @@
    ]
   },
   "musee-hebert": {
-   "etat_web": "hors_ligne",
-   "note": "https://www.musee-hebert.fr/ ne répond pas : musée probablement fermé, à confirmer avant de le garder"
+   "etat_web": "ferme",
+   "note": "fermé au public depuis 2004 pour raison de sécurité (question écrite au Sénat du 20/01/2022, https://www.senat.fr/questions/base/2022/qSEQ22012077S.html) ; musee-hebert.fr présente un certificat auto-signé, non contourné ; à retirer de la liste ?"
   },
   "musee-jean-jacques-henner": {
    "expos_url": "https://musee-henner.fr/",
@@ -1895,7 +3199,88 @@
    "expos_url": "https://www.legiondhonneur.fr/fr/le-musee/visiter-le-musee/la-programmation-et-les-visites",
    "etat_web": "ok",
    "tarifs_url": "https://www.legiondhonneur.fr/fr/page/le-musee",
-   "note": "ATTENTION : musee-legiondhonneur.fr n'est plus le site officiel (blog sans rapport) ; source officielle : legiondhonneur.fr"
+   "note": "ATTENTION : musee-legiondhonneur.fr n'est plus le site officiel (blog sans rapport) ; source officielle : legiondhonneur.fr",
+   "horaires_url": "https://www.legiondhonneur.fr/fr/page/le-musee",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "entrée gratuite et sans réservation, collections et exposition temporaire",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.legiondhonneur.fr/fr/page/le-musee"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": true,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "20:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "13:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 30
+    }
+   ]
   },
   "musee-national-de-la-marine": {
    "expos_url": "https://www.musee-marine.fr/nos-musees/paris/expositions-et-evenements/les-expositions.html",
@@ -2178,18 +3563,156 @@
   "musee-zadkine": {
    "expos_url": "https://www.zadkine.paris.fr/",
    "etat_web": "ok",
-   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr ; site propre toujours en maintenance (503) le 2026-11-09 ; aucune exposition en cours ni à venir sur le portail, horaires non trouvés",
+   "tarifs_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites, seulement en partie en temps d'exposition",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus ; montant propre à chaque exposition, non lu",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    }
+   ]
   },
   "museum-national-d-histoire-naturelle": {
    "expos_url": "https://www.jardindesplantesdeparis.fr/fr/expositions-evenements",
    "etat_web": "ok",
    "tarifs_url": "https://www.jardindesplantesdeparis.fr/fr/tarifs-horaires-acces",
    "horaires_url": "https://www.jardindesplantesdeparis.fr/fr/tarifs-horaires-acces",
-   "note": "mnhn.fr refuse les robots (403) ; programme parisien lu sur jardindesplantesdeparis.fr, site du Muséum"
+   "note": "mnhn.fr refuse les robots (403) ; programme parisien lu sur jardindesplantesdeparis.fr, site du Muséum ; tarifs propres à chaque galerie (Grande Galerie, Grandes Serres, Géologie...) : aucune ligne posée au niveau du Muséum, voir la fiche Grande Galerie de l'Évolution"
   },
   "palais-galliera-musee-de-la-mode-et-de-la-ville-de-paris": {
    "etat_web": "ok",
-   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr"
+   "note": "site propre en maintenance (503) le 2026-10-29 ; expositions lues sur le portail parismusees.paris.fr ; pas de collection permanente : accès payant toute l'année (exception à la règle Paris Musées confirmée le 2026-11-09)",
+   "tarifs_url": "https://www.palaisgalliera.paris.fr/preparer-votre-visite/informations-pratiques",
+   "horaires_url": "https://www.palaisgalliera.paris.fr/preparer-votre-visite/informations-pratiques",
+   "tarifs": [
+    {
+     "portee": "tout",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "prix": 12,
+     "plein_tarif": 14,
+     "recurrence": "toujours",
+     "justificatif": "billet solo, jeunes de 18 à 26 ans inclus, justificatif de moins de 3 mois ; billet couplé (exposition temporaire + exposition collections) 15 € au lieu de 17 €",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.palaisgalliera.paris.fr/preparer-votre-visite/informations-pratiques"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 14,
+     "recurrence": "toujours",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.palaisgalliera.paris.fr/preparer-votre-visite/informations-pratiques"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": true,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "21:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 60
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
+   ]
   },
   "pantheon": {
    "expos_url": "https://www.paris-pantheon.fr/agenda",
@@ -2353,6 +3876,203 @@
    "etat_web": "ok",
    "corriger": [
     "expos_url"
+   ],
+   "tarifs_url": "https://www.petitpalais.paris.fr/visiter/preparer-votre-visite",
+   "horaires_url": "https://www.petitpalais.paris.fr/visiter/preparer-votre-visite",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites et sans réservation",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.petitpalais.paris.fr/visiter/preparer-votre-visite"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "prix": 12,
+     "plein_tarif": 14,
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus (grille Paris Musées) ; 12 € au lieu de 14 € lu sur la page de l'exposition Eva Gonzalès, le montant varie selon l'exposition",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 14,
+     "recurrence": "toujours",
+     "verifie_le": "2026-11-09",
+     "verifie_par": "claude-client-poli",
+     "source_url": "https://www.petitpalais.paris.fr/decouvrir-la-programmation/expositions/eva-gonzales"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "nocturne": false,
+     "portee": "tout",
+     "ferme": true
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "permanent",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "nocturne": false,
+     "portee": "temporaire",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 75
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "permanent",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "nocturne": false,
+     "portee": "temporaire",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 75
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "permanent",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "nocturne": false,
+     "portee": "temporaire",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 75
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": false,
+     "portee": "permanent",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "nocturne": true,
+     "portee": "temporaire",
+     "note": "nocturne pour les expositions temporaires seulement ; collections permanentes fermées",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "20:00",
+     "derniere_entree_min": 75
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": false,
+     "portee": "permanent",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "nocturne": true,
+     "portee": "temporaire",
+     "note": "nocturne pour les expositions temporaires seulement ; collections permanentes fermées",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "20:00",
+     "derniere_entree_min": 75
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "permanent",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 45
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "nocturne": false,
+     "portee": "temporaire",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "derniere_entree_min": 75
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "07-14",
+     "libelle": "14 juillet",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "11-11",
+     "libelle": "11 novembre",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 décembre",
+     "recurrent_annuel": true
+    }
    ]
   },
   "sainte-chapelle": {
