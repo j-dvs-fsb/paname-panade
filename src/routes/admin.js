@@ -75,6 +75,7 @@ router.get("/", async (req, res) => {
   const stats = {
     expos: await Exposition.count(),
     expos_draft: await Exposition.count({ where: { status: "draft" } }),
+    expos_archived: await Exposition.count({ where: { status: "archived" } }),
     museums: await Museum.count(),
     reports: await Report.count({ where: { status: "nouveau" } }),
   };
@@ -92,7 +93,7 @@ router.get("/expositions", async (req, res) => {
   const status = (req.query.status || "").trim();
   const where = {};
   if (q) where.title = { [Op.like]: `%${q}%` };
-  if (status === "draft" || status === "published") where.status = status;
+  if (["draft", "published", "archived"].includes(status)) where.status = status;
   const expos = await Exposition.findAll({ where, order: [["id", "DESC"]] });
   res.render("admin/expos.njk", { expos, q, status });
 });
@@ -333,8 +334,8 @@ router.post("/signalements/:id/supprimer", async (req, res) => {
 router.post("/sync-qfap", async (req, res) => {
   const { runSync } = require("../services/sync");
   try {
-    const { created, updated } = await runSync({ limit: 200 });
-    req.flash("success", `Sync QFAP : ${created} créées, ${updated} mises à jour.`);
+    const { created, updated, archived } = await runSync({ limit: 200 });
+    req.flash("success", `Sync QFAP : ${created} créées, ${updated} mises à jour, ${archived} terminée(s) archivée(s).`);
   } catch (e) {
     req.flash("danger", `Erreur sync : ${e.message}`);
   }

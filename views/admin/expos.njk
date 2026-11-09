@@ -14,6 +14,7 @@
         <option value="" {{ 'selected' if not status else '' }}>Tous statuts</option>
         <option value="published" {{ 'selected' if status=='published' else '' }}>Publiées</option>
         <option value="draft" {{ 'selected' if status=='draft' else '' }}>Brouillons</option>
+        <option value="archived" {{ 'selected' if status=='archived' else '' }}>Terminées (archivées)</option>
       </select>
     </div>
     <div class="col-auto"><button class="btn btn-outline-ink btn-sm">Filtrer</button></div>

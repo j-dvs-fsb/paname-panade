@@ -2,7 +2,8 @@
 
 const { DataTypes } = require("sequelize");
 const { PRICE_LABELS, RESERVATION_LABELS } = require("./labels");
-const { formatFrDate, todayIso } = require("../lib/dates");
+const { formatFrDate } = require("../lib/dates");
+const { isCurrent } = require("../lib/visibility");
 const { cleanValue, safeUrl, isIconUrl } = require("../lib/values");
 
 module.exports = (sequelize) => {
@@ -33,6 +34,7 @@ module.exports = (sequelize) => {
       reservation_url: { type: DataTypes.STRING(500) },
       source: { type: DataTypes.STRING(80) }, // seed / que-faire-a-paris / scraping / manuel
       external_id: { type: DataTypes.STRING(120) },
+      // published | draft | archived (terminée, posé par services/archive.js, jamais à la main)
       status: { type: DataTypes.STRING(20), allowNull: false, defaultValue: "published" },
     },
     {
@@ -164,9 +166,9 @@ module.exports = (sequelize) => {
     return "Dates non communiquées";
   });
 
+  // En cours au sens de lib/visibility.js (même règle que les requêtes).
   def("is_current", function () {
-    if (this.date_end && String(this.date_end).slice(0, 10) < todayIso()) return false;
-    return true;
+    return isCurrent(this);
   });
 
   def("avg_rating", function () {

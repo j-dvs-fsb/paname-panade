@@ -5,11 +5,13 @@ const { sequelize } = require("./src/models");
 const { createApp } = require("./src/app");
 const { bootstrap } = require("./src/bootstrap");
 const { sweep } = require("./src/services/imageCache");
+const { scheduleArchiving } = require("./src/services/archive");
 
 async function main() {
   await sequelize.authenticate();
   await sequelize.sync(); // crée les tables si absentes (comme db.create_all())
   await bootstrap(); // migrations + seed musées + admin (si base vide)
+  scheduleArchiving(); // expos terminées -> archived, au démarrage puis toutes les 6 h
 
   // Purge des images en cache jamais redemandées (sans bloquer le démarrage).
   sweep()

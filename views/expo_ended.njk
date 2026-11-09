@@ -1,0 +1,17 @@
+{% extends "base.njk" %}
+{% block title %}{{ expo.title }} (terminée) | Paname Panade{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+  <span class="badge bg-secondary mb-3">Exposition terminée</span>
+  <h1>{{ expo.title }}</h1>
+  <p class="muted">
+    {% if expo.date_end %}Cette exposition s'est terminée le {{ expo.date_end|fr_date }}.{% else %}Cette exposition n'est plus à l'affiche.{% endif %}
+  </p>
+  <div class="mt-3">
+    {% if expo.museum %}
+      <a href="{{ url_for('main.museum_detail', slug=expo.museum.slug) }}" class="btn btn-ink me-2">En ce moment à {{ expo.museum.name }}</a>
+    {% endif %}
+    <a href="{{ url_for('main.expos') }}" class="btn btn-outline-ink">Toutes les expos en cours</a>
+  </div>
+</div>
+{% endblock %}

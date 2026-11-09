@@ -26,9 +26,8 @@
     </div>
   </div>
 
-  {% set published = museum.expositions | selectattr('status', 'equalto', 'published') | list %}
-  {% set current = published | selectattr('is_current') | list %}
-  {% set past = published | rejectattr('is_current') | list %}
+  {# Le contrôleur ne charge que les expos en cours (lib/visibility.js). #}
+  {% set current = museum.expositions %}
 
   <h3 class="mt-5 mb-3">Expositions en cours</h3>
   <div class="row">
@@ -39,22 +38,5 @@
     {% endfor %}
   </div>
 
-  {% if past %}
-    <div class="stat-tile text-start mt-5">
-      <h3 class="mb-1">Expositions passées</h3>
-      <p class="muted small mb-3">Tu y es allé·e ? Reviens y laisser ton avis.</p>
-      <ul class="list-unstyled mb-0">
-        {% for expo in past %}
-          <li class="border-bottom py-2 d-flex justify-content-between align-items-center">
-            <a href="{{ url_for('main.expo_detail', slug=expo.slug) }}">{{ expo.title }}</a>
-            <span class="muted small">
-              {% if expo.date_end %}terminée le {{ expo.date_end|fr_date }}{% endif %}
-              {% if expo.rating_count %} · {{ expo.avg_rating }}/5 ({{ expo.rating_count }}){% endif %}
-            </span>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
 </div>
 {% endblock %}
