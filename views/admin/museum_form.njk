@@ -47,6 +47,11 @@
       <input class="form-control" name="horaires_url" value="{{ museum.horaires_url if museum else '' }}">
     </div>
     <div class="mb-3">
+      <label class="form-label">Fermeture <span class="muted small">(laisser vide si le musée est ouvert ; renseignée, elle masque ses collections permanentes)</span></label>
+      <input class="form-control" name="closed_note" maxlength="300" value="{{ museum.closed_note if museum else '' }}"
+             placeholder="Fermé pour travaux jusqu'en 2030.">
+    </div>
+    <div class="mb-3">
       <label class="form-label d-block">Gratuité <span class="muted small">(plusieurs choix possibles)</span></label>
       {% set selected = museum.free_access_list if museum else [] %}
       {% for key, label in free_access_labels %}

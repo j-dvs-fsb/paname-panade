@@ -13,6 +13,7 @@ const { DataTypes, Op } = require("sequelize");
 const { sequelize, Exposition, Museum, User, AuthAccount, Credential, Passkey } = require("../models");
 const { SENTINEL_VALUES, isIconUrl } = require("../lib/values");
 const MUSEUM_PHOTOS = require("../data/museumPhotos");
+const MUSEUM_CLOSURES = require("../data/museumClosures");
 
 // Colonnes ajoutées après coup, par table. Y laisser les anciennes entrées :
 // elles ne coûtent qu'un describeTable au démarrage et servent aux bases qui
@@ -21,6 +22,7 @@ const ADDED_COLUMNS = {
   museum: {
     horaires: { type: DataTypes.STRING(500) },
     horaires_url: { type: DataTypes.STRING(500) },
+    closed_note: { type: DataTypes.STRING(300) },
   },
   // Champs attendus par Better Auth sur la table `user` historique.
   user: {
@@ -206,6 +208,49 @@ async function applyMuseumPhotos() {
   return { museums, expos };
 }
 
+// Musées fermés (data/museumClosures.js) : pose la note de fermeture si le
+// musée n'en a pas, puis aligne ses collections permanentes. Un musée fermé
+// voit ses collections passer en `museum_closed` (masquées) ; quand la note
+// est effacée (admin ou connecteur du collecteur), elles reviennent en
+// `published`. Seul ce statut est rétabli : une collection mise en brouillon
+// à la main n'est jamais republiée par ce mécanisme.
+async function applyMuseumClosures() {
+  let notes = 0;
+  const byMuseofile = new Map(
+    Object.values(MUSEUM_CLOSURES).filter((c) => c.museofile).map((c) => [c.museofile, c])
+  );
+  for (const museum of await Museum.findAll()) {
+    const closure = MUSEUM_CLOSURES[museum.slug] || (museum.museofile_id && byMuseofile.get(museum.museofile_id));
+    if (closure && !museum.closed_note) {
+      await museum.update({ closed_note: closure.note }, { hooks: false });
+      notes += 1;
+    }
+  }
+  const { hidden, restored } = await syncClosedCollections();
+  return { notes, hidden, restored };
+}
+
+// Aligne le statut des collections permanentes sur l'état des musées.
+async function syncClosedCollections() {
+  let hidden = 0;
+  let restored = 0;
+  for (const museum of await Museum.findAll({ attributes: ["id", "closed_note"] })) {
+    const closed = !!(museum.closed_note && museum.closed_note.trim());
+    const [n] = closed
+      ? await Exposition.update(
+          { status: "museum_closed" },
+          { where: { museum_id: museum.id, source: "permanent", status: "published" }, hooks: false }
+        )
+      : await Exposition.update(
+          { status: "published" },
+          { where: { museum_id: museum.id, source: "permanent", status: "museum_closed" }, hooks: false }
+        );
+    if (closed) hidden += n;
+    else restored += n;
+  }
+  return { hidden, restored };
+}
+
 // Plus aucun tiret long ni moyen dans les noms, titres et descriptions : un
 // espace-tiret long-espace devient « - », le reste un simple trait d'union.
 const DASHED_COLUMNS = { museum: ["name", "description"], exposition: ["title", "description"] };
@@ -265,6 +310,15 @@ async function runMigrations() {
   }
 
   try {
+    const { notes, hidden, restored } = await applyMuseumClosures();
+    if (notes || hidden || restored) {
+      console.log(`[migration] Fermetures : ${notes} note(s) posée(s), ${hidden} collection(s) masquée(s), ${restored} rétablie(s).`);
+    }
+  } catch (e) {
+    console.error("[migration] Fermetures de musées échouées :", e.message);
+  }
+
+  try {
     const dashes = await removeLongDashes();
     if (dashes) console.log(`[migration] Tirets longs remplacés : ${dashes} champs.`);
   } catch (e) {
@@ -287,6 +341,8 @@ module.exports = {
   migratePasskeys,
   scrubSentinels,
   applyMuseumPhotos,
+  applyMuseumClosures,
+  syncClosedCollections,
   removeLongDashes,
   ADDED_COLUMNS,
 };

@@ -25,6 +25,7 @@ const { htmlToText } = require("../lib/text");
 const { cleanValue, coerceUrl } = require("../lib/values");
 const { nextLocalMuseumId } = require("../lib/dedup");
 const { toSlug } = require("../lib/slug");
+const { syncClosedCollections } = require("../services/migrate");
 
 const router = express.Router();
 router.use(requireAdmin);
@@ -201,11 +202,13 @@ async function handleMuseumForm(req, res) {
     museum.logo_url = cleanUrl(f.logo_url);
     museum.horaires = clean(f.horaires);
     museum.horaires_url = cleanUrl(f.horaires_url);
+    museum.closed_note = clean(f.closed_note);
     const valid = new Set(Object.keys(FREE_ACCESS_LABELS));
     museum.free_access = asList(f.free_access).filter((k) => valid.has(k)).join(",");
     museum.lat = toFloat(f.lat);
     museum.lon = toFloat(f.lon);
     await museum.save();
+    await syncClosedCollections();
     req.flash("success", "Musée enregistré.");
     return res.redirect(urlFor("admin.museums"));
   }

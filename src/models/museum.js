@@ -21,6 +21,9 @@ module.exports = (sequelize) => {
       horaires: { type: DataTypes.STRING(500) },
       horaires_url: { type: DataTypes.STRING(500) },
       free_access: { type: DataTypes.STRING(120) }, // clés CSV, cf. FREE_ACCESS_LABELS
+      // Musée fermé au public (travaux…) : phrase affichée, et ses collections
+      // permanentes sont masquées tant qu'elle est renseignée (services/migrate.js).
+      closed_note: { type: DataTypes.STRING(300) },
       image_url: { type: DataTypes.STRING(500) },
       logo_url: { type: DataTypes.STRING(500) },
       lat: { type: DataTypes.FLOAT },
@@ -35,8 +38,16 @@ module.exports = (sequelize) => {
     },
   });
 
+  Object.defineProperty(Museum.prototype, "is_closed", {
+    get() {
+      return !!(this.closed_note && this.closed_note.trim());
+    },
+  });
+
+  // Un musée fermé n'annonce aucune gratuité : il n'y a rien à visiter.
   Object.defineProperty(Museum.prototype, "free_labels", {
     get() {
+      if (this.is_closed) return [];
       return this.free_access_list
         .filter((k) => k in FREE_ACCESS_LABELS)
         .map((k) => FREE_ACCESS_LABELS[k]);
@@ -46,6 +57,7 @@ module.exports = (sequelize) => {
   // Compat : collections accessibles gratuitement à tous.
   Object.defineProperty(Museum.prototype, "is_permanent_free", {
     get() {
+      if (this.is_closed) return false;
       const keys = this.free_access_list;
       return keys.includes("permanent") || keys.includes("gratuit_tous");
     },

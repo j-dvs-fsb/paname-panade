@@ -35,6 +35,7 @@ module.exports = (sequelize) => {
       source: { type: DataTypes.STRING(80) }, // seed / que-faire-a-paris / scraping / manuel
       external_id: { type: DataTypes.STRING(120) },
       // published | draft | archived (terminée, posé par services/archive.js, jamais à la main)
+      // | museum_closed (collection permanente d'un musée fermé, cf. services/migrate.js)
       status: { type: DataTypes.STRING(20), allowNull: false, defaultValue: "published" },
     },
     {
