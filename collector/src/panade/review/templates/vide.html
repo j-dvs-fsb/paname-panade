@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block titre %}Rien à relire{% endblock %}
+{% block contenu %}
+<div class="carte"><h1>Rien à relire</h1>
+<p class="doux">{{ comptes.get('publie', 0) }} publiée(s), {{ comptes.get('rejete', 0) }} rejetée(s). L'export de demain matin ne dépend plus de vous.</p></div>
+{% endblock %}

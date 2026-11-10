@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "panade-collector"
+version = "0.1.0"
+description = "Collecteur des données des musées parisiens pour paname-panade.fr"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.6",
+    "openpyxl>=3.1",
+    "httpx>=0.27",
+    "selectolax>=0.3.21",
+]
+
+[project.optional-dependencies]
+review = ["fastapi>=0.110", "uvicorn>=0.29", "jinja2>=3.1", "python-multipart>=0.0.9"]
+dev = ["pytest>=8", "fastapi>=0.110", "uvicorn>=0.29", "jinja2>=3.1", "python-multipart>=0.0.9"]
+
+[project.scripts]
+panade = "panade.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+panade = ["schema.sql", "review/templates/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

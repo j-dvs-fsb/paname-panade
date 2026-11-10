@@ -14,7 +14,8 @@
     "sync": "node scripts/sync.js",
     "sync-museums": "node scripts/syncMuseums.js",
     "scrape": "node scripts/scrape.js",
-    "make-admin": "node scripts/makeAdmin.js"
+    "make-admin": "node scripts/makeAdmin.js",
+    "test": "node --test"
   },
   "dependencies": {
     "@better-auth/passkey": "^1.6.25",

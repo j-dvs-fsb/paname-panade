@@ -51,7 +51,7 @@ function createApp() {
             "'self'",
             "data:",
             "blob:",
-            "https://*.basemaps.cartocdn.com",
+            "https://tile.openstreetmap.org",
             "https://unpkg.com",
           ],
           connectSrc: ["'self'"],

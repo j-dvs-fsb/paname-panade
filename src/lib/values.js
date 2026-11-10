@@ -53,4 +53,14 @@ function coerceUrl(value) {
   return null;
 }
 
-module.exports = { cleanValue, safeUrl, coerceUrl, SENTINELS, SENTINEL_VALUES };
+// Une icône de site (favicon, apple-touch-icon, favicon Google) n'est pas une
+// photo : étirée à la taille d'une carte, elle s'affiche floue. On la traite
+// comme une image absente, le template montre alors le visuel neutre du site.
+const ICON_URL = /favicon|apple-touch-icon|android-chrome|mstile|google\.com\/s2\/|\.ico(\?|#|$)|\.svg(\?|#|$)/i;
+
+function isIconUrl(value) {
+  const s = cleanValue(value);
+  return !!s && ICON_URL.test(s);
+}
+
+module.exports = { cleanValue, safeUrl, coerceUrl, isIconUrl, SENTINELS, SENTINEL_VALUES };

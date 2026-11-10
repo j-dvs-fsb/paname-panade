@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block titre %}Relecture{% endblock %} | Panade</title>
+<style>
+  :root { color-scheme: light dark; --fond:#fafaf9; --texte:#1c1b1a; --doux:#6b6862; --trait:#d9d5cd; --carte:#fff; --ok:#14683a; --non:#a12828; --alerte:#8a5a00; }
+  @media (prefers-color-scheme: dark) { :root { --fond:#161514; --texte:#f1efeb; --doux:#a39f97; --trait:#3a3835; --carte:#1f1e1c; --ok:#5bd08a; --non:#ff8a8a; --alerte:#f0b44c; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--fond); color:var(--texte); font:16px/1.45 system-ui, sans-serif; }
+  header { display:flex; gap:16px; align-items:baseline; padding:12px 16px; border-bottom:1px solid var(--trait); }
+  header a { color:var(--doux); text-decoration:none; } header strong { margin-right:auto; }
+  main { max-width:960px; margin:0 auto; padding:16px; }
+  .carte { background:var(--carte); border:1px solid var(--trait); padding:16px; }
+  .grille { display:grid; grid-template-columns:minmax(0,280px) 1fr; gap:20px; }
+  @media (max-width:640px) { .grille { grid-template-columns:1fr; } }
+  img.visuel { width:100%; aspect-ratio:4/3; object-fit:cover; background:var(--trait); display:block; }
+  h1 { font-size:1.35rem; margin:0 0 4px; } .doux { color:var(--doux); }
+  .motif { border-left:4px solid var(--alerte); padding:8px 12px; margin:12px 0; background:color-mix(in srgb, var(--alerte) 10%, transparent); }
+  .erreur { border-left:4px solid var(--non); padding:8px 12px; margin:12px 0; color:var(--non); }
+  .gratuite { border-left:4px solid var(--ok); padding:8px 12px; margin:12px 0; }
+  .gratuite.confirmer { border-color:var(--alerte); }
+  label { display:block; font-size:.85rem; color:var(--doux); margin-top:10px; }
+  input, select { font:inherit; padding:6px 8px; background:var(--carte); color:var(--texte); border:1px solid var(--trait); width:100%; }
+  .deux { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .actions { display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
+  button, .bouton { font:inherit; padding:10px 18px; border:1px solid var(--trait); background:var(--carte); color:var(--texte); cursor:pointer; text-decoration:none; }
+  button.publier { background:var(--ok); color:#fff; border-color:var(--ok); } button.rejeter { color:var(--non); border-color:var(--non); }
+  .puces { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; } .puce { font-size:.78rem; padding:2px 8px; border:1px solid var(--trait); color:var(--doux); }
+  .puce.faible { border-color:var(--alerte); color:var(--alerte); }
+  table { width:100%; border-collapse:collapse; } td, th { text-align:left; padding:8px; border-bottom:1px solid var(--trait); vertical-align:top; }
+  kbd { border:1px solid var(--trait); padding:0 5px; font-size:.8rem; }
+</style>
+</head>
+<body>
+<header><strong>Panade · relecture</strong><a href="/">À relire</a><a href="/liste">Liste</a></header>
+<main>{% block contenu %}{% endblock %}</main>
+{% block script %}{% endblock %}
+</body>
+</html>

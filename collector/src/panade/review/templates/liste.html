@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titre %}Liste{% endblock %}
+{% block contenu %}
+<h1>{{ lignes | length }} à relire</h1>
+<div class="carte"><table>
+  <tr><th>Exposition</th><th>Lieu</th><th>Pourquoi</th></tr>
+  {% for l in lignes %}
+  <tr><td><a href="/item/{{ l.id }}">{{ l.titre }}</a></td><td class="doux">{{ l.lieu_nom }}</td><td class="doux">{{ l.motif_revue or '' }}</td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

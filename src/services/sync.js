@@ -136,7 +136,10 @@ async function runSync({ limit = 200 } = {}) {
 
     await expo.save();
   }
-  return { created, updated };
+  // Une expo prolongée revient, une expo finie part, sans attendre le prochain passage.
+  const { archivePastExpos } = require("./archive");
+  const { archived } = await archivePastExpos();
+  return { created, updated, archived };
 }
 
 module.exports = { runSync, fetchRecords, parseDate, mapReservation, cleanLink, matchMuseum };

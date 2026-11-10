@@ -1,0 +1,10 @@
+[Unit]
+Description=Panade Collector : rapport de santé
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/panade-collector
+EnvironmentFile=/opt/panade-collector/.env
+ExecStart=/opt/panade-collector/.venv/bin/panade health --alerter
+# health sort en 1 quand il y a une alerte : l'alerte est le résultat, pas une panne du service.
+SuccessExitStatus=1

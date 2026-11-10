@@ -1,0 +1,11 @@
+[Unit]
+Description=Publication (publish, tous les jours à 07:00)
+
+[Timer]
+OnCalendar=*-*-* 07:00:00 Europe/Paris
+# Si la machine dormait à l'heure dite, rattrape au réveil : un matin sans publication, c'est un site qui vieillit.
+Persistent=true
+Unit=panade@publish.service
+
+[Install]
+WantedBy=timers.target

@@ -15,7 +15,7 @@ const {
 } = require("../models");
 const { requireLogin, requireProfile } = require("../middleware/auth");
 const { urlFor } = require("../lib/urls");
-const { todayIso } = require("../lib/dates");
+const { visibleWhere, isVisible } = require("../lib/visibility");
 const seo = require("../lib/seo");
 const { isOver26 } = require("../lib/pricing");
 const stats = require("../services/stats");
@@ -24,12 +24,8 @@ const router = express.Router();
 
 // --- Helpers ---
 function currentWhere(extra = {}) {
-  // Publiées et non passées (date de fin absente ou ≥ aujourd'hui).
-  return {
-    status: "published",
-    [Op.and]: [{ [Op.or]: [{ date_end: null }, { date_end: { [Op.gte]: todayIso() } }] }],
-    ...extra,
-  };
+  // Publiées et en cours : règle unique dans lib/visibility.js.
+  return visibleWhere(extra);
 }
 
 function asList(v) {
@@ -60,7 +56,7 @@ function sessionKey(expo) {
 }
 
 async function sessionSiblings(expo) {
-  const where = { title: expo.title, status: "published" };
+  const where = currentWhere({ title: expo.title });
   if (expo.museum_id != null) where.museum_id = expo.museum_id;
   else where.venue_name = expo.venue_name;
   return Exposition.findAll({
@@ -92,7 +88,12 @@ router.get("/", async (req, res) => {
 
 // --- Musées ---
 router.get("/musees", async (req, res) => {
-  const museums = await Museum.findAll({ order: [["name", "ASC"]] });
+  const museums = await Museum.findAll({
+    include: [
+      { model: Exposition, as: "expositions", where: currentWhere(), required: false, attributes: ["id", "status", "source", "date_start", "date_end"] },
+    ],
+    order: [["name", "ASC"]],
+  });
   res.locals.meta = seo.pageMeta(req, {
     title: "Musées gratuits à Paris",
     description:
@@ -106,7 +107,15 @@ router.get("/musees", async (req, res) => {
 router.get("/musee/:slug", async (req, res) => {
   const museum = await Museum.findOne({
     where: { slug: req.params.slug },
-    include: [{ model: Exposition, as: "expositions", include: [{ model: Visit, as: "visits" }] }],
+    include: [
+      {
+        model: Exposition,
+        as: "expositions",
+        where: currentWhere(),
+        required: false,
+        include: [{ model: Visit, as: "visits" }],
+      },
+    ],
   });
   if (!museum) return res.status(404).render("404.njk");
   const url = urlFor("main.museum_detail", { slug: museum.slug });
@@ -286,15 +295,27 @@ router.get("/exposition/:slug", async (req, res) => {
     ],
   });
   if (!expo) return res.status(404).render("404.njk");
-  if (expo.status !== "published" && !(req.user && req.user.is_admin)) {
+  const isAdmin = !!(req.user && req.user.is_admin);
+  if (expo.status !== "published" && expo.status !== "archived" && !isAdmin) {
     return res.status(404).render("404.njk");
+  }
+  // Expo terminée : 410 (« partie pour de bon ») pour que les moteurs la
+  // retirent, avec un lien vers ce qui est en cours dans le même musée.
+  if (!isVisible(expo) && !isAdmin) {
+    res.locals.meta = seo.pageMeta(req, {
+      title: `${expo.title} (terminée)`,
+      description: "Cette exposition est terminée.",
+      url: urlFor("main.expo_detail", { slug: expo.slug }),
+      robots: "noindex, follow",
+    });
+    return res.status(410).render("expo_ended.njk", { expo });
   }
   const { isFavorite, visit } = await userExpoState(req, expo.id);
   const reviews = (expo.visits || [])
     .filter((v) => v.rating || v.comment)
     .sort((a, b) => new Date(b.visited_at || 0) - new Date(a.visited_at || 0));
 
-  const siblings = expo.status === "published" ? await sessionSiblings(expo) : [expo];
+  const siblings = isVisible(expo) ? await sessionSiblings(expo) : [expo];
   const reference = siblings.length ? siblings[0] : expo;
   const otherSessions = siblings.filter((s) => s.id !== expo.id);
 

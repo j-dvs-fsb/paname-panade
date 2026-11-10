@@ -1,0 +1,26 @@
+User-agent: *
+Disallow: /recherche
+Disallow: /en/recherche
+Disallow: /preview/
+Disallow: /artishoc_preview/
+Disallow: /footer-ajax
+Disallow: /en/footer-ajax
+Disallow: /open-menu
+Disallow: /clear_caches
+Disallow: /clear_dependant_cache
+Disallow: /enable-cache
+Disallow: /acces-section
+Allow: /
+
+# Ancien site piraté
+Disallow: /*Money/
+Disallow: /*jogo.php
+Disallow: /*thhow.php
+Disallow: /*news-
+Disallow: /*accueil/feed/
+Disallow: /*resolve/
+Disallow: /*index.php
+Disallow: /*user.php
+Disallow: /*wp
+
+Sitemap: https://www.museedemontmartre.fr/sitemap.xml

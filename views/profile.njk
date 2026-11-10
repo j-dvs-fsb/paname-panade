@@ -66,7 +66,7 @@
       <h3 class="mb-3">Expos faites ({{ visits|length }})</h3>
       {% for v in visits %}
         <div class="border-bottom py-2 d-flex justify-content-between">
-          <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=v.exposition.slug) }}">{{ v.exposition.title }}</a>
+          <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=v.exposition.slug) }}">{{ v.exposition.title }}</a>{% if not v.exposition.is_current %} <span class="muted small">(terminée)</span>{% endif %}
           <span>{% if v.rating %}{{ stars(v.rating) }}{% else %}<span class="muted small">non notée</span>{% endif %}</span>
         </div>
       {% else %}
@@ -79,7 +79,7 @@
       <h3 class="mb-3">Favoris ({{ favorites|length }})</h3>
       {% for f in favorites %}
         <div class="border-bottom py-2">
-          <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=f.exposition.slug) }}">{{ f.exposition.title }}</a>
+          <a class="text-decoration-none" href="{{ url_for('main.expo_detail', slug=f.exposition.slug) }}">{{ f.exposition.title }}</a>{% if not f.exposition.is_current %} <span class="muted small">(terminée)</span>{% endif %}
           {% if f.exposition.museum %}<span class="muted small">, {{ f.exposition.museum.name }}</span>{% endif %}
         </div>
       {% else %}

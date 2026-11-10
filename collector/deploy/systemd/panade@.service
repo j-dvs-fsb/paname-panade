@@ -1,0 +1,11 @@
+# Une unité pour collect, validate et publish : `systemctl --user start panade@collect`.
+# Installer dans ~/.config/systemd/user/ puis `systemctl --user daemon-reload`.
+# Les secrets vont dans /opt/panade-collector/.env (chmod 600), voir deploy/panade.cron.
+[Unit]
+Description=Panade Collector : %i
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/panade-collector
+EnvironmentFile=/opt/panade-collector/.env
+ExecStart=/opt/panade-collector/.venv/bin/panade %i
