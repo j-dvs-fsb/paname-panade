@@ -86,6 +86,10 @@ function createApp() {
     }
   });
 
+  // Export quotidien du Panade Collector : envoi machine authentifié par jeton,
+  // monté avant les parseurs de corps, les sessions et la protection CSRF.
+  app.use("/", require("./routes/import"));
+
   // Corps de formulaire (POST classiques) + JSON (endpoints passkeys)
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json({ limit: "1mb" }));

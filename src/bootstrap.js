@@ -7,7 +7,7 @@
 // Tout est idempotent : ne s'exécute que sur une base vide.
 
 const { Museum, User, Page } = require("./models");
-const { runMigrations, backfillCredentialAccounts } = require("./services/migrate");
+const { runMigrations, backfillCredentialAccounts, applyMuseumClosures } = require("./services/migrate");
 const { seedMuseums } = require("./services/seed");
 const { seedPages } = require("./services/defaultPages");
 
@@ -18,6 +18,9 @@ async function bootstrap() {
     if ((await Museum.count()) === 0) {
       const { created } = await seedMuseums();
       console.log(`[bootstrap] Seed automatique : ${created} musées créés.`);
+      // Les migrations ont tourné sur une base vide : les fermetures connues
+      // (data/museumClosures.js) s'appliquent aux musées qui viennent d'arriver.
+      await applyMuseumClosures();
     }
   } catch (e) {
     console.error("[bootstrap] Seed automatique échoué :", e.message);

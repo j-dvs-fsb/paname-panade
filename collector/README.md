@@ -70,8 +70,19 @@ affiché : dates déduites, portée incertaine, gratuité modifiée, disparue de
 
 ## Planification
 
-`deploy/panade.cron` (cron) ou `deploy/systemd/` (timers, avec rattrapage si la machine dormait).
-Les secrets vont dans `.env` (chmod 600) :
+**Sur un Mac** (launchd) : une seule tâche, chaque jour à 5 h, enchaîne collecte, validation et
+publication dans cet ordre (`deploy/nuit.sh`). Si le Mac dort à 5 h, elle part au réveil ; une
+validation en échec annule la publication. Un rapport de santé part chaque lundi à 8 h.
+
+```bash
+sh deploy/launchd/installer.sh
+```
+
+Pour retirer les tâches : `sh deploy/launchd/installer.sh --retirer`. Journaux dans `logs/`.
+
+**Sur Linux** : `deploy/panade.cron` (cron) ou `deploy/systemd/` (timers, avec rattrapage si la machine dormait).
+
+Les secrets vont dans `.env` (chmod 600), sur le modèle de `.env.exemple` :
 
 ```
 PANADE_PUBLISH_URL=https://paname-panade.fr/api/import
@@ -125,8 +136,9 @@ le client poli du collecteur, sans navigateur. Les lieux T4 n'ont pas été visi
 
 ## À faire
 
-- Brancher le site : un point d'entrée qui respecte [docs/export.md](docs/export.md). Rien n'a
-  été modifié dans le site Node.
+- Mettre en service le connecteur : le site reçoit l'export sur `/api/import` (voir `DEPLOY.md`
+  à la racine du dépôt) ; il reste à poser le même jeton des deux côtés, puis à faire une première
+  publication.
 - Relire les 30 expositions en attente (`panade review`) et les lieux vérifiés par Claude.
 - Expositions « à venir » du portail Paris Musées (filtre `filtre_temps=a venir`) : une seconde
   source par lieu à prévoir.

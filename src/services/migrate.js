@@ -24,6 +24,9 @@ const ADDED_COLUMNS = {
     horaires_url: { type: DataTypes.STRING(500) },
     closed_note: { type: DataTypes.STRING(300) },
   },
+  exposition: {
+    price_note: { type: DataTypes.STRING(200) },
+  },
   // Champs attendus par Better Auth sur la table `user` historique.
   user: {
     emailVerified: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },

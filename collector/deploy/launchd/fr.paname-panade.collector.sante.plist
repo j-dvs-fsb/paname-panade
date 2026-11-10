@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Rapport de santé chaque lundi à 8 h (lieux muets, données de plus de 120 jours). -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>fr.paname-panade.collector.sante</string>
+  <key>ProgramArguments</key>
+  <array><string>/bin/sh</string><string>__RACINE__/deploy/run.sh</string><string>health</string><string>--alerter</string></array>
+  <key>WorkingDirectory</key><string>__RACINE__</string>
+  <key>StartCalendarInterval</key>
+  <dict><key>Weekday</key><integer>1</integer><key>Hour</key><integer>8</integer><key>Minute</key><integer>0</integer></dict>
+  <key>StandardErrorPath</key><string>__RACINE__/logs/launchd.log</string>
+  <key>StandardOutPath</key><string>__RACINE__/logs/launchd.log</string>
+</dict>
+</plist>

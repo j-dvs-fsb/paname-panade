@@ -20,6 +20,8 @@ const RESERVATION_LABELS = {
   obligatoire: "Réservation obligatoire",
   conseillee: "Réservation conseillée",
   non_necessaire: "Sans réservation",
+  // Le collecteur ne sait pas si l'expo se réserve : on ne l'invente pas.
+  inconnue: "Voir la billetterie du musée",
 };
 
 // Type de problème signalé sur une fiche (clé stockée -> libellé affiché).

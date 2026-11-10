@@ -25,6 +25,24 @@ l'**Hébergement Web Infomaniak** via un site de type **Node.js**, et se connect
 | `GOOGLE_CLIENT_ID` | (optionnel) identifiant OAuth Google |
 | `GOOGLE_CLIENT_SECRET` | (optionnel) secret OAuth Google |
 | `PORT` | **fournie automatiquement par Infomaniak** - ne pas fixer |
+| `PANADE_IMPORT_TOKEN` | (optionnel) jeton du connecteur du collecteur, 32 caractères minimum : `openssl rand -hex 32` |
+
+### Connecteur du Panade Collector (`POST /api/import`)
+Chaque matin, le collecteur (sur le Mac) envoie son export au site. Le site vérifie le jeton,
+l'empreinte et le format, puis applique tout ou rien ; sinon il garde ce qu'il avait. Sans
+`PANADE_IMPORT_TOKEN`, le point d'entrée répond 503 et n'accepte rien.
+
+1. Génère un jeton (`openssl rand -hex 32`) et mets-le dans `PANADE_IMPORT_TOKEN` (Manager).
+2. Sur le Mac, dans `collector/.env` : `PANADE_PUBLISH_URL=https://paname-panade.fr/api/import`
+   et `PANADE_PUBLISH_TOKEN=` le même jeton.
+3. Redémarre le site, puis teste depuis le Mac : `panade publish --a-blanc` (vérifie sans envoyer),
+   puis `panade publish`.
+
+Ce que fait l'import : il rattache chaque lieu à un musée du site (sinon il le crée), complète les
+horaires d'un musée qui n'en a pas, crée ou met à jour les expositions (`external_id` =
+`collecteur:<id>`), masque celles qui ont quitté l'export, et ignore les expos « payant » ou
+« à confirmer » ainsi que celles déjà présentes par une autre source. Les 7 derniers exports
+reçus sont gardés dans la table `collector_import`.
 
 ### Authentification (Better Auth)
 Les comptes, sessions et connexions sociales passent par **Better Auth**. Les tables

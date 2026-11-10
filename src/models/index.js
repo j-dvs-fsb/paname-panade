@@ -11,6 +11,7 @@ const Credential = require("./credential")(sequelize);
 const Page = require("./page")(sequelize);
 const Report = require("./report")(sequelize);
 const Passkey = require("./passkey")(sequelize);
+const CollectorImport = require("./collectorImport")(sequelize);
 
 const {
   defineAuthSession,
@@ -67,6 +68,7 @@ module.exports = {
   Page,
   Report,
   Passkey,
+  CollectorImport,
   AuthSession,
   AuthAccount,
   AuthVerification,

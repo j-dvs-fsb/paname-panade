@@ -176,3 +176,10 @@ def test_aucun_tiret_long_dans_l_export(base):
     ajouter(base, "Kurt Schwitters. Le chaos-monde 1918\u20131948 \u2014 parcours", url="https://x.test/schwitters")
     titres = list(expos(contenu(base)))
     assert titres == ["Kurt Schwitters. Le chaos-monde 1918-1948 - parcours"]
+
+
+def test_les_montants_entiers_s_ecrivent_sans_decimale():
+    # Le site recalcule l'empreinte en JavaScript, où 5.0 s'écrit « 5 ».
+    from panade.export import nombres_entiers
+    assert nombres_entiers({"a": [5.0, 2.5, {"b": 13.0}], "c": True, "d": 3}) == {"a": [5, 2.5, {"b": 13}], "c": True, "d": 3}
+    assert isinstance(nombres_entiers(5.0), int)

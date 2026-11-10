@@ -20,16 +20,23 @@ function isOver26(user) {
 }
 
 // { free, badge, label, note } - `free` sert aussi au filtre « encore gratuit ».
+// `note` reprend la précision du collecteur (« 10 € au lieu de 15 € »).
 function priceForUser(expo, user) {
   const category = expo.price_category || "gratuit_tous";
   const label = PRICE_LABELS[category] || PRICE_LABELS.gratuit_tous;
+  const precision = expo.price_note || null;
 
   if (category === "gratuit_tous") {
-    return { free: true, badge: "GRATUIT", label, note: null };
+    return { free: true, badge: "GRATUIT", label, note: precision };
+  }
+
+  // Un tarif réduit n'est pas une gratuité : le badge le dit, même pour un -26 ans.
+  if (category === "reduit_26" && !isOver26(user)) {
+    return { free: false, badge: "TARIF RÉDUIT", label, note: precision };
   }
 
   if (!isOver26(user) || !AGE_LIMITED.has(category)) {
-    return { free: true, badge: "GRATUIT", label, note: null };
+    return { free: true, badge: "GRATUIT", label, note: precision };
   }
 
   if (category === "reduit_26") {

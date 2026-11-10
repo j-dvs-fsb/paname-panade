@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Collecte, validation puis publication, chaque jour à 5 h. Installé par deploy/launchd/installer.sh,
+     qui remplace __RACINE__ par le chemin du dossier collector. Si le Mac dort à 5 h,
+     launchd lance la tâche au réveil. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>fr.paname-panade.collector.nuit</string>
+  <key>ProgramArguments</key>
+  <array><string>/bin/sh</string><string>__RACINE__/deploy/nuit.sh</string></array>
+  <key>WorkingDirectory</key><string>__RACINE__</string>
+  <key>StartCalendarInterval</key>
+  <dict><key>Hour</key><integer>5</integer><key>Minute</key><integer>0</integer></dict>
+  <key>StandardErrorPath</key><string>__RACINE__/logs/launchd.log</string>
+  <key>StandardOutPath</key><string>__RACINE__/logs/launchd.log</string>
+  <key>LowPriorityIO</key><true/>
+  <key>Nice</key><integer>10</integer>
+</dict>
+</plist>

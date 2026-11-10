@@ -47,6 +47,9 @@ const config = {
   // canoniques, du sitemap et des balises Open Graph. À défaut, dérivée de la
   // requête - correct tant qu'on n'est servi que par un seul domaine.
   siteUrl: (process.env.SITE_URL || "").trim().replace(/\/+$/, "") || null,
+  // Jeton partagé avec le Panade Collector (POST /api/import). Absent ou trop
+  // court : le point d'entrée répond 503 et n'accepte rien.
+  importToken: (process.env.PANADE_IMPORT_TOKEN || "").trim() || null,
 };
 
 module.exports = config;

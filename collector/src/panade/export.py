@@ -17,7 +17,7 @@ from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-from panade import gratuite
+from panade import apercu, gratuite
 
 VERSION_FORMAT = 1
 LIBELLES = {
@@ -49,6 +49,18 @@ def epurer(valeur):
         return {k: v for k, v in propre.items() if v is not None and v != "" and v != [] and v != {}}
     if isinstance(valeur, list):
         return [v for v in (epurer(x) for x in valeur) if v is not None and v != "" and v != {}]
+    return valeur
+
+
+def nombres_entiers(valeur):
+    """Écrit 5.0 comme 5. Le site recalcule l'empreinte en JavaScript, où 5.0 et 5 s'écrivent tous
+    deux « 5 » : sans ça, une même donnée donnerait deux empreintes différentes."""
+    if isinstance(valeur, dict):
+        return {k: nombres_entiers(v) for k, v in valeur.items()}
+    if isinstance(valeur, list):
+        return [nombres_entiers(v) for v in valeur]
+    if isinstance(valeur, float) and valeur.is_integer():
+        return int(valeur)
     return valeur
 
 
@@ -113,6 +125,7 @@ def construire(con: sqlite3.Connection, aujourdhui: date, maintenant: datetime |
         horaires = [{**dict(h), "ferme": bool(h["ferme"]), "nocturne": bool(h["nocturne"])} for h in con.execute(
             "SELECT jour_num, jour, ferme, ouverture, fermeture, nocturne, portee, derniere_entree_min, valide_du, valide_au, note "
             "FROM horaires WHERE lieu_id = ? ORDER BY jour_num, nocturne, id", (lieu["id"],))]
+        horaires_resume = apercu.resume_horaires(horaires, aujourdhui, "temporaire")
         fermetures = [{**dict(f), "recurrent_annuel": bool(f["recurrent_annuel"])} for f in con.execute(
             'SELECT "date", libelle, recurrent_annuel, note FROM fermetures WHERE lieu_id = ? ORDER BY recurrent_annuel DESC, "date"',
             (lieu["id"],))]
@@ -121,11 +134,12 @@ def construire(con: sqlite3.Connection, aujourdhui: date, maintenant: datetime |
             "tarifs_url": lieu["tarifs_url"], "horaires_url": lieu["horaires_url"], "expos_url": lieu["expos_url"],
             "plateforme_billetterie": lieu["plateforme_billetterie"], "verifie_le": lieu["verifie_le"],
             "perime": True if lieu["verifie_le"] < limite_peremption else None,
-            "tarifs": tarifs, "horaires": horaires, "fermetures": fermetures, "expositions": expos})
+            "tarifs": tarifs, "horaires": horaires, "horaires_resume": horaires_resume, "fermetures": fermetures,
+            "expositions": expos})
 
-    contenu = epurer({
+    contenu = nombres_entiers(epurer({
         "version": VERSION_FORMAT, "genere_le": maintenant.strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "compte": {"lieux": len(lieux), "expositions": total_expos}, "lieux": lieux})
+        "compte": {"lieux": len(lieux), "expositions": total_expos}, "lieux": lieux}))
     contenu["empreinte"] = empreinte(contenu)
     return Export(contenu, exclues, sans_expo)
 

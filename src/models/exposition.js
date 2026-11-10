@@ -30,12 +30,15 @@ module.exports = (sequelize) => {
       // Tarif & réservation
       price_type: { type: DataTypes.STRING(50), defaultValue: "gratuit" },
       price_category: { type: DataTypes.STRING(30), defaultValue: "gratuit_tous" },
+      // Précision du tarif, posée par le collecteur (« 10 € au lieu de 15 € »).
+      price_note: { type: DataTypes.STRING(200) },
       reservation: { type: DataTypes.STRING(20), defaultValue: "non_necessaire" },
       reservation_url: { type: DataTypes.STRING(500) },
-      source: { type: DataTypes.STRING(80) }, // seed / que-faire-a-paris / scraping / manuel
+      source: { type: DataTypes.STRING(80) }, // seed / que-faire-a-paris / scraping / manuel / collecteur / permanent
       external_id: { type: DataTypes.STRING(120) },
       // published | draft | archived (terminée, posé par services/archive.js, jamais à la main)
       // | museum_closed (collection permanente d'un musée fermé, cf. services/migrate.js)
+      // | collector_removed (retirée de l'export du collecteur, cf. services/collectorImport.js)
       status: { type: DataTypes.STRING(20), allowNull: false, defaultValue: "published" },
     },
     {

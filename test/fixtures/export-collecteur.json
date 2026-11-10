@@ -1,0 +1,1053 @@
+{
+ "version": 1,
+ "genere_le": "2026-11-10T06:00:00Z",
+ "compte": {
+  "lieux": 5,
+  "expositions": 8
+ },
+ "lieux": [
+  {
+   "id": "bourse-de-commerce-pinault-collection",
+   "nom": "Bourse de Commerce - Pinault Collection",
+   "famille": "prive_assoc",
+   "logo_url": "https://www.pinaultcollection.com/www.pinaultcollection.com/p/styles/home_header/public/practical/bdc-practical-header.jpg",
+   "tarifs_url": "https://www.pinaultcollection.com/fr/boursedecommerce/infos-pratiques",
+   "horaires_url": "https://www.pinaultcollection.com/fr/boursedecommerce/infos-pratiques",
+   "expos_url": "https://www.pinaultcollection.com/fr/boursedecommerce/programme",
+   "plateforme_billetterie": "billetterie.pinaultcollection.com",
+   "verifie_le": "2026-11-09",
+   "tarifs": [
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "prix": 10,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Pièce d'identité (18-26 ans)",
+     "source_url": "https://www.pinaultcollection.com/fr/boursedecommerce/infos-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "moins_26",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "apres_16h",
+     "justificatif": "Carte Super Cercle (gratuite, 18-26 ans) + justificatif d'âge",
+     "source_url": "https://www.pinaultcollection.com/fr/boursedecommerce/infos-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "prix": 7.5,
+     "plein_tarif": 15,
+     "recurrence": "avant_16h",
+     "justificatif": "Carte Super Cercle : demi-tarif avant 16h",
+     "source_url": "https://www.pinaultcollection.com/fr/boursedecommerce/infos-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "handicap",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Accès prioritaire, accompagnateur inclus",
+     "source_url": "https://www.pinaultcollection.com/fr/boursedecommerce/infos-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "tous",
+     "prix": 9,
+     "plein_tarif": 15,
+     "recurrence": "jusqu_au_5_oct_2026",
+     "justificatif": "Tarif « musée en mouvement » : 9 € plein / 7 € réduit jusqu'au 5 octobre",
+     "source_url": "https://www.pinaultcollection.com/fr/boursedecommerce/infos-pratiques",
+     "verifie_le": "2026-09-19"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme le mardi. Pas de nocturne le vendredi"
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "ferme": true,
+     "nocturne": false,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme le mardi. Pas de nocturne le vendredi"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme le mardi. Pas de nocturne le vendredi"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme le mardi. Pas de nocturne le vendredi"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme le mardi. Pas de nocturne le vendredi"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme le mardi. Pas de nocturne le vendredi"
+    }
+   ],
+   "horaires_resume": "Du mercredi au lundi, 11h-19h ; fermé le mardi.",
+   "fermetures": [
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "2026-08-26",
+     "libelle": "Musee en mouvement",
+     "recurrent_annuel": false,
+     "note": "Du 26 aout au 5 octobre 2026 : montage de l'exposition Remember Me, tarifs reduits"
+    }
+   ],
+   "expositions": [
+    {
+     "id": 3,
+     "titre": "Remember Me",
+     "portee": "temporaire",
+     "date_debut": "2026-10-07",
+     "description": "Exposition en préparation pendant la période « musée en mouvement » (26 août au 5 octobre). Dates de fin à confirmer.",
+     "url": "https://www.pinaultcollection.com/fr/boursedecommerce/programme",
+     "gratuite": {
+      "categorie": "reduit_26",
+      "libelle": "Tarif réduit pour les moins de 26 ans",
+      "prix": 10,
+      "plein_tarif": 15,
+      "audience": "moins_26",
+      "justificatif": "Pièce d'identité (18-26 ans)",
+      "creneaux": [
+       {
+        "audience": "moins_26",
+        "regime": "gratuit",
+        "prix": 0,
+        "recurrence": "apres_16h"
+       },
+       {
+        "audience": "moins_26",
+        "regime": "reduit",
+        "prix": 7.5,
+        "recurrence": "avant_16h"
+       },
+       {
+        "audience": "tous",
+        "regime": "reduit",
+        "prix": 9,
+        "recurrence": "jusqu_au_5_oct_2026"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "fondation-cartier-pour-l-art-contemporain",
+   "nom": "Fondation Cartier pour l'art contemporain",
+   "famille": "prive_assoc",
+   "logo_url": "https://www.fondationcartier.com/cover.png",
+   "tarifs_url": "https://www.fondationcartier.com/informations-pratiques",
+   "horaires_url": "https://www.fondationcartier.com/informations-pratiques",
+   "expos_url": "https://www.fondationcartier.com/en-ce-moment",
+   "plateforme_billetterie": "billetterie interne",
+   "verifie_le": "2026-11-09",
+   "tarifs": [
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_30",
+     "prix": 10,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Pièce d'identité",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "etudiant_art",
+     "prix": 10,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Attestation de scolarité mentionnant la matière (art, conservatoire)",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "demandeur_emploi",
+     "prix": 10,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Justificatif de moins de 3 mois",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "enseignant",
+     "prix": 10,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Pass Éducation en cours de validité",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Pièce d'identité",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "minima_sociaux",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Justificatif de moins de 3 mois",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "demandeur_asile",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Attestation de demande d'asile ou carte de séjour « réfugié »",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "handicap",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Carte MDPH, accompagnateur inclus",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "enseignant_arts_visuels",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Attestation professionnelle ou certificat d'exercice",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "journaliste",
+     "prix": 0,
+     "plein_tarif": 15,
+     "recurrence": "toujours",
+     "justificatif": "Carte de presse",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "abonnement",
+     "audience": "18_29_ans",
+     "prix": 20,
+     "plein_tarif": 15,
+     "recurrence": "annuel",
+     "justificatif": "Adhésion « SOUVENT -30 » : accès illimité 1 an, pièce d'identité",
+     "source_url": "https://www.fondationcartier.com/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "ferme": true,
+     "nocturne": false,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme jusqu'a la reouverture du 22 octobre 2026"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme jusqu'a la reouverture du 22 octobre 2026"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme jusqu'a la reouverture du 22 octobre 2026"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "22:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme jusqu'a la reouverture du 22 octobre 2026"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "ferme": false,
+     "ouverture": "19:00",
+     "fermeture": "22:00",
+     "nocturne": true,
+     "portee": "tout",
+     "note": "Nocturne du vendredi"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme jusqu'a la reouverture du 22 octobre 2026"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "19:00",
+     "nocturne": false,
+     "portee": "tout",
+     "note": "Ferme jusqu'a la reouverture du 22 octobre 2026"
+    }
+   ],
+   "horaires_resume": "Du mardi au dimanche, 11h-19h ; jusqu'à 22h le vendredi ; fermé le lundi.",
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-24",
+     "libelle": "24 decembre",
+     "recurrent_annuel": true,
+     "note": "Fermeture anticipee a 18h, pas une fermeture totale"
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 decembre",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-31",
+     "libelle": "31 decembre",
+     "recurrent_annuel": true,
+     "note": "Fermeture anticipee a 18h, pas une fermeture totale"
+    }
+   ],
+   "expositions": [
+    {
+     "id": 1,
+     "titre": "Ibrahim Mahama. Le Temps des récoltes",
+     "portee": "temporaire",
+     "date_debut": "2026-10-22",
+     "date_fin": "2027-02-28",
+     "description": "Exposition consacrée à l'artiste ghanéen Ibrahim Mahama et à ses compagnons, dans les nouveaux espaces du Palais-Royal.",
+     "url": "https://www.fondationcartier.com/programme/exposition/le-temps-des-recoltes-ibrahim-mahama",
+     "image_url": "https://www.fondationcartier.com/img/26caea61-f211-4a7c-9173-b0ca76b7961d/le-temps-des-recoltes-ibrahim-mahama-2025-kv.jpg",
+     "gratuite": {
+      "categorie": "reduit_26",
+      "libelle": "Tarif réduit pour les moins de 26 ans",
+      "prix": 10,
+      "plein_tarif": 15,
+      "audience": "moins_30",
+      "justificatif": "Pièce d'identité"
+     }
+    }
+   ]
+  },
+  {
+   "id": "musee-d-art-et-d-histoire-du-judaisme",
+   "nom": "Musée d'art et d'histoire du judaïsme",
+   "famille": "prive_assoc",
+   "logo_url": "https://www.mahj.org/sites/default/files/styles/max_650x650/public/2023-06/HD659-OKV2-min.jpg?itok=JUOX6dXM",
+   "tarifs_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+   "horaires_url": "https://www.mahj.org/fr/visiter/acces-et-horaires",
+   "expos_url": "https://www.mahj.org/fr/programme/l-agenda-du-mahj?f%5B0%5D=field_ag_type_manifestation%3A422",
+   "plateforme_billetterie": "mahj.tickeasy.com (Vivaticket)",
+   "verifie_le": "2026-11-09",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "moins_26_ue",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans residents UE : collection permanente + foyer gratuits",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26_ue",
+     "prix": 5,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "18-25 ans residents UE : 5 EUR pour l'exposition du corps de logis",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "1er_samedi_oct_a_juin",
+     "justificatif": "Collection gratuite pour tous + visite guidee gratuite « Shabbat est une fete » a 15h",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "Galerie contemporaine : acces libre pour tout le monde",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "moins_18",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "Piece d'identite",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "etudiant_art",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "Etudiants en architecture, art, histoire, sciences religieuses",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "demandeur_emploi",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "Justificatif de moins de 6 mois",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "minima_sociaux",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "RSA, ASS, ASPA, CSS, AME, etc.",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "demandeur_asile",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "Statut refugie (OFPRA)",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "enseignant",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "Pass Education",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "handicap",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "Carte MDPH ou ONACVG, accompagnateur inclus",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "gratuit",
+     "audience": "journaliste",
+     "prix": 0,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "Carte de presse, aussi ICOM et Carte Culture",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "tout",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "prix": 9,
+     "plein_tarif": 13,
+     "recurrence": "toujours",
+     "justificatif": "9 EUR : 18-25 ans HORS Union europeenne, famille nombreuse, partenaires",
+     "source_url": "https://www.mahj.org/fr/visiter/tarifs-et-reservations",
+     "verifie_le": "2026-09-19"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "ferme": true,
+     "nocturne": false,
+     "portee": "tout",
+     "valide_au": "2026-10-14"
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 45,
+     "valide_au": "2026-10-14",
+     "note": "Horaires annonces jusqu'au 14 octobre 2026, a reverifier ensuite"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 45,
+     "valide_au": "2026-10-14",
+     "note": "Horaires annonces jusqu'au 14 octobre 2026, a reverifier ensuite"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 45,
+     "valide_au": "2026-10-14",
+     "note": "Horaires annonces jusqu'au 14 octobre 2026, a reverifier ensuite"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "ferme": false,
+     "ouverture": "11:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 45,
+     "valide_au": "2026-10-14",
+     "note": "Horaires annonces jusqu'au 14 octobre 2026, a reverifier ensuite"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 45,
+     "valide_au": "2026-10-14",
+     "note": "Horaires annonces jusqu'au 14 octobre 2026, a reverifier ensuite"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 45,
+     "valide_au": "2026-10-14",
+     "note": "Horaires annonces jusqu'au 14 octobre 2026, a reverifier ensuite"
+    }
+   ],
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    }
+   ],
+   "expositions": [
+    {
+     "id": 13,
+     "titre": "Parcours permanent",
+     "portee": "permanent",
+     "description": "Deux mille ans de presence juive en France, replacee dans l'histoire du judaisme. Objets de culte, manuscrits, textiles et peintres de l'Ecole de Paris. Audioguide inclus.",
+     "url": "https://www.mahj.org/fr/parcours-permanent",
+     "image_url": "https://www.mahj.org/sites/default/files/styles/max_650x650/public/2023-06/HD659-OKV2-min.jpg?itok=JUOX6dXM",
+     "gratuite": {
+      "categorie": "gratuit_26",
+      "libelle": "Gratuit pour les moins de 26 ans",
+      "prix": 0,
+      "plein_tarif": 13,
+      "audience": "moins_26_ue",
+      "justificatif": "18-25 ans residents UE : collection permanente + foyer gratuits",
+      "creneaux": [
+       {
+        "audience": "tous",
+        "regime": "gratuit",
+        "prix": 0,
+        "recurrence": "1er_samedi_oct_a_juin"
+       }
+      ]
+     }
+    },
+    {
+     "id": 15,
+     "titre": "Chaim Kaliski. « Jim d'Etterbeek »",
+     "portee": "temporaire",
+     "date_fin": "2026-12-13",
+     "description": "Dessins a l'aquarelle et a l'encre de Chine : enfants, soldats, une cache, Anne Frank.",
+     "url": "https://www.mahj.org/fr/programme/chaim-kaliski-jim-detterbeek-31561",
+     "gratuite": {
+      "categorie": "a_confirmer",
+      "libelle": "À confirmer sur place",
+      "creneaux": [
+       {
+        "audience": "tous",
+        "regime": "gratuit",
+        "prix": 0,
+        "recurrence": "1er_samedi_oct_a_juin"
+       }
+      ]
+     }
+    },
+    {
+     "id": 16,
+     "titre": "L'Ecole de Paris dans les collections du mahJ",
+     "portee": "temporaire",
+     "date_debut": "2026-02-18",
+     "description": "Accrochage consacre aux peintres de l'Ecole de Paris conserves par le musee.",
+     "url": "https://www.mahj.org/fr/programme/lecole-de-paris-dans-les-collections-du-mahj-31638",
+     "gratuite": {
+      "categorie": "a_confirmer",
+      "libelle": "À confirmer sur place",
+      "creneaux": [
+       {
+        "audience": "tous",
+        "regime": "gratuit",
+        "prix": 0,
+        "recurrence": "1er_samedi_oct_a_juin"
+       }
+      ]
+     }
+    },
+    {
+     "id": 17,
+     "titre": "Itineraires d'oeuvres spoliees. Diane Esmond et Fedor Lowenstein",
+     "portee": "temporaire",
+     "date_debut": "2026-02-18",
+     "description": "Accrochage sur le parcours d'oeuvres spoliees et leur restitution.",
+     "url": "https://www.mahj.org/fr/programme/itineraires-doeuvres-spoliees-diane-esmond-et-fedor-lowenstein-31622",
+     "gratuite": {
+      "categorie": "a_confirmer",
+      "libelle": "À confirmer sur place",
+      "creneaux": [
+       {
+        "audience": "tous",
+        "regime": "gratuit",
+        "prix": 0,
+        "recurrence": "1er_samedi_oct_a_juin"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "musee-d-art-moderne-de-la-ville-de-paris",
+   "nom": "Musée d'art moderne de la ville de Paris",
+   "famille": "paris_musees",
+   "tarifs_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+   "horaires_url": "https://www.parismusees.paris.fr/fr/exposition/kerry-james-marshall",
+   "expos_url": "https://www.mam.paris.fr/",
+   "plateforme_billetterie": "billetterie-parismusees.paris.fr",
+   "verifie_le": "2026-11-09",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "collections permanentes gratuites pour tous",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+     "verifie_le": "2026-11-09"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "moins_26",
+     "recurrence": "toujours",
+     "justificatif": "jeunes de 18 à 26 ans inclus ; montant propre à chaque exposition, non lu",
+     "source_url": "https://www.parismusees.paris.fr/fr/votre-visite/tarifs",
+     "verifie_le": "2026-11-09"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "ferme": true,
+     "nocturne": false,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "21:30",
+     "nocturne": true,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout"
+    }
+   ],
+   "horaires_resume": "Du mardi au dimanche, 10h-18h ; jusqu'à 21h30 le jeudi ; fermé le lundi.",
+   "expositions": [
+    {
+     "id": 22,
+     "titre": "Kerry James Marshall : The Histories",
+     "portee": "temporaire",
+     "date_debut": "2026-09-18",
+     "date_fin": "2027-01-24",
+     "description": "Première exposition en France « peindre des récits ».",
+     "url": "https://www.parismusees.paris.fr/fr/exposition/kerry-james-marshall",
+     "gratuite": {
+      "categorie": "a_confirmer",
+      "libelle": "À confirmer sur place"
+     }
+    }
+   ]
+  },
+  {
+   "id": "musee-de-la-vie-romantique",
+   "nom": "Musée de la vie romantique",
+   "famille": "paris_musees",
+   "logo_url": "https://museevieromantique.paris.fr/sites/default/files/styles/metatag/public/images/2026-05/15%20mars%202026%40Mus%C3%A9e%20de%20la%20vie%20romantique-Paris%20Mus%C3%A9es-IP3%20PRESS%20BD002.JPG.webp",
+   "tarifs_url": "https://museevieromantique.paris.fr/votre-visite/informations-pratiques",
+   "horaires_url": "https://museevieromantique.paris.fr/votre-visite/informations-pratiques",
+   "expos_url": "https://museevieromantique.paris.fr/expositions/exposition-en-cours",
+   "plateforme_billetterie": "billetterie-parismusees.paris.fr",
+   "verifie_le": "2026-11-09",
+   "tarifs": [
+    {
+     "portee": "permanent",
+     "regime": "gratuit",
+     "audience": "tous",
+     "prix": 0,
+     "plein_tarif": 0,
+     "recurrence": "toujours",
+     "justificatif": "Acces aux collections gratuit pour tout le monde, sans condition",
+     "source_url": "https://museevieromantique.paris.fr/votre-visite/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    },
+    {
+     "portee": "temporaire",
+     "regime": "reduit",
+     "audience": "tous",
+     "recurrence": "toujours",
+     "justificatif": "Expositions temporaires payantes. Grille de tarifs a recuperer sur la page infos pratiques",
+     "source_url": "https://museevieromantique.paris.fr/votre-visite/informations-pratiques",
+     "verifie_le": "2026-09-19"
+    }
+   ],
+   "horaires": [
+    {
+     "jour_num": 1,
+     "jour": "lundi",
+     "ferme": true,
+     "nocturne": false,
+     "portee": "tout"
+    },
+    {
+     "jour_num": 2,
+     "jour": "mardi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 10,
+     "note": "Evacuation des salles a 17h50"
+    },
+    {
+     "jour_num": 3,
+     "jour": "mercredi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 10,
+     "note": "Evacuation des salles a 17h50"
+    },
+    {
+     "jour_num": 4,
+     "jour": "jeudi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 10,
+     "note": "Evacuation des salles a 17h50"
+    },
+    {
+     "jour_num": 5,
+     "jour": "vendredi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 10,
+     "note": "Evacuation des salles a 17h50"
+    },
+    {
+     "jour_num": 6,
+     "jour": "samedi",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 10,
+     "note": "Evacuation des salles a 17h50"
+    },
+    {
+     "jour_num": 7,
+     "jour": "dimanche",
+     "ferme": false,
+     "ouverture": "10:00",
+     "fermeture": "18:00",
+     "nocturne": false,
+     "portee": "tout",
+     "derniere_entree_min": 10,
+     "note": "Evacuation des salles a 17h50"
+    }
+   ],
+   "horaires_resume": "Du mardi au dimanche, 10h-18h ; fermé le lundi.",
+   "fermetures": [
+    {
+     "date": "01-01",
+     "libelle": "1er janvier",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "05-01",
+     "libelle": "1er mai",
+     "recurrent_annuel": true
+    },
+    {
+     "date": "12-25",
+     "libelle": "25 decembre",
+     "recurrent_annuel": true
+    }
+   ],
+   "expositions": [
+    {
+     "id": 21,
+     "titre": "Parcours de visite des collections",
+     "portee": "permanent",
+     "description": "Hotel Scheffer-Renan, maison de l'atelier d'Ary Scheffer. Collections consacrees au romantisme parisien du XIXe siecle. Salon de the Rose Bakery et jardin.",
+     "url": "https://museevieromantique.paris.fr/les-collections/le-parcours-de-visite",
+     "image_url": "https://museevieromantique.paris.fr/sites/default/files/styles/metatag/public/images/2026-05/15%20mars%202026%40Mus%C3%A9e%20de%20la%20vie%20romantique-Paris%20Mus%C3%A9es-IP3%20PRESS%20BD002.JPG.webp",
+     "gratuite": {
+      "categorie": "gratuit_tous",
+      "libelle": "Gratuit",
+      "prix": 0,
+      "audience": "tous",
+      "justificatif": "Acces aux collections gratuit pour tout le monde, sans condition"
+     }
+    }
+   ]
+  }
+ ],
+ "empreinte": "7a747722bc88b477531d9d590bd6e67445945b415a3b249bf46ce266c208b4d0"
+}

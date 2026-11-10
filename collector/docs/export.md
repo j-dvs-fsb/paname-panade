@@ -50,6 +50,7 @@ export reçu. C'est la seule garantie qui compte.
                       "verifie_le": "2026-09-19", "perime": true}],
       "horaires":   [{"jour_num": 2, "jour": "mardi", "ferme": false, "ouverture": "11:00", "fermeture": "18:00",
                       "nocturne": false, "portee": "tout", "derniere_entree_min": 45}],
+      "horaires_resume": "Du mardi au dimanche, 11h-18h ; jusqu'à 21h le mercredi ; fermé le lundi.",
       "fermetures": [{"date": "05-01", "libelle": "1er mai", "recurrent_annuel": true}],
       "expositions": [
         {"id": 12, "titre": "…", "portee": "temporaire", "date_debut": "2026-10-14", "date_fin": "2027-02-14",
@@ -72,6 +73,10 @@ export reçu. C'est la seule garantie qui compte.
   mais le site peut la présenter avec prudence.
 - Les dates sont `AAAA-MM-JJ` ; les fermetures annuelles `MM-JJ` ; les heures `HH:MM`.
 - Les tarifs non vérifiés ne sont jamais exportés.
+- Un montant entier s'écrit sans décimale (`5`, jamais `5.0`) : le site recalcule l'empreinte en
+  JavaScript, qui ne fait pas la différence.
+- `horaires_resume` : les horaires du lieu en une phrase, pour une exposition temporaire, valables
+  le jour de l'export. Le site s'en sert quand le musée n'a pas d'horaires saisis.
 
 ### `gratuite.categorie`
 
