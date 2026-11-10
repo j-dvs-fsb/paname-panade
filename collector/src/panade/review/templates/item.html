@@ -1,30 +1,94 @@
 {% extends "base.html" %}
 {% block titre %}{{ e.titre }}{% endblock %}
+{% macro marque(nom) -%}
+  {%- set etat = etats[nom] -%}
+  {%- if etat.etat != 'ok' %} class="{{ etat.classe }}" title="{{ etat.raison }}"{% endif -%}
+{%- endmacro %}
 {% block contenu %}
-<p class="doux">{% if position %}{{ position }} sur {{ restantes }} à relire{% else %}Hors file (état : {{ e.etat }}){% endif %} · {{ e.lieu_nom }}{% if e.lieu_statut != 'verifie' %} · <strong>lieu à vérifier : cette expo ne sera pas exportée tant que le lieu ne l'est pas</strong>{% endif %}</p>
-<div class="carte grille">
-  <div>
-    {% if e.image_url %}<img class="visuel" src="{{ e.image_url }}" alt="" referrerpolicy="no-referrer">{% else %}<div class="visuel"></div>{% endif %}
-    {% if e.url %}<p><a href="{{ e.url }}" target="_blank" rel="noopener noreferrer">Ouvrir la page de l'expo ↗</a></p>{% endif %}
+<p class="doux">{% if position %}{{ position }} sur {{ restantes }} à relire{% else %}Hors file (état : {{ e.etat }}){% endif %} · {{ lieu.nom }}</p>
+{% if erreur %}<div class="erreur">Rien n'a été enregistré : {{ erreur }}</div>{% endif %}
+
+{# Aperçu : la fiche telle que paname-panade.fr l'afficherait (views/expo_detail.njk). #}
+<div class="apercu" aria-label="Aperçu de la fiche publique">
+  <div class="faux-nav"><span class="logo">Paname <span>Panade</span></span>
+    <span class="lien-nav">Expositions</span><span class="lien-nav">Musées</span><span class="lien-nav">Radar</span></div>
+  <div class="page">
+    <span class="muted small">← Toutes les expos</span>
+    <div class="rangee">
+      <div>
+        <span{{ marque('tarif') }}><span class="badge {{ 'badge-free' if tarif.gratuit else 'badge-paid' }}">{{ tarif.badge }}</span></span>
+        <span{{ marque('portee') }}><span class="puce-portee">{{ 'Collections permanentes' if e.portee == 'permanent' else 'Exposition temporaire' }}</span></span>
+        <h1{{ marque('titre') }}>{{ e.titre }}</h1>
+        <p class="muted" style="margin:0"><span{{ marque('lieu') }}>à <u>{{ lieu.nom }}</u></span></p>
+
+        {% if e.image_url %}
+          <div class="expo-hero"><img src="{{ e.image_url }}" alt="" referrerpolicy="no-referrer">
+            {% if e.portee == 'permanent' %}<span class="img-tag">Exposition permanente</span>{% endif %}</div>
+        {% elif e.portee == 'permanent' and lieu.logo_url %}
+          <div class="expo-hero {{ etats.image.classe }}" title="{{ etats.image.raison }}"><img src="{{ lieu.logo_url }}" alt="" referrerpolicy="no-referrer"></div>
+        {% else %}
+          <div class="expo-hero vide {{ etats.image.classe }}" title="{{ etats.image.raison }}">Pas d'image</div>
+        {% endif %}
+
+        <p class="expo-angle">{{ accroche }}</p>
+        {% if e.description %}
+          <div class="expo-description">{{ e.description }}</div>
+        {% else %}
+          <div class="vide-texte {{ etats.description.classe }}" title="{{ etats.description.raison }}">Pas de description</div>
+        {% endif %}
+      </div>
+
+      <div>
+        <div class="stat-tile">
+          <strong>{{ lieu.nom }}</strong>
+          <p class="muted small" style="padding:0;margin:.3rem 0 0">Adresse, plan et site officiel : ceux du musée sur paname-panade.fr.</p>
+        </div>
+        <div class="stat-tile">
+          <p{{ marque('dates') }}><strong>Dates</strong><br>{{ dates }}</p>
+          <p{{ marque('horaires') }}><strong>Horaires</strong><br>
+            {% if horaires %}{{ horaires }}<span class="muted small" style="display:block">Horaires du musée</span>
+            {% else %}<span class="muted">Non communiqués, vérifie avant de te déplacer.</span>{% endif %}</p>
+          <p{{ marque('tarif') }}><strong>Tarif</strong><br>{{ tarif.libelle }}
+            {% if tarif.note %}<span class="muted small" style="display:block">{{ tarif.note }}</span>{% endif %}</p>
+          <p{{ marque('reservation') }}><strong>Réservation</strong><br>Voir la billetterie du musée</p>
+          <div class="boutons">
+            {% if e.url %}<a class="btn-outline-ink" href="{{ e.url }}" target="_blank" rel="noopener noreferrer">Page de l'exposition ↗</a>
+            {% else %}<span class="btn-outline-ink {{ etats.lien.classe }}" title="{{ etats.lien.raison }}">Page de l'exposition : aucun lien</span>{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <h1>{{ e.titre }}</h1>
-    {% if e.description %}<p class="doux">{{ e.description }}</p>{% endif %}
-    {% if erreur %}<div class="erreur">Rien n'a été enregistré : {{ erreur }}</div>{% endif %}
+</div>
+<div class="legende"><span class="l-manque">manquant</span><span class="l-doute">à vérifier</span>
+  <span>Survole un élément coloré pour voir pourquoi.</span></div>
+
+<div class="relecture">
+  <div class="carte">
+    <h2>Ce qu'il faut regarder</h2>
     {% if e.motif_revue %}<div class="motif"><strong>Pourquoi elle attend :</strong> {{ e.motif_revue }}</div>{% endif %}
+    {% if problemes %}
+      <ul class="problemes">
+        {% for nom, etat in problemes %}<li class="{{ etat.classe }}"><strong>{{ NOMS_CHAMPS[nom] }}</strong> : {{ etat.raison }}</li>{% endfor %}
+      </ul>
+    {% else %}<p>Rien à signaler : la fiche serait complète.</p>{% endif %}
+    <div class="gratuite">
+      <strong>Gratuité calculée :</strong> {{ calculee | gratuite }}
+      {% if gratuite_avant %}<br><span class="doux">Avant : {{ gratuite_avant | gratuite }}</span>{% endif %}
+      <br><span class="doux">Calculée à partir des tarifs du lieu et de la portée, jamais lue sur la page de l'expo. Changer la portée la recalcule.</span>
+    </div>
     <div class="puces">
       {% for champ in ['titre', 'date_debut', 'date_fin', 'portee'] %}
         {% set p = provenance.get(champ) %}
         {% if p %}<span class="puce {{ 'faible' if p in ['texte_fr_annee_deduite', 'absente', 'incertaine'] }}">{{ champ }} : {{ p }}</span>{% endif %}
       {% endfor %}
       {% if score is not none %}<span class="puce">confiance {{ '%.2f' % score }}</span>{% endif %}
-      <span class="puce">source : {{ e.source }}</span>
+      <span class="puce">source : {{ e.source or 'classeur' }}</span>
     </div>
-    <div class="gratuite {{ 'confirmer' if (e.gratuite_calculee or '').find('a_confirmer') != -1 }}">
-      <strong>Gratuité calculée :</strong> {{ e.gratuite_calculee | gratuite }}
-      {% if gratuite_avant %}<br><span class="doux">Avant : {{ gratuite_avant | gratuite }}</span>{% endif %}
-      <br><span class="doux">Calculée à partir des tarifs du lieu et de la portée, jamais lue sur la page de l'expo. Changer la portée la recalcule.</span>
-    </div>
+  </div>
+
+  <div class="carte">
+    <h2>Corriger et décider</h2>
     <form method="post" action="/item/{{ e.id }}/publier">
       <input type="hidden" name="csrf" value="{{ jeton }}">
       <label for="titre">Titre</label><input id="titre" name="titre" value="{{ e.titre }}" required>
@@ -42,6 +106,7 @@
         <button class="rejeter" formaction="/item/{{ e.id }}/rejeter" formnovalidate id="rejeter" type="submit">Rejeter <kbd>R</kbd></button>
         <a class="bouton" href="/liste" id="passer">Passer <kbd>S</kbd></a>
       </div>
+      {% if lieu.statut != 'verifie' %}<p class="doux small">Le lieu n'est pas encore vérifié : publiée ici, l'exposition attendra quand même qu'il le soit pour partir sur le site.</p>{% endif %}
     </form>
   </div>
 </div>

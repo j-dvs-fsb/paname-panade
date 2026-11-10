@@ -180,3 +180,45 @@ def test_liste(ctx):
 ])
 def test_libelles_de_gratuite(statut, attendu):
     assert libelle_gratuite(json.dumps(statut)) == attendu
+
+
+# --- aperçu de la fiche publique : rouge = manquant, orange = à vérifier ------------------------
+
+def test_l_apercu_reprend_la_fiche_du_site(ctx):
+    client, con = ctx
+    i = ajouter(con, "Paris à l'arraché", debut="2026-10-14", fin="2027-02-14",
+                prov={"titre": "carte", "url": "carte", "date_debut": "texte_fr", "date_fin": "texte_fr"})
+    page = client.get(f"/item/{i}").text
+    assert "Aperçu de la fiche publique" in page and "Paname <span>Panade</span>" in page
+    assert "Du 14 octobre 2026 au 14 février 2027" in page
+    assert "Page de l&#39;exposition ↗" in page or "Page de l'exposition ↗" in page
+    # titre et dates lus sur la page : pas de couleur sur eux
+    assert '<h1>Paris à l&#39;arraché</h1>' in page or "<h1>Paris à l'arraché</h1>" in page
+
+
+def test_ce_qui_manque_est_en_rouge_ce_qui_est_douteux_en_orange(ctx):
+    client, con = ctx
+    i = ajouter(con, "Sans image")         # dates à l'année déduite
+    con.execute("UPDATE expositions SET image_url = NULL, description = NULL WHERE id = ?", (i,))
+    con.commit()
+    page = client.get(f"/item/{i}").text
+    assert re.search(r'class="expo-hero vide manque" title="pas d&#39;image', page)
+    assert re.search(r'class="vide-texte manque" title="pas de description', page)
+    assert re.search(r'<p class="doute" title="date de début : année absente de la page', page)
+    assert "<strong>Image</strong>" in page and "<strong>Dates</strong> : date de début" in page
+
+
+def test_une_expo_terminee_est_signalee_en_rouge(ctx):
+    client, con = ctx
+    i = ajouter(con, "Finie", debut="2026-06-01", fin="2026-10-01")
+    page = client.get(f"/item/{i}").text
+    assert re.search(r'<p class="manque" title="exposition terminée le 1er octobre 2026', page)
+
+
+def test_la_liste_compte_les_manques_et_les_doutes(ctx):
+    client, con = ctx
+    i = ajouter(con, "Sans image")
+    con.execute("UPDATE expositions SET image_url = NULL WHERE id = ?", (i,))
+    con.commit()
+    page = client.get("/liste").text
+    assert re.search(r"\d manquants?<", page) and "à vérifier" in page

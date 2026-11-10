@@ -5,36 +5,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block titre %}Relecture{% endblock %} | Panade</title>
 <style>
-  :root { color-scheme: light dark; --fond:#fafaf9; --texte:#1c1b1a; --doux:#6b6862; --trait:#d9d5cd; --carte:#fff; --ok:#14683a; --non:#a12828; --alerte:#8a5a00; }
-  @media (prefers-color-scheme: dark) { :root { --fond:#161514; --texte:#f1efeb; --doux:#a39f97; --trait:#3a3835; --carte:#1f1e1c; --ok:#5bd08a; --non:#ff8a8a; --alerte:#f0b44c; } }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--fond); color:var(--texte); font:16px/1.45 system-ui, sans-serif; }
-  header { display:flex; gap:16px; align-items:baseline; padding:12px 16px; border-bottom:1px solid var(--trait); }
-  header a { color:var(--doux); text-decoration:none; } header strong { margin-right:auto; }
-  main { max-width:960px; margin:0 auto; padding:16px; }
-  .carte { background:var(--carte); border:1px solid var(--trait); padding:16px; }
-  .grille { display:grid; grid-template-columns:minmax(0,280px) 1fr; gap:20px; }
-  @media (max-width:640px) { .grille { grid-template-columns:1fr; } }
-  img.visuel { width:100%; aspect-ratio:4/3; object-fit:cover; background:var(--trait); display:block; }
-  h1 { font-size:1.35rem; margin:0 0 4px; } .doux { color:var(--doux); }
-  .motif { border-left:4px solid var(--alerte); padding:8px 12px; margin:12px 0; background:color-mix(in srgb, var(--alerte) 10%, transparent); }
-  .erreur { border-left:4px solid var(--non); padding:8px 12px; margin:12px 0; color:var(--non); }
-  .gratuite { border-left:4px solid var(--ok); padding:8px 12px; margin:12px 0; }
-  .gratuite.confirmer { border-color:var(--alerte); }
-  label { display:block; font-size:.85rem; color:var(--doux); margin-top:10px; }
-  input, select { font:inherit; padding:6px 8px; background:var(--carte); color:var(--texte); border:1px solid var(--trait); width:100%; }
+  /* Charte de paname-panade.fr (public/css/style.css) : noir et blanc, angles droits. */
+  :root { --ink:#111; --paper:#fff; --muted:#6b6b6b; --line:#e6e6e6;
+          --manque:#d32f2f; --manque-fond:#fde4e4; --doute:#e07b00; --doute-fond:#fff0d9; --ok:#14683a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f4f4f2; color:var(--ink); font:16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:var(--ink); }
+  header.outil { display:flex; gap:16px; align-items:baseline; padding:12px 16px; background:var(--ink); color:var(--paper); }
+  header.outil a { color:#ccc; text-decoration:none; } header.outil strong { margin-right:auto; }
+  main { max-width:1140px; margin:0 auto; padding:16px; }
+  .muted, .doux { color:var(--muted); } .small { font-size:.85rem; }
+  .carte { background:var(--paper); border:1px solid var(--line); padding:16px; }
+  table { width:100%; border-collapse:collapse; } td, th { text-align:left; padding:8px; border-bottom:1px solid var(--line); vertical-align:top; }
+
+  /* ---- Aperçu de la fiche publique ---- */
+  .apercu { background:var(--paper); border:1px solid #cfcfcf; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+  .faux-nav { display:flex; gap:24px; align-items:center; padding:10px 24px; border-bottom:1px solid var(--line); font-size:.95rem; }
+  .logo { font-weight:800; letter-spacing:-.03em; font-size:1.35rem; } .logo span { font-weight:300; }
+  .faux-nav .lien-nav { color:var(--muted); }
+  .apercu .page { padding:24px; }
+  .rangee { display:grid; grid-template-columns:7fr 5fr; gap:24px; margin-top:8px; }
+  @media (max-width:820px) { .rangee { grid-template-columns:1fr; } }
+  .apercu h1 { font-size:2rem; font-weight:700; letter-spacing:-.02em; margin:.3rem 0 .2rem; line-height:1.15; }
+  .badge { display:inline-block; font-size:.75rem; font-weight:500; padding:.3em .6em; line-height:1; }
+  .badge-free { background:var(--ink); color:var(--paper); }
+  .badge-paid { background:var(--paper); color:var(--ink); border:1px solid var(--ink); }
+  .puce-portee { font-size:.75rem; color:var(--muted); margin-left:8px; padding:.2em .4em; }
+  .expo-hero { position:relative; aspect-ratio:3/2; overflow:hidden; margin:12px 0; background:repeating-linear-gradient(45deg,#f4f4f4,#f4f4f4 10px,#eee 10px,#eee 20px); }
+  .expo-hero img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); display:block; }
+  .expo-hero.vide { display:flex; align-items:center; justify-content:center; color:var(--muted); font-weight:700; }
+  .img-tag { position:absolute; top:.5rem; right:.5rem; background:var(--ink); color:var(--paper); padding:.3rem .55rem; font-size:.7rem; }
+  .expo-angle { border-left:3px solid var(--ink); padding-left:.75rem; font-weight:600; margin:0 0 1rem; }
+  .expo-description { white-space:pre-line; }
+  .vide-texte { color:var(--muted); font-style:italic; padding:8px; }
+  .stat-tile { border:1px solid var(--line); padding:1.1rem 1.25rem; margin-bottom:12px; }
+  .stat-tile p { margin:0 0 .6rem; padding:2px 4px; }
+  .boutons { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .btn-ink, .btn-outline-ink { display:inline-block; padding:.3rem .65rem; font-size:.875rem; text-decoration:none; border:1px solid var(--ink); }
+  .btn-ink { background:var(--ink); color:var(--paper); } .btn-outline-ink { background:transparent; color:var(--ink); }
+
+  /* ---- Ce qui manque (rouge) et ce qui est douteux (orange) ---- */
+  .manque { background:var(--manque-fond) !important; outline:2px solid var(--manque); outline-offset:2px; }
+  .doute  { background:var(--doute-fond) !important;  outline:2px dashed var(--doute); outline-offset:2px; }
+  [title] { cursor:help; }
+  .legende { display:flex; gap:16px; flex-wrap:wrap; margin:10px 0 18px; font-size:.85rem; color:var(--muted); }
+  .legende span::before { content:""; display:inline-block; width:12px; height:12px; margin-right:6px; vertical-align:-1px; }
+  .legende .l-manque::before { background:var(--manque-fond); outline:2px solid var(--manque); }
+  .legende .l-doute::before { background:var(--doute-fond); outline:2px dashed var(--doute); }
+
+  /* ---- Panneau de relecture ---- */
+  .relecture { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:820px) { .relecture { grid-template-columns:1fr; } }
+  .relecture h2 { font-size:1.05rem; margin:0 0 8px; }
+  ul.problemes { list-style:none; padding:0; margin:0; }
+  ul.problemes li { padding:6px 10px; margin-bottom:6px; border-left:4px solid; }
+  ul.problemes li.manque { border-color:var(--manque); outline:none; } ul.problemes li.doute { border-color:var(--doute); outline:none; }
+  .motif { border-left:4px solid var(--doute); padding:8px 12px; margin:0 0 12px; background:var(--doute-fond); }
+  .erreur { border-left:4px solid var(--manque); padding:8px 12px; margin:12px 0; color:var(--manque); background:var(--manque-fond); }
+  .gratuite { border-left:4px solid var(--ok); padding:8px 12px; margin:12px 0; font-size:.92rem; }
+  label { display:block; font-size:.85rem; color:var(--muted); margin-top:10px; }
+  input, select { font:inherit; padding:6px 8px; background:var(--paper); color:var(--ink); border:1px solid #ccc; width:100%; }
   .deux { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .actions { display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
-  button, .bouton { font:inherit; padding:10px 18px; border:1px solid var(--trait); background:var(--carte); color:var(--texte); cursor:pointer; text-decoration:none; }
-  button.publier { background:var(--ok); color:#fff; border-color:var(--ok); } button.rejeter { color:var(--non); border-color:var(--non); }
-  .puces { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; } .puce { font-size:.78rem; padding:2px 8px; border:1px solid var(--trait); color:var(--doux); }
-  .puce.faible { border-color:var(--alerte); color:var(--alerte); }
-  table { width:100%; border-collapse:collapse; } td, th { text-align:left; padding:8px; border-bottom:1px solid var(--trait); vertical-align:top; }
-  kbd { border:1px solid var(--trait); padding:0 5px; font-size:.8rem; }
+  button, .bouton { font:inherit; padding:10px 18px; border:1px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer; text-decoration:none; }
+  button.publier { background:var(--ink); color:var(--paper); } button.rejeter { color:var(--manque); border-color:var(--manque); }
+  .puces { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; } .puce { font-size:.78rem; padding:2px 8px; border:1px solid var(--line); color:var(--muted); }
+  .puce.faible { border-color:var(--doute); color:var(--doute); }
+  kbd { border:1px solid #bbb; padding:0 5px; font-size:.8rem; }
 </style>
 </head>
 <body>
-<header><strong>Panade · relecture</strong><a href="/">À relire</a><a href="/liste">Liste</a></header>
+<header class="outil"><strong>Panade · relecture</strong><a href="/">À relire</a><a href="/liste">Liste</a></header>
 <main>{% block contenu %}{% endblock %}</main>
 {% block script %}{% endblock %}
 </body>

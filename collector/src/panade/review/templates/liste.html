@@ -3,9 +3,12 @@
 {% block contenu %}
 <h1>{{ lignes | length }} à relire</h1>
 <div class="carte"><table>
-  <tr><th>Exposition</th><th>Lieu</th><th>Pourquoi</th></tr>
+  <tr><th>Exposition</th><th>Lieu</th><th>Fiche</th><th>Pourquoi</th></tr>
   {% for l in lignes %}
-  <tr><td><a href="/item/{{ l.id }}">{{ l.titre }}</a></td><td class="doux">{{ l.lieu_nom }}</td><td class="doux">{{ l.motif_revue or '' }}</td></tr>
+  <tr><td><a href="/item/{{ l.e.id }}">{{ l.e.titre }}</a></td><td class="doux">{{ l.e.lieu_nom }}</td>
+    <td class="small">{% if l.manques %}<span class="badge manque" style="outline-width:1px">{{ l.manques }} manquant{{ 's' if l.manques > 1 }}</span> {% endif %}
+      {% if l.doutes %}<span class="badge doute" style="outline-width:1px">{{ l.doutes }} à vérifier</span>{% endif %}</td>
+    <td class="doux">{{ l.e.motif_revue or '' }}</td></tr>
   {% endfor %}
 </table></div>
 {% endblock %}

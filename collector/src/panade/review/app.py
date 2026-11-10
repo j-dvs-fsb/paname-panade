@@ -22,7 +22,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
-from panade import db, gratuite, models, validate
+from panade import apercu, db, gratuite, models, validate
 
 DOSSIER = Path(__file__).parent
 MOTIFS_URGENTS = ("gratuité modifiée", "absente de la page", "titre ou dates modifiés")
@@ -48,12 +48,55 @@ def libelle_gratuite(brut: str | None) -> str:
     return f"{base}. {g['raison']}"
 
 
+# Libellés du site (src/models/labels.js et src/lib/pricing.js) : l'aperçu dit la même chose que la fiche publique.
+LIBELLES_SITE = {
+    "gratuit_tous": ("GRATUIT", "Gratuit pour tous"),
+    "gratuit_26": ("GRATUIT", "Gratuit pour les -26 ans"),
+    "reduit_26": ("TARIF RÉDUIT", "Tarif réduit pour les -26 ans"),
+    "payant": ("PAYANT", "Payant"),
+    "a_confirmer": ("À CONFIRMER", "À confirmer sur place"),
+}
+
+
+NOMS_CHAMPS = {"lieu": "Lieu", "titre": "Titre", "image": "Image", "description": "Description", "dates": "Dates",
+               "portee": "Portée", "lien": "Page de l'exposition", "horaires": "Horaires", "tarif": "Tarif",
+               "reservation": "Réservation"}
+
+
+def tarif_site(brut: str | None) -> dict:
+    """Badge, libellé et précision tels que la fiche publique les afficherait."""
+    if not brut:
+        return {"badge": "?", "libelle": "Gratuité non calculée", "note": None, "gratuit": False}
+    g = json.loads(brut)
+    badge, libelle = LIBELLES_SITE[g["statut"]]
+    note = None
+    if g["statut"] == "reduit_26" and g.get("prix") is not None:
+        note = f"{g['prix']:g} € au lieu de {g['plein_tarif']:g} €" if g.get("plein_tarif") else f"{g['prix']:g} €"
+    elif g["statut"] == "gratuit_26" and g.get("audience") == "moins_26_ue":
+        note = "Résidents de l'Union européenne, sur justificatif."
+    return {"badge": badge, "libelle": libelle, "note": note, "gratuit": g["statut"] in ("gratuit_tous", "gratuit_26")}
+
+
+def accroche(statut: str | None, lieu_nom: str) -> str:
+    """La phrase éditoriale du site (getter `editorial_note` du modèle Exposition)."""
+    lieu = f" à {lieu_nom}" if lieu_nom else " à Paris"
+    if statut == "gratuit_26":
+        return (f"Exposition gratuite pour les moins de 26 ans{lieu} : entrée libre sur présentation d'une pièce "
+                "d'identité, plein tarif au-delà.")
+    if statut == "reduit_26":
+        return f"Exposition à tarif réduit pour les moins de 26 ans{lieu}."
+    if statut == "gratuit_tous":
+        return f"Exposition gratuite pour tout le monde{lieu}, sans condition d'âge ni de résidence."
+    return f"Exposition{lieu}."
+
+
 def creer_app(chemin_db: str, *, aujourdhui: Callable[[], date] = date.today) -> FastAPI:
     app = FastAPI(title="Panade : relecture", docs_url=None, redoc_url=None, openapi_url=None)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "testserver"])
     jeton = secrets.token_urlsafe(24)
     modeles = Jinja2Templates(directory=str(DOSSIER / "templates"))
     modeles.env.filters["gratuite"] = libelle_gratuite
+    modeles.env.globals["NOMS_CHAMPS"] = NOMS_CHAMPS
 
     @app.middleware("http")
     async def en_tetes(requete: Request, suite):
@@ -106,8 +149,13 @@ def creer_app(chemin_db: str, *, aujourdhui: Callable[[], date] = date.today) ->
     @app.get("/liste", response_class=HTMLResponse)
     def liste(requete: Request, con=Depends(connexion)):
         ids = file_d_attente(con)
-        lignes = [con.execute("SELECT e.*, l.nom AS lieu_nom FROM expositions e JOIN lieux l ON l.id = e.lieu_id WHERE e.id = ?", (i,)).fetchone()
-                  for i in ids]
+        lignes = []
+        for i in ids:
+            expo = con.execute("SELECT e.*, l.nom AS lieu_nom FROM expositions e JOIN lieux l ON l.id = e.lieu_id WHERE e.id = ?",
+                               (i,)).fetchone()
+            etats = analyser(con, expo)[3].values()
+            lignes.append({"e": expo, "manques": sum(x.etat == "manque" for x in etats),
+                           "doutes": sum(x.etat == "doute" for x in etats)})
         return modeles.TemplateResponse(requete, "liste.html", contexte(requete, lignes=lignes))
 
     def charger(con, expo_id: int):
@@ -117,16 +165,32 @@ def creer_app(chemin_db: str, *, aujourdhui: Callable[[], date] = date.today) ->
             raise HTTPException(404, "exposition inconnue")
         return expo
 
+    def analyser(con, expo):
+        """Lieu, horaires résumés, gratuité recalculée et état de chaque champ de la fiche publique.
+        La gratuité est recalculée à l'affichage : c'est celle que le site montrerait si on publiait maintenant."""
+        lieu = con.execute("SELECT * FROM lieux WHERE id = ?", (expo["lieu_id"],)).fetchone()
+        jour = aujourdhui()
+        lignes_horaires = [dict(h) for h in con.execute("SELECT * FROM horaires WHERE lieu_id = ?", (expo["lieu_id"],))]
+        horaires = apercu.resume_horaires(lignes_horaires, jour, expo["portee"])
+        calculee = gratuite.calculer(gratuite.charger(con, expo["lieu_id"]), expo["portee"], jour).en_json()
+        return lieu, horaires, calculee, apercu.diagnostiquer(dict(expo), dict(lieu), calculee, horaires, jour)
+
     @app.get("/item/{expo_id}", response_class=HTMLResponse)
     def fiche(expo_id: int, requete: Request, con=Depends(connexion), erreur: str | None = None):
         expo = charger(con, expo_id)
         file = file_d_attente(con)
         provenance = json.loads(expo["provenance"] or "{}")
         score, _ = validate.confiance(expo)
+        lieu, horaires, calculee, etats = analyser(con, expo)
+        problemes = [(nom, etat) for nom, etat in etats.items() if etat.etat != "ok"]
+        problemes.sort(key=lambda x: (x[1].etat != "manque", x[0]))
         return modeles.TemplateResponse(requete, "item.html", contexte(
-            requete, e=expo, provenance=provenance, score=score, restantes=len(file),
+            requete, e=expo, lieu=lieu, provenance=provenance, score=score, restantes=len(file),
             position=(file.index(expo_id) + 1) if expo_id in file else None, erreur=erreur,
-            gratuite_avant=expo["gratuite_validee"] if expo["gratuite_validee"] != expo["gratuite_calculee"] else None))
+            etats=etats, problemes=problemes, horaires=horaires, tarif=tarif_site(calculee),
+            dates=apercu.libelle_dates(expo["date_debut"], expo["date_fin"], expo["portee"]),
+            accroche=accroche(json.loads(calculee)["statut"], lieu["nom"]), calculee=calculee,
+            gratuite_avant=expo["gratuite_validee"] if expo["gratuite_validee"] not in (None, calculee) else None))
 
     def retour(con, apres: int) -> RedirectResponse:
         prochain = suivant(con, apres)
